@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import logo from '~/assets/images/CINETHU.png';
 import Search from '../Search/Search';
@@ -9,9 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '~/services/UserService';
 import img1 from '~/assets/images/ic-ticket.svg';
 import img2 from '~/assets/images/ic-cor.svg';
+import AllTheater from '~/components/AllTheater/AllTheater';
 
 const Header = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
+    const [showTheatre, setShowTheater] = useState(false);
+    const timeoutRef = useRef(null);
 
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
@@ -27,16 +30,30 @@ const Header = () => {
     const handleLogout = () => {
         logout(dispatch, user?.accessToken);
     };
+
+    const handleShowTheater = () => {
+        clearTimeout(timeoutRef.current);
+        setShowTheater(true);
+    };
+
+    const handleCloseTheater = () => {
+        timeoutRef.current = setTimeout(() => {
+            setShowTheater(false);
+        }, 500);
+    };
+
     return (
         <div className="background">
             <Container>
                 <Row className="pb-1 pt-3">
                     <Col xs={2}>
-                        <img src={logo} style={{ height: '50px', width: 'auto' }} alt="" />
+                        <Link to={'/'}>
+                            <img src={logo} style={{ height: '50px', width: 'auto' }} alt="" />
+                        </Link>
                     </Col>
                     <Col xs={5} className="my-auto ps-5">
                         <div className="d-flex text-white">
-                            <div className="button  b1">
+                            <div className="button b1">
                                 <img src={img1} alt="" />
                                 <span className="ms-2">ĐẶT VÉ NGAY</span>
                             </div>
@@ -99,11 +116,18 @@ const Header = () => {
                     </Col>
                 </Row>
                 <hr style={{ color: 'grey' }} />
-                <Row className="pb-3 text-white">
+                <Row className="pb-3 text-white" style={{ position: 'relative' }}>
                     <Col className="d-flex">
                         <div>
                             <FontAwesomeIcon icon={faLocationDot} />
-                            <span className="ms-2">Chọn rạp</span>
+                            <span
+                                style={{ cursor: 'pointer' }}
+                                className="ms-2"
+                                onMouseEnter={() => handleShowTheater()}
+                                onMouseLeave={() => handleCloseTheater()}
+                            >
+                                Chọn rạp
+                            </span>
                         </div>
                         <div className="ms-5">
                             <FontAwesomeIcon icon={faCalendarDays} />
@@ -119,6 +143,9 @@ const Header = () => {
                         </div>
                     </Col>
                 </Row>
+                {showTheatre && (
+                    <AllTheater handleShow={() => handleShowTheater()} handleClose={() => handleCloseTheater()} />
+                )}
             </Container>
         </div>
     );

@@ -31,13 +31,15 @@ body {
 }
 
 .App {
-    background: linear-gradient(109.6deg, #3a2a62 5%, #141831 91.1%);
+    background: linear-gradient(109.6deg, #141831 5%, #3a2a62 91.1%);
 }
 
 .background {
     background: #141831;
     position: sticky;
     top: 0;
+    z-index: 1000000;
+    height: 135px;
     /* background: linear-gradient(to right, #141831, #141831); */
     /* background-image: linear-gradient(109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1%); */
 
@@ -117,7 +119,6 @@ body {
 }
 
 .button {
-    padding: 7px 15px;
     border-radius: 5px;
     align-items: center;
     display: inline-flex;
@@ -129,11 +130,40 @@ body {
     &.b1 {
         background-color: #f3ea28;
         color: black;
+        padding: 7px 15px;
     }
 
     &.b2 {
         background-color: #663399;
+        padding: 7px 15px;
         color: white;
+    }
+
+    &.look {
+        border: 1px solid #f3ea28;
+        color: #f3ea28;
+        justify-content: center;
+        width: 240px;
+        padding: 12px;
+        margin: auto;
+        background-color: transparent;
+        // transition: 0.3s ease-in-out;
+    }
+
+    &.look:hover {
+        background: linear-gradient(to bottom right, #ff7600, #ffc007);
+        color: white;
+        // transition: 0.3s ease-in-out;
+    }
+
+    &.book {
+        background-color: #f3ea28;
+        color: black;
+        // color: #444866;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        justify-content: center;
+        width: 100px;
     }
 }
 
@@ -143,7 +173,7 @@ body {
     position: relative;
     display: inline-block;
     overflow: hidden;
-    transition: all 0.3s ease; 
+    transition: all 0.3s ease;
     border-radius: 5px;
 
     &:hover .sign-age,
@@ -160,7 +190,7 @@ body {
         height: 425px;
         background-color: rgba(0, 0, 0, 0.6);
         opacity: 0;
-        overflow: hidden; 
+        overflow: hidden;
         transition: opacity 0.3s ease;
         border-radius: 5px;
     }
@@ -168,7 +198,6 @@ body {
     &:hover::before {
         opacity: 1;
     }
-
 
     &:hover .main-center {
         top: 45%;
@@ -193,7 +222,7 @@ body {
     color: white;
     background-color: #ff0033;
     text-align: center;
-    transform: translateY(0); 
+    transform: translateY(0);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -202,8 +231,8 @@ body {
     font-weight: 400 !important;
     font-style: normal !important;
     transform-origin: top !important;
-    transform: translateY(0); 
-    transition: transform 0.3s ease-in-out; 
+    transform: translateY(0);
+    transition: transform 0.3s ease-in-out;
 }
 
 .card-film:hover .sign-age,
@@ -230,4 +259,59 @@ body {
     transition: 0.3s ease-in-out;
     // visibility: hidden;
     opacity: 0;
+}
+
+.slider {
+    margin: 0 20px;
+    overflow: 'hidden';
+    padding: 2rem 0;
+}
+
+.slider {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.react-multi-carousel-list {
+    padding: 0rem 0 2rem 0;
+}
+
+.custom-dot-list-style button {
+    border: none;
+    background: rgb(134, 134, 134);
+}
+.react-multi-carousel-dot.react-multi-carousel-dot--active button {
+    background: rgb(255, 255, 255) !important;
+}
+
+.w-trailer {
+    font-family: 'Lexend', sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 400 !important;
+    font-style: normal;
+    border-bottom: 1px;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+}
+
+.font-title {
+    font-family: 'Anton', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.font-main {
+    font-family: 'Lexend', sans-serif !important;
+    font-optical-sizing: auto;
+    font-weight: 400 !important;
+}
+
+.theater-title1 {
+    background: linear-gradient(to bottom right, #4e337a, #264c9a);
+    padding: 30px;
+}
+
+.theater-title2 {
+    z-index: 100;
+    background: linear-gradient(to right, rgba(79, 52, 142, 0.5), rgba(0, 17, 52, 0.5), rgba(22, 82, 202, 0.5));
 }
