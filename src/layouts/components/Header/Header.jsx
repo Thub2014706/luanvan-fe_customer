@@ -131,7 +131,9 @@ const Header = () => {
                         </div>
                         <div className="ms-5">
                             <FontAwesomeIcon icon={faCalendarDays} />
-                            <span className="ms-2">Lịch chiếu</span>
+                            <Link to={'/schedule'} className="text-decoration-none text-white">
+                                <span className="ms-2">Lịch chiếu</span>
+                            </Link>
                         </div>
                     </Col>
                     <Col>

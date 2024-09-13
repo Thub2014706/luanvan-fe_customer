@@ -315,3 +315,86 @@ body {
     z-index: 100;
     background: linear-gradient(to right, rgba(79, 52, 142, 0.5), rgba(0, 17, 52, 0.5), rgba(22, 82, 202, 0.5));
 }
+
+.card-date {
+    width: 90px !important;
+    height: 120px !important;
+    cursor: pointer;
+
+    &.yes {
+        border-color: #ff7600 !important;
+    }
+
+    &.no {
+        border-color: gray !important;
+    }
+}
+
+.card-head-date {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    font-size: 2rem;
+
+    &.yes {
+        background: linear-gradient(to bottom right, #ff7600, #ffc007) !important;
+        color: white !important;
+    }
+
+    &.no {
+        background-color: rgba(143, 115, 196, 0.5);
+    }
+}
+
+.card-body-date {
+    font-size: 1.2rem;
+
+    &.yes {
+        color: #ff7600;
+    }
+}
+
+.time-mini {
+    padding: 4px 15px;
+    border-radius: 5px;
+    position: relative;
+
+    &.yes {
+        color: #f3ea28;
+        border: 1px solid #f3ea28;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #f3ea28;
+            color: black;
+        }
+    }
+
+    &.no {
+        color: #9f9f9f;
+        border: 1px solid #9f9f9f;
+        cursor: no-drop;
+    }
+}
+
+.theater-show {
+    cursor: pointer;
+
+    &.select {
+        border-bottom: 5px solid #f3ea28;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+}
+
+.card-item-schedule {
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.icon-color {
+    filter: brightness(0) saturate(100%) invert(98%) sepia(80%) saturate(2086%) hue-rotate(336deg) brightness(109%)
+        contrast(91%);
+    max-height: 2.6rem;
+}

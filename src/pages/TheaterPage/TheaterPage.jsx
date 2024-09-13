@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { detailTheater } from '~/services/TheaterService';
-import HomePage from '../HomePage/HomePage';
-import FilmShowing from '~/components/FilmShowing/FilmShowing';
+import SelectSchedule from '~/components/SelectSchesule/SelectSchedule';
 
 const TheaterPage = () => {
     const [theater, setTheater] = useState(null);
@@ -20,12 +19,12 @@ const TheaterPage = () => {
         fetch();
     }, [id]);
 
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(1);
 
     const renderDiv = (step) => {
         switch (step) {
             case 1:
-                return <FilmShowing />;
+                return <SelectSchedule />;
             // case 2:
             //     return <SelectShowTime />;
             // case 3:
@@ -52,19 +51,22 @@ const TheaterPage = () => {
                     </div>
                     <div className="theater-title2" style={{ position: 'sticky', top: '135px' }}>
                         <Row className="font-title">
-                            <Col>
-                                <h5 className="text-center my-4">PHIM ĐANG CHIẾU</h5>
+                            {['LỊCH CHIẾU PHIM', 'VỊ TRÍ CỦA RẠP', 'BẢNG GIÁ VÉ'].map((item, index) => (
+                                <Col onClick={() => setStep(index + 1)}>
+                                    <div className={`theater-show ${step === index + 1 && 'select'}`}>
+                                        <h5 className="text-center my-4">{item}</h5>
+                                    </div>
+                                </Col>
+                            ))}
+                            {/* <Col onClick={() => setStep(2)}>
+                                <h5 className="text-center my-4">VỊ TRÍ CỦA RẠP</h5>
                             </Col>
-                            <Col>
-                                <h5 className="text-center my-4">PHIM SẮP CHIẾU</h5>
-                            </Col>
-                            <Col>
+                            <Col onClick={() => setStep(3)}>
                                 <h5 className="text-center my-4">BẢNG GIÁ VÉ</h5>
-                            </Col>
+                            </Col> */}
                         </Row>
                     </div>
                     <div>{renderDiv(step)}</div>
-
                 </Container>
             )}
         </div>

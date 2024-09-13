@@ -1,6 +1,7 @@
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
+import SchedulePage from "~/pages/SchedulePage/SchedulePage"
 import TheaterPage from "~/pages/TheaterPage/TheaterPage"
 
 const publicRoutes = [
@@ -20,6 +21,10 @@ const publicRoutes = [
     {
         path: '/theater/:id',
         component: TheaterPage,
+    },
+    {
+        path: '/schedule',
+        component: SchedulePage,
     },
 ]
 
