@@ -53,10 +53,10 @@ const Header = () => {
                     </Col>
                     <Col xs={5} className="my-auto ps-5">
                         <div className="d-flex text-white">
-                            <div className="button b1">
+                            <Link to={'/film'} className="button b1 text-decoration-none">
                                 <img src={img1} alt="" />
                                 <span className="ms-2">ĐẶT VÉ NGAY</span>
-                            </div>
+                            </Link>
                             <div className="button b2 ms-3">
                                 <img src={img2} alt="" />
                                 <span className="ms-2">ĐẶT BẮP NƯỚC</span>
@@ -132,7 +132,7 @@ const Header = () => {
                         <div className="ms-5">
                             <FontAwesomeIcon icon={faCalendarDays} />
                             <Link to={'/schedule'} className="text-decoration-none text-white">
-                                <span className="ms-2">Lịch chiếu</span>
+                                <span className="ms-2">Phim</span>
                             </Link>
                         </div>
                     </Col>

@@ -139,6 +139,12 @@ body {
         color: white;
     }
 
+    &.book-now {
+        background-color: #f3ea28;
+        padding: 5px 15px;
+        color: black;
+    }
+
     &.look {
         border: 1px solid #f3ea28;
         color: #f3ea28;
@@ -320,13 +326,14 @@ body {
     width: 90px !important;
     height: 120px !important;
     cursor: pointer;
+    border-radius: 5px;
 
     &.yes {
-        border-color: #ff7600 !important;
+        border: 2px solid #f3ea28;
     }
 
     &.no {
-        border-color: gray !important;
+        border: 1px solid gray !important;
     }
 }
 
@@ -334,14 +341,17 @@ body {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
     font-size: 2rem;
+    background-color: transparent;
 
     &.yes {
-        background: linear-gradient(to bottom right, #ff7600, #ffc007) !important;
-        color: white !important;
+        border-bottom: 2px solid #f3ea28;
+        // background: linear-gradient(to bottom right, #ff7600, #ffc007) !important;
+        color: #f3ea28 !important;
     }
 
     &.no {
-        background-color: rgba(143, 115, 196, 0.5);
+        border-bottom: 1px solid gray;
+        // background-color: rgba(143, 115, 196, 0.5);
     }
 }
 
@@ -349,7 +359,7 @@ body {
     font-size: 1.2rem;
 
     &.yes {
-        color: #ff7600;
+        color: #f3ea28;
     }
 }
 
@@ -397,4 +407,27 @@ body {
     filter: brightness(0) saturate(100%) invert(98%) sepia(80%) saturate(2086%) hue-rotate(336deg) brightness(109%)
         contrast(91%);
     max-height: 2.6rem;
+}
+
+.modal-backdrop {
+    opacity: 1 !important;
+    border: 0 !important;
+    background-color: transparent !important;
+}
+
+.modal-content-custom {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.modal-header {
+    // opacity: 1 !important;
+    background-color: transparent !important;
+    border: 0 !important;
+}
+
+.modal-body {
+    background-color: transparent !important;
+    border: 0 !important;
 }

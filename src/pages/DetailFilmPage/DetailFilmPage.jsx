@@ -6,16 +6,18 @@ import { detailFilm } from '~/services/FilmService';
 import img1 from '~/assets/images/icon-tag.svg';
 import img2 from '~/assets/images/icon-clock.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faEarthAmericas, faUserCheck } from '@fortawesome/free-solid-svg-icons';
+import { faEarthAmericas, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import Name from '~/components/Name/Name';
 import { detailGenre } from '~/services/GenreService';
 import { detailDirector } from '~/services/DirectorService';
 import { detailPerformer } from '~/services/PerformerService';
 import img3 from '~/assets/images/icon-play-vid.svg';
 import moment from 'moment';
+import VideoModal from '~/components/VideoModal/VideoModal';
 
 const DetailFilmPage = () => {
     const [film, setFilm] = useState(null);
+    const [showVideo, setShowVideo] = useState(false);
 
     const { id } = useParams();
 
@@ -26,6 +28,14 @@ const DetailFilmPage = () => {
         };
         fetch();
     }, [id]);
+
+    const handleShowVideo = () => {
+        setShowVideo(true);
+    };
+
+    const handleCloseVideo = () => {
+        setShowVideo(false);
+    };
 
     return (
         <div>
@@ -103,7 +113,7 @@ const DetailFilmPage = () => {
                                 NỘI DUNG PHIM
                             </p>
                             <p dangerouslySetInnerHTML={{ __html: film.description }}></p>
-                            <div className="mt-5" style={{ cursor: 'pointer' }}>
+                            <div className="mt-5" style={{ cursor: 'pointer' }} onClick={() => handleShowVideo()}>
                                 <img
                                     src={img3}
                                     alt=""
@@ -115,6 +125,7 @@ const DetailFilmPage = () => {
                     </Row>
                 </Container>
             )}
+            {film !== null && <VideoModal show={showVideo} handleClose={handleCloseVideo} trailer={film.trailer} />}
         </div>
     );
 };

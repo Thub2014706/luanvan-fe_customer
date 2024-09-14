@@ -1,3 +1,4 @@
+import BookNow from "~/pages/BookNow/BookNow"
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
@@ -25,6 +26,10 @@ const publicRoutes = [
     {
         path: '/schedule',
         component: SchedulePage,
+    },
+    {
+        path: '/film',
+        component: BookNow,
     },
 ]
 

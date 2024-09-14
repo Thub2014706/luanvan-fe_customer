@@ -46,7 +46,12 @@ const SchedulePage = () => {
                         <div className="card-item-schedule">
                             <Form.Label className="d-flex justify-content-between">
                                 <h5 style={{ color: '#f3ea28' }}>Ngày</h5>
-                                <img src={img1} height={26} width={26} className="icon-color" alt="" />
+                                <img
+                                    src={img1}
+                                    style={{ height: '20px', width: '20px' }}
+                                    className="icon-color"
+                                    alt=""
+                                />
                             </Form.Label>
                             <Form.Select>
                                 {week.map((item) => (
@@ -62,9 +67,15 @@ const SchedulePage = () => {
                         <div className="card-item-schedule">
                             <Form.Label className="d-flex justify-content-between">
                                 <h5 style={{ color: '#f3ea28' }}>Phim</h5>
-                                <img src={img2} height={26} width={26} className="icon-color" alt="" />
+                                <img
+                                    src={img2}
+                                    style={{ height: '20px', width: '20px' }}
+                                    className="icon-color"
+                                    alt=""
+                                />
                             </Form.Label>
                             <Form.Select>
+                                <option value="">Chọn phim</option>
                                 {schedules.map((item) => (
                                     <option key={item._id} value={item._id}>
                                         <Name id={item.film} detail={detailFilm} />
@@ -77,9 +88,15 @@ const SchedulePage = () => {
                         <div className="card-item-schedule">
                             <Form.Label className="d-flex justify-content-between">
                                 <h5 style={{ color: '#f3ea28' }}>Rạp</h5>
-                                <img src={img3} height={26} width={26} className="icon-color" alt="" />
+                                <img
+                                    src={img3}
+                                    style={{ height: '20px', width: '20px' }}
+                                    className="icon-color"
+                                    alt=""
+                                />
                             </Form.Label>
                             <Form.Select>
+                                <option value="">Chọn rạp</option>
                                 {theater.map((item) => (
                                     <option key={item._id} value={item._id}>
                                         {item.name}
@@ -89,6 +106,15 @@ const SchedulePage = () => {
                         </div>
                     </Col>
                 </Row>
+                <div
+                    style={{
+                        color: 'white',
+                        height: '1px',
+                        backgroundColor: 'white',
+                        border: 'none',
+                        marginTop: '50px',
+                    }}
+                />
             </Container>
         </div>
     );

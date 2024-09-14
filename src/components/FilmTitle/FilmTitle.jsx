@@ -10,7 +10,12 @@ import img2 from '~/assets/images/icon-clock.svg';
 import img3 from '~/assets/images/icon-play-vid.svg';
 import { Link } from 'react-router-dom';
 
-const FilmTitle = ({ film }) => {
+const FilmTitle = ({ film, handleShowVideo }) => {
+
+    const handleShow = (item) => {
+        handleShowVideo(item)
+    }
+
     return (
         <div style={{ width: '285px' }}>
             <Link to={`/film/${film._id}`} className="text-decoration-none">
@@ -64,7 +69,7 @@ const FilmTitle = ({ film }) => {
                 </div>
             </Link>
             <div className="mt-5">
-                <span style={{ cursor: 'pointer' }}>
+                <span style={{ cursor: 'pointer' }} onClick={() => handleShow(film)}>
                     <img src={img3} alt="" style={{ border: '0.6px solid white', borderRadius: '50%' }} />
                     <span className="ms-2 h6 w-trailer text-white">Xem Trailer</span>
                 </span>

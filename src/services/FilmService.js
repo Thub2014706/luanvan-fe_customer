@@ -26,3 +26,14 @@ export const detailFilm = async (id) => {
         console.log('loi', error);
     }
 };
+
+export const listFilmByTheater = async (theater) => {
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/film/list-by-theater?theater=${theater}`,
+        );
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};
