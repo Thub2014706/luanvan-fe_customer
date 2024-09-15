@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
 
 const ScheduleMini = ({ day, date, selectDay, handleSelectDay }) => {
     return (

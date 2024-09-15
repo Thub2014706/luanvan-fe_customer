@@ -53,3 +53,23 @@ export const filmByTheater = async (theater, date) => {
         console.log('loi', error);
     }
 };
+
+export const listDateByFilm = async (film) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/showtime/date-by-film?film=${film}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};
+
+export const showTimeFilter = async (theater, film, date) => {
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/showtime/filter?theater=${theater}&film=${film}&date=${date}`,
+        );
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};
