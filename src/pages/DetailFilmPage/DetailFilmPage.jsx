@@ -14,10 +14,12 @@ import { detailPerformer } from '~/services/PerformerService';
 import img3 from '~/assets/images/icon-play-vid.svg';
 import moment from 'moment';
 import VideoModal from '~/components/VideoModal/VideoModal';
+import BookModal from '~/components/BookModal/BookModal';
 
 const DetailFilmPage = () => {
     const [film, setFilm] = useState(null);
     const [showVideo, setShowVideo] = useState(false);
+    const [showBook, setShowBook] = useState(false)
 
     const { id } = useParams();
 
@@ -37,8 +39,16 @@ const DetailFilmPage = () => {
         setShowVideo(false);
     };
 
+    const handleShowBook = () => {
+        setShowBook(true);
+    };
+
+    const handleCloseBook = () => {
+        setShowBook(false);
+    };
+
     return (
-        <div>
+        <div className="pb-5">
             {film !== null && (
                 <Container className="text-white" style={{ paddingLeft: '70px', paddingRight: '70px' }}>
                     <Row>
@@ -121,11 +131,13 @@ const DetailFilmPage = () => {
                                 />
                                 <span className="ms-2 h5 w-trailer text-white">Xem Trailer</span>
                             </div>
+                            <div className="button look mt-5 h5" onClick={handleShowBook}>ĐẶT VÉ</div>
                         </Col>
                     </Row>
                 </Container>
             )}
             {film !== null && <VideoModal show={showVideo} handleClose={handleCloseVideo} trailer={film.trailer} />}
+            <BookModal show={showBook} handleClose={handleCloseBook} id={id} />
         </div>
     );
 };

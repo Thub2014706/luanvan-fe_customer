@@ -27,7 +27,7 @@ const AllTheater = ({ handleShow, handleClose }) => {
         >
             <Row className="p-4">
                 {theater.map((item) => (
-                    <Col xs={3}>
+                    <Col xs={3} className='my-2'>
                         <Link to={`/theater/${item._id}`} className='text-decoration-none text-white'>
                             <p style={{ cursor: 'pointer' }}>{item.name}</p>
                         </Link>

@@ -2,18 +2,17 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { nameDay } from '~/constants';
-import { listScheduleNotScreened } from '~/services/ScheduleService';
-import { listTheater } from '~/services/TheaterService';
 import Name from '../Name/Name';
-import { detailFilm, listFilmByTheater } from '~/services/FilmService';
-import { listDateByFilm, showTimeFilter } from '~/services/ShowTimeService';
+import { showTimeFilter } from '~/services/ShowTimeService';
 import { detailRoom } from '~/services/RoomService';
+import { Link } from 'react-router-dom';
 // import img1 from '~/assets/images/icon-calendar-1.svg';
 // import img2 from '~/assets/images/icon-movie-1.svg';
 // import img3 from '~/assets/images/icon-maps-1.svg';
 
 const BookBar = () => {
     const [showTimes, setShowTimes] = useState([]);
+    const [showTime, setShowTime] = useState();
     const [films, setFilms] = useState([]);
     const [film, setFilm] = useState('');
     const [theaters, setTheaters] = useState([]);
@@ -31,34 +30,6 @@ const BookBar = () => {
         week.push({ date: date.getDate(), day: date.getDay(), full: moment(date).format('YYYY-MM-DD') });
     });
 
-    // useEffect(() => {
-    //     const fetch = async () => {
-    //         const data = await listTheater();
-    //         setTheaters(data);
-    //     };
-    //     fetch();
-    // }, []);
-
-    // useEffect(() => {
-    //     const fetch = async () => {
-    //         if (theater !== '') {
-    //             const data = await listFilmByTheater(theater);
-    //             setFilms(data);
-    //         }
-    //     };
-    //     fetch();
-    // }, [theater]);
-
-    // useEffect(() => {
-    //     const fetch = async () => {
-    //         if (film !== '') {
-    //             const data = await listDateByFilm(film);
-    //             setDates(data);
-    //         }
-    //     };
-    //     fetch();
-    // }, [film]);
-
     useEffect(() => {
         const fetch = async () => {
             const data = await showTimeFilter(theater, film, date);
@@ -70,7 +41,7 @@ const BookBar = () => {
         fetch();
     }, [theater, film, date]);
 
-    console.log(date, showTimes);
+    // console.log(date, showTimes);
 
     return (
         <div className="py-5">
@@ -138,7 +109,7 @@ const BookBar = () => {
                             <Form.Label className="d-flex justify-content-between">
                                 <h5 style={{ color: '#f3ea28' }}>4. Suất</h5>
                             </Form.Label>
-                            <Form.Select>
+                            <Form.Select value={showTime} onChange={(e) => setShowTime(e.target.value)}>
                                 <option value="">Chọn suất chiếu</option>
                                 {showTimes.map((item) => (
                                     <option key={item._id} value={item._id}>
@@ -150,7 +121,13 @@ const BookBar = () => {
                         </div>
                     </Col>
                     <Col xs="auto" className="align-items-center d-flex">
-                        <div className="button book-now h-100 h5 text-center">ĐẶT NGAY</div>
+                        <Link
+                            to={showTime && `/book-seat/`}
+                            state={showTime && { id: showTime }}
+                            className="button book-now h-100 h5 text-center text-decoration-none"
+                        >
+                            ĐẶT NGAY
+                        </Link>
                     </Col>
                 </Row>
                 <div

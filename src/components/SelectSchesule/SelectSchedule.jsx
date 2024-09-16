@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ScheduleMini from '../ScheduleMini/ScheduleMini';
 import moment from 'moment';
 import { nameDay, statusShowTime } from '~/constants';
-import { detailShowTimeById, filmByTheater, soldOutSeat } from '~/services/ShowTimeService';
+import { filmByTheater, soldOutSeat } from '~/services/ShowTimeService';
 import { Link, useParams } from 'react-router-dom';
 import ImageBase from '../ImageBase/ImageBase';
 import { Col, Row } from 'react-bootstrap';

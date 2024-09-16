@@ -12,6 +12,17 @@ export const listShowTimeByDay = async (theater, date, schedule) => {
     }
 };
 
+export const listShowTimeByFilm = async (theater, date, film) => {
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/showtime/list-by-film?theater=${theater}&date=${date}&film=${film}`,
+        );
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};
+
 export const detailShowTimeById = async (id) => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/showtime/detail-by-id/${id}`);

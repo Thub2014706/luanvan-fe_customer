@@ -1,8 +1,9 @@
-import BookNow from "~/pages/BookNow/BookNow"
+import BookNowPage from "~/pages/BookNowPage/BookNowPage"
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
 import SchedulePage from "~/pages/SchedulePage/SchedulePage"
+import SelectSeatPage from "~/pages/SelectSeatPage/SelectSeatPage"
 import TheaterPage from "~/pages/TheaterPage/TheaterPage"
 
 const publicRoutes = [
@@ -29,7 +30,11 @@ const publicRoutes = [
     },
     {
         path: '/film',
-        component: BookNow,
+        component: BookNowPage,
+    },
+    {
+        path: '/book-seat',
+        component: SelectSeatPage,
     },
 ]
 

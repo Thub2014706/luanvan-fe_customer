@@ -5,7 +5,7 @@ import FilmShowing from '~/components/FilmShowing/FilmShowing';
 import UpcomingFilm from '~/components/UpcomingFilm/UpcomingFilm';
 import VideoModal from '~/components/VideoModal/VideoModal';
 
-const BookNow = () => {
+const BookNowPage = () => {
     const [showVideo, setShowVideo] = useState(false);
     const [itemShow, setItemShow] = useState(null);
 
@@ -35,4 +35,4 @@ const BookNow = () => {
     );
 };
 
-export default BookNow;
+export default BookNowPage;

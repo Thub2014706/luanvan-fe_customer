@@ -384,6 +384,29 @@ body {
         border: 1px solid #9f9f9f;
         cursor: no-drop;
     }
+
+    &.yes2 {
+        color: #021b4e;
+        border: 1px solid #021b4e;
+        cursor: pointer;
+
+        &:hover {
+            background: linear-gradient(to bottom right, #4e337a, #021b4e);
+            color: white;
+        }
+    }
+
+    &.no2 {
+        color: #9f9f9f;
+        border: 1px solid #9f9f9f;
+        cursor: no-drop;
+    }
+
+    &.select {
+        cursor: pointer;
+        background: linear-gradient(to bottom right, #4e337a, #021b4e);
+        color: white;
+    }
 }
 
 .theater-show {
@@ -430,4 +453,65 @@ body {
 .modal-body {
     background-color: transparent !important;
     border: 0 !important;
+}
+
+.card-date2 {
+    width: 65px !important;
+    height: 70px !important;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 5px;
+
+    &.yes {
+        // border: 2px solid #264c9a;
+        background: linear-gradient(to bottom right, #4e337a, #021b4e);
+        color: white;
+    }
+
+    &.no {
+        border: 1px solid gray !important;
+    }
+}
+
+.card-theater {
+    // border: 1px solid black;
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #e9dbff, #b7cfff);
+}
+.seat {
+    border-radius: 5px;
+    width: 45px;
+    height: 35px;
+    // margin-left: 2px;
+    cursor: pointer;
+    
+    &.standard {
+        color: #663399;
+        background-color: #ffffff;
+    }
+
+    &.vip {
+        color: #663399;
+        background-color: #9fd539;
+    }
+
+    &.couple {
+        color: #663399;
+        background-color: #dc9bd2;
+    }
+
+    &.inaction {
+        color: #663399;
+        background-color: #0f1b07;
+    }
+
+    &.select {
+        color: #663399;
+        background-color: #f3ea28;
+    }
+
+    &.selled {
+        color: #663399;
+        background-color: #a4a4a4;
+    }
 }
