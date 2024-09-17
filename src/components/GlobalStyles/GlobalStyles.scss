@@ -138,6 +138,14 @@ body {
         padding: 7px 15px;
         color: white;
     }
+    
+    &.big {
+        justify-content: center;
+        width: 200px;
+        background-color: #f3ea28;
+        color: black;
+        padding: 10px;
+    }
 
     &.book-now {
         background-color: #f3ea28;
@@ -514,4 +522,12 @@ body {
         color: #663399;
         background-color: #a4a4a4;
     }
+}
+
+.sticky-bill {
+    border-top: 1px solid white;
+    background-color: #141831;
+    position: sticky;
+    bottom: 0;
+    z-index: 100000;
 }

@@ -27,6 +27,15 @@ export const detailFilm = async (id) => {
     }
 };
 
+export const detailFilmBySchedule = async (id) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/film/detail-by-schedule/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};
+
 export const listFilmByTheater = async (theater) => {
     try {
         const response = await axios.get(

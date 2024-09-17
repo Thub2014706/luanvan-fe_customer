@@ -54,7 +54,6 @@ const SelectSchedule = () => {
         fetch();
     }, [id, date]);
 
-    const handleShowTime = (id) => {};
     return (
         <div className="py-5">
             <div className="d-flex justify-content-center">
@@ -85,7 +84,7 @@ const SelectSchedule = () => {
                                         />
                                     </Link>
                                     <div>
-                                        <Link to={`/film/${item.film._id}`} className='text-decoration-none text-white'>
+                                        <Link to={`/film/${item.film._id}`} className="text-decoration-none text-white">
                                             <h3 className="font-title">{item.film.name.toUpperCase()}</h3>
                                         </Link>
                                         <p>
@@ -126,21 +125,25 @@ const SelectSchedule = () => {
                                                 <div className="mt-2">
                                                     <p>{translate}</p>
                                                     {mini.map((min) => (
-                                                        <span
-                                                            style={{ display: 'inline-block' }}
-                                                            onClick={() =>
+                                                        <Link
+                                                            to={
                                                                 min.status === statusShowTime[2] &&
                                                                 min.test === 1 &&
-                                                                handleShowTime(min._id)
+                                                                '/book-seat/'
                                                             }
-                                                            className={`time-mini me-3 mb-3 ${
+                                                            state={
+                                                                min.status === statusShowTime[2] &&
+                                                                min.test === 1 && { id: min._id }
+                                                            }
+                                                            style={{ display: 'inline-block' }}
+                                                            className={`time-mini me-3 mb-3 text-decoration-none ${
                                                                 min.status === statusShowTime[2] && min.test === 1
                                                                     ? 'yes'
                                                                     : 'no'
                                                             }`}
                                                         >
                                                             {min.timeStart}
-                                                        </span>
+                                                        </Link>
                                                     ))}
                                                 </div>
                                             ))}
