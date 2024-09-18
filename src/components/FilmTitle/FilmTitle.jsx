@@ -65,7 +65,7 @@ const FilmTitle = ({ film, handleShowVideo, handleBook }) => {
                             border: '1px solid gray',
                         }}
                     />
-                    <h4 className="text-center mt-3 text-white">{film.name.toUpperCase()}</h4>
+                    <h4 className="text-center mt-3 text-white text-long">{film.name.toUpperCase()}</h4>
                 </div>
             </Link>
             <div className="mt-5">

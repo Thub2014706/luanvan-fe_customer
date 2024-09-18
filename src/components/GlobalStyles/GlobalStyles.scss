@@ -531,3 +531,10 @@ body {
     bottom: 0;
     z-index: 100000;
 }
+
+.text-long {
+    white-space: nowrap; // không xuống dòng
+    overflow: hidden; // ẩn nội dung bị thừa
+    text-overflow: ellipsis; // thêm dấu ... đằng sau
+    // max-width: 450px;
+}
