@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Form, InputGroup, Row } from 'react-bootstrap';
-import ImageBase from '../ImageBase/ImageBase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Col, Container, Row } from 'react-bootstrap';
 import { listCombo } from '~/services/ComboService';
 import { listFood } from '~/services/FoodService';
 import ComboItem from '../ComboItem/ComboItem';
 
-const SelectCombo = () => {
+const SelectCombo = ({setSelect}) => {
     const [combo, setCombo] = useState([]);
     const [food, setFood] = useState([]);
     const [selectCombo, setSelectCombo] = useState([]);
     const [selectFood, setSelectFood] = useState([]);
-    const [select, setSelect] = useState([])
 
     useEffect(() => {
         const fetch = async () => {
@@ -53,11 +49,11 @@ const SelectCombo = () => {
                 (accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity,
                 0,
             );
-            setSelect(data)
+            setSelect(data);
             // dispatch(addCart({ combo: data, price: sum }));
         };
         fetch();
-    }, [selectCombo, selectFood]);
+    }, [selectCombo, selectFood, setSelect]);
 
     const handleValue = (e, index, check) => {
         let copy = check === 'combo' ? [...selectCombo] : [...selectFood];
@@ -102,35 +98,33 @@ const SelectCombo = () => {
 
     return (
         <div>
-            <Row>
-                {combo.map((item, index) => (
-                    <Col key={item._id} className="mb-5" sm={4}>
-                        <ComboItem
-                            item={item}
-                            value={selectCombo[index].quantity}
-                            handleValue={(e) => handleValue(e, index, 'combo')}
-                            handleMinus={() => handleMinus(index, 'combo')}
-                            handleAdd={() => handleAdd(index, 'combo')}
-                        />
-                    </Col>
-                ))}
-                {food.map((item, index) => (
-                    <Col className="mb-5" sm={4}>
-                        <ComboItem
-                            item={item}
-                            value={selectFood[index].quantity}
-                            handleValue={(e) => handleValue(e, index, 'food')}
-                            handleMinus={() => handleMinus(index, 'food')}
-                            handleAdd={() => handleAdd(index, 'food')}
-                        />
-                    </Col>
-                ))}
-            </Row>
-            {/* <div className="float-end d-flex">
-                <div className="mt-5 button add" onClick={handleSubmit}>
-                    Tiếp theo
-                </div>
-            </div> */}
+            <Container className="py-5">
+                <h2 className="text-white font-title text-center mb-5">CHỌN BẮP NƯỚC</h2>
+                <Row>
+                    {combo.map((item, index) => (
+                        <Col key={item._id} className="mb-5" sm={4}>
+                            <ComboItem
+                                item={item}
+                                value={selectCombo[index].quantity}
+                                handleValue={(e) => handleValue(e, index, 'combo')}
+                                handleMinus={() => handleMinus(index, 'combo')}
+                                handleAdd={() => handleAdd(index, 'combo')}
+                            />
+                        </Col>
+                    ))}
+                    {food.map((item, index) => (
+                        <Col className="mb-5" sm={4}>
+                            <ComboItem
+                                item={item}
+                                value={selectFood[index].quantity}
+                                handleValue={(e) => handleValue(e, index, 'food')}
+                                handleMinus={() => handleMinus(index, 'food')}
+                                handleAdd={() => handleAdd(index, 'food')}
+                            />
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
         </div>
     );
 };

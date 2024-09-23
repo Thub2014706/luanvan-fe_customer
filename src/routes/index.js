@@ -2,6 +2,7 @@ import BookNowPage from "~/pages/BookNowPage/BookNowPage"
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
+import PayPage from "~/pages/PayPage/PayPage"
 import SchedulePage from "~/pages/SchedulePage/SchedulePage"
 import SelectSeatPage from "~/pages/SelectSeatPage/SelectSeatPage"
 import TheaterPage from "~/pages/TheaterPage/TheaterPage"
@@ -35,6 +36,10 @@ const publicRoutes = [
     {
         path: '/book-seat',
         component: SelectSeatPage,
+    },
+    {
+        path: '/payment',
+        component: PayPage,
     },
 ]
 
