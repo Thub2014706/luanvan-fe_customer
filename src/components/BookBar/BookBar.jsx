@@ -122,7 +122,7 @@ const BookBar = () => {
                     </Col>
                     <Col xs="auto" className="align-items-center d-flex">
                         <Link
-                            to={showTime && `/book-seat/`}
+                            to={showTime && `/book-seat`}
                             state={showTime && { id: showTime }}
                             className="button book-now h-100 h5 text-center text-decoration-none"
                         >

@@ -141,7 +141,7 @@ const BookModal = ({ show, handleClose, id }) => {
                                     <div className="mt-2">
                                         <p>{translate}</p>
                                         {mini.map((min) => (
-                                            <Link to='/book-seat/' state={{id: min._id}}
+                                            <Link to='/book-seat' state={{id: min._id}}
                                                 style={{ display: 'inline-block' }}
                                                 // onClick={() =>
                                                 //     min.status === statusShowTime[2] &&

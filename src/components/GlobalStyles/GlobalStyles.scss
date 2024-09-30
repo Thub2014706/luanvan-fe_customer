@@ -138,7 +138,7 @@ body {
         padding: 7px 15px;
         color: white;
     }
-    
+
     &.big {
         justify-content: center;
         width: 200px;
@@ -492,7 +492,7 @@ body {
     height: 35px;
     // margin-left: 2px;
     cursor: pointer;
-    
+
     &.standard {
         color: #663399;
         background-color: #ffffff;
@@ -541,4 +541,20 @@ body {
 
 .card-info-pay {
     background-color: #663399;
+}
+
+.card-pay {
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.card-dis {
+    border-radius: 5px;
+    background: linear-gradient(to bottom right, #e9dbff, #b7cfff);
+    border: 1px solid #b7cfff;
+    padding: 10px;
+}
+
+.card-name-dis {
+    border-right: 1px solid #96b7f8;
 }

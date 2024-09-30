@@ -1,5 +1,13 @@
-import axios from "axios"
-import { loginFailed, loginStart, loginSuccess, logoutFailed, logoutStart, logoutSuccess } from "~/features/auth/authSlice";
+import axios from 'axios';
+import {
+    loginFailed,
+    loginStart,
+    loginSuccess,
+    logoutFailed,
+    logoutStart,
+    logoutSuccess,
+} from '~/features/auth/authSlice';
+import { clearAll } from '~/features/cart/cartSlice';
 
 axios.defaults.withCredentials = true;
 
@@ -15,13 +23,13 @@ export const refreshToken = async () => {
 };
 
 export const login = async (user, toast, navigate, dispatch) => {
-    dispatch(loginStart())
+    dispatch(loginStart());
     try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/signin`, user)
-        dispatch(loginSuccess(response.data))
-        navigate('/');
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/signin`, user);
+        dispatch(loginSuccess(response.data));
+        navigate('/', { replace: true });
     } catch (error) {
-        dispatch(loginFailed)
+        dispatch(loginFailed);
         if (error.response) {
             toast(error.response.data.message, {
                 position: 'top-center',
@@ -39,7 +47,7 @@ export const login = async (user, toast, navigate, dispatch) => {
             alert('Lỗi mạng');
         }
     }
-}
+};
 
 export const logout = async (dispatch, token) => {
     dispatch(logoutStart());
@@ -51,8 +59,18 @@ export const logout = async (dispatch, token) => {
                 headers: { authorization: `Bearer ${token}` },
             },
         );
+        dispatch(clearAll())
         dispatch(logoutSuccess());
     } catch (error) {
         dispatch(logoutFailed());
+    }
+};
+
+export const detailUserById = async (id) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/detail-by-id/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
     }
 };

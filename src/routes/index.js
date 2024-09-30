@@ -1,4 +1,5 @@
 import BookNowPage from "~/pages/BookNowPage/BookNowPage"
+import CheckoutPage from "~/pages/CheckoutPage/CheckoutPage"
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
@@ -33,6 +34,9 @@ const publicRoutes = [
         path: '/film',
         component: BookNowPage,
     },
+]
+
+const privateRoutes = [
     {
         path: '/book-seat',
         component: SelectSeatPage,
@@ -41,6 +45,10 @@ const publicRoutes = [
         path: '/payment',
         component: PayPage,
     },
+    {
+        path: '/checkout',
+        component: CheckoutPage,
+    },
 ]
 
-export {publicRoutes}
+export {publicRoutes, privateRoutes}

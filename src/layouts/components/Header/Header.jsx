@@ -10,6 +10,7 @@ import { logout } from '~/services/UserService';
 import img1 from '~/assets/images/ic-ticket.svg';
 import img2 from '~/assets/images/ic-cor.svg';
 import AllTheater from '~/components/AllTheater/AllTheater';
+import { cancelAllHold } from '~/services/RedisService';
 
 const Header = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -27,7 +28,8 @@ const Header = () => {
         setShow(false);
     };
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        await cancelAllHold(user?.data.id);
         logout(dispatch, user?.accessToken);
     };
 

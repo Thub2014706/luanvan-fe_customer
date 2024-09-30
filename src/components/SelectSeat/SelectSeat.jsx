@@ -1,23 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { showToast, typeSeatEnum } from '~/constants';
-import { allHold } from '~/services/RedisService';
+import { allHold, cancelAllHold } from '~/services/RedisService';
 import img1 from '~/assets/images/img-screen.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearAll } from '~/features/cart/cartSlice';
 
 const SelectSeat = ({ selectSeat, setSelectSeat, selled, seats }) => {
+    const user = useSelector((state) => state.auth.login.currentUser);
     const location = useLocation();
+    const dispatch = useDispatch();
     const { id } = location.state || {};
     const [hold, setHold] = useState([]);
-
+    // console.log(cartTicket);
+    
     useEffect(() => {
-        const fetch = async () => {
+        const handleNavigation = async () => {
+            await cancelAllHold(user?.data.id);
             const data = await allHold(id);
+            // console.log(data);
+            dispatch(clearAll());
+
             setHold(Object.keys(data));
         };
-        fetch();
-    }, [id]);
-    console.log(hold);
+
+        handleNavigation();
+    }, [location, user, id, dispatch]);
+
+    // console.log(hold);
 
     const rows = [...new Set(seats.map((item) => item.row))];
 
@@ -43,7 +54,7 @@ const SelectSeat = ({ selectSeat, setSelectSeat, selled, seats }) => {
 
         if (!selectSeat.includes(seat && nextChair)) {
             const seatArray = [...selectSeat, seat, nextChair];
-            console.log(seatArray);
+            // console.log(seatArray);
             const allSameType = seatArray.every((item) => item.type === seatArray[0].type);
 
             if (!allSameType) {

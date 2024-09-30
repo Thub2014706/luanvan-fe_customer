@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 export const standardAge = [
     'P - Thích hợp cho mọi độ tuổi',
@@ -9,13 +9,15 @@ export const standardAge = [
     'C - Phim không được phép phổ biến',
 ];
 
-export const signAge = [
-    'P',
-    'K',
-    'T13',
-    'T16',
-    'T18',
-    'C',
+export const signAge = ['P', 'K', 'T13', 'T16', 'T18', 'C'];
+
+export const infoAge = [
+    'Phim dành cho mọi độ tuổi. CineThu không được phép phục vụ khách hàng dưới 13 tuổi cho các suất chiếu kết thúc sau 22:00 và 16 tuổi cho các suất chiếu kết thúc sau 23:00, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao và Du Lịch. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
+    'Tôi xác nhận phim thể loại K yêu cầu người xem dưới 13 tuổi phải có người bảo hộ (bố, mẹ hoặc người thân) đi kèm, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao và Du Lịch, CineThu không được phép phục vụ khách hàng dưới 13 tuổi cho các suất chiếu kết thúc sau 22:00 và 16 tuổi cho các suất chiếu kết thúc sau 23:00. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
+    'Tôi xác nhận mua vé cho người xem từ đủ 13 tuổi trở lên và đồng ý cung cấp giấy tờ tùy thân để xác thực độ tuổi người xem, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao và Du Lịch, CineThu không được phép phục vụ khách hàng dưới 16 tuổi cho các suất chiếu kết thúc sau 23:00. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
+    'Tôi xác nhận mua vé cho người xem từ đủ 16 tuổi trở lên và đồng ý cung cấp giấy tờ tùy thân để xác thực độ tuổi người xem, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao Và Du Lịch. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
+    'Tôi xác nhận mua vé cho người xem từ đủ 18 tuổi trở lên và đồng ý cung cấp giấy tờ tùy thân để xác thực độ tuổi người xem, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao Và Du Lịch. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
+    'C - Phim không được phép phổ biến',
 ];
 
 export const typeRoom = [
@@ -25,11 +27,7 @@ export const typeRoom = [
     // 'T16 - Cấm người dưới 16 tuổi',
 ];
 
-export const typeSeat = [
-    'Ghế thường',
-    'Ghế VIP',
-    'Ghế Couple',
-];
+export const typeSeat = ['Ghế thường', 'Ghế VIP', 'Ghế Couple'];
 
 export const typeSeatEnum = {
     0: 'Ghế thường',
@@ -99,7 +97,7 @@ export const typePay = {
     0: 'Chờ thanh toán',
     1: 'Thanh toán thành công',
     2: 'Thanh toán không thành công',
-}
+};
 
 export const responsive = {
     desktop: {

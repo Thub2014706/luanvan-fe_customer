@@ -45,10 +45,6 @@ const SelectCombo = ({setSelect}) => {
             const combos = selectCombo.filter((item) => item.quantity > 0);
             const foods = selectFood.filter((item) => item.quantity > 0);
             const data = [...combos, ...foods];
-            const sum = data.reduce(
-                (accumulator, currentValue) => accumulator + currentValue.price * currentValue.quantity,
-                0,
-            );
             setSelect(data);
             // dispatch(addCart({ combo: data, price: sum }));
         };

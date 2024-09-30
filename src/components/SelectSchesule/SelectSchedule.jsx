@@ -129,7 +129,7 @@ const SelectSchedule = () => {
                                                             to={
                                                                 min.status === statusShowTime[2] &&
                                                                 min.test === 1 &&
-                                                                '/book-seat/'
+                                                                '/book-seat'
                                                             }
                                                             state={
                                                                 min.status === statusShowTime[2] &&

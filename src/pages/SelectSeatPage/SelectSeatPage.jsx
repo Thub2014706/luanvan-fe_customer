@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ModalQuestion from '~/components/ModalQuestion/ModalQuestion';
 import Name from '~/components/Name/Name';
 import SelectCombo from '~/components/SelectCombo/SelectCombo';
 import SelectSeat from '~/components/SelectSeat/SelectSeat';
-import { showToast, signAge, standardAge, typeUserPrice } from '~/constants';
+import { infoAge, showToast, signAge, standardAge, typeUserPrice } from '~/constants';
 import { cartTicketValue } from '~/features/cart/cartSlice';
 import { detailFilmBySchedule } from '~/services/FilmService';
 import { allOrderTicketSelled } from '~/services/OrderTicketService';
@@ -33,6 +34,36 @@ const SelectSeatPage = () => {
     const [selectSeat, setSelectSeat] = useState([]);
     const [selectCombo, setSelectCombo] = useState([]);
     const dispatch = useDispatch();
+    const [showQuestion, setShowQuestion] = useState(false);
+
+    // useEffect(() => {
+    //     const handleNavigation = async () => {
+    //         if (user?.data.id) {
+    //             if (location.pathname !== '/payment') {
+    //                 await cancelAllHold(user?.data.id);
+    //             }
+    //         }
+    //     };
+
+    //     handleNavigation();
+    // }, [location, user]);
+    useEffect(() => {
+        const fetch = async () => {
+            if (user !== null && id) {
+                const showTime = await detailShowTimeById(id);
+                console.log('w', id);
+
+                const roomData = await detailRoom(showTime.room);
+                const filmData = await detailFilmBySchedule(showTime.schedule);
+                const data = await allSeatRoom(showTime.room);
+                setShowTime(showTime);
+                setSeats(data);
+                setRoom(roomData);
+                setFilm(filmData);
+            }
+        };
+        fetch();
+    }, [id, user]);
 
     const renderStep = (step) => {
         switch (step) {
@@ -46,6 +77,37 @@ const SelectSeatPage = () => {
                 return null;
         }
     };
+
+    // useEffect(() => {
+    //     const fetch = async () => {
+    //         if (step === 1) {
+    //             await cancelAllHold(user?.data.id);
+    //         }
+    //     };
+    //     fetch()
+    // const handleBeforeUnload = () => {
+    //     if (user?.data.id) {
+    //         cancelAllHold(user?.data.id);
+    //     }
+    // };
+
+    // window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // return () => {
+    //     handleBeforeUnload();
+    //     window.removeEventListener('beforeunload', handleBeforeUnload);
+    // };
+    // }, [user, step]);
+
+    // const handleBeforeUnload = async (event) => {
+    //     await fetch();
+    // };
+
+    // window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // return () => {
+    //     window.removeEventListener('beforeunload', handleBeforeUnload);
+    // };
 
     useEffect(() => {
         const fetch = async () => {
@@ -70,11 +132,17 @@ const SelectSeatPage = () => {
         };
         fetch();
     }, [selectSeat, room, showTime]);
+    // fetch();
+    // return () => {
+    //     fetch();
+    // };
 
     useEffect(() => {
         const fetch = async () => {
-            const data = await allOrderTicketSelled(id);
-            setSelled(data);
+            if (id) {
+                const data = await allOrderTicketSelled(id);
+                setSelled(data);
+            }
         };
         fetch();
     }, [id]);
@@ -91,37 +159,27 @@ const SelectSeatPage = () => {
         fetch();
     }, [selectCombo]);
 
-    useEffect(() => {
-        const handleBeforeUnload = async () => {
-            await cancelHold({ seatId: selectSeat.map((item) => item._id), showTime: id });
-        };
+    // useEffect(() => {
+    //     const handleBeforeUnload = async () => {
+    //         await cancelHold({ seatId: selectSeat.map((item) => item._id), showTime: id });
+    //     };
 
-        window.addEventListener('beforeunload', handleBeforeUnload);
+    //     window.addEventListener('beforeunload', handleBeforeUnload);
 
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [selectSeat, id]);
+    //     return () => {
+    //         window.removeEventListener('beforeunload', handleBeforeUnload);
+    //     };
+    // }, [selectSeat, id]);
 
-    console.log(selectSeat);
-    useEffect(() => {
-        const fetch = async () => {
-            const showTime = await detailShowTimeById(id);
-            const roomData = await detailRoom(showTime.room);
-            const filmData = await detailFilmBySchedule(showTime.schedule);
-            const data = await allSeatRoom(showTime.room);
-            setShowTime(showTime);
-            setSeats(data);
-            setRoom(roomData);
-            setFilm(filmData);
-        };
-        fetch();
-    }, [id]);
+    // console.log(selectSeat);
 
     useEffect(() => {
         let interval;
+        let startTime;
         const startCountdown = () => {
+            startTime = Date.now();
             interval = setInterval(() => {
+                const timePassed = Math.floor((Date.now() - startTime) / 1000);
                 setTime((time) => {
                     if (time === 0) {
                         clearInterval(interval);
@@ -131,16 +189,13 @@ const SelectSeatPage = () => {
                         setPriceSeat(0);
                         setStep(1);
                         return 0;
-                    } else return time - 1;
+                    } else return 180 - timePassed;
                 });
             }, 1000);
         };
-        // if (status) {
-        //     startCountdown();
-        // } else {
-        //     // clearInterval(interval);
-        //     setTime(180);
-        // }
+        if (step === 1) {
+            setTime(180);
+        }
         if (step === 2) {
             startCountdown();
         }
@@ -151,6 +206,10 @@ const SelectSeatPage = () => {
             }
         };
     }, [step]);
+
+    const handleCloseQuestion = () => {
+        setShowQuestion(false);
+    };
 
     const handleNext = async () => {
         if (selectSeat.length === 0) {
@@ -251,23 +310,43 @@ const SelectSeatPage = () => {
             if (hasGap) {
                 showToast('Vui lòng không bỏ trống ghế bên trái hoặc bên phải của các ghế bạn đã chọn', 'warning');
             } else {
-                setStep(2);
-                await holdSeat({ seatId: selectSeat.map((item) => item._id), userId: user?.data.id, showTime: id });
+                setShowQuestion(true);
+                // if (
+                //     await holdSeat({ seatId: selectSeat.map((item) => item._id), userId: user?.data.id, showTime: id })
+                // ) {
+                //     setStep(2);
+                // }
             }
         }
     };
 
+    const handleNextOk = async () => {
+        if (await holdSeat({ seatId: selectSeat.map((item) => item._id), userId: user?.data.id, showTime: id })) {
+            setStep(2);
+        }
+        setShowQuestion(false);
+    };
+
     const handlePay = async () => {
-        dispatch(
-            cartTicketValue({
-                price: priceSeat + priceCombo,
-                showTime: id,
-                seats: selectSeat.map((item) => item._id),
-                combos: selectCombo,
-            }),
-        );
-        await cancelHold({ showTime: id, seatId: selectSeat.map((item) => item._id) });
-        navigate('/payment');
+        try {
+            dispatch(
+                cartTicketValue({
+                    price: priceSeat + priceCombo,
+                    showTime: id,
+                    seats: selectSeat.map((item) => item._id),
+                    combos: selectCombo,
+                }),
+            );
+            await cancelHold(
+                id,
+                selectSeat.map((item) => item._id),
+            );
+            // console.log(data);
+
+            navigate('/payment');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -303,7 +382,7 @@ const SelectSeatPage = () => {
                                         <div>
                                             <h6>Ghế: </h6>
                                             {selectSeat.map((item, index) => (
-                                                <span className="text-white">
+                                                <span key={index} className="text-white">
                                                     {String.fromCharCode(64 + item.row)}
                                                     {item.col}
                                                     {index < selectSeat.length - 1 && ', '}
@@ -342,9 +421,7 @@ const SelectSeatPage = () => {
                                         </div>
                                         <div
                                             className="button big h5"
-                                            onClick={() =>
-                                                step === 1 && selectSeat.length > 0 ? handleNext() : handlePay()
-                                            }
+                                            onClick={() => (step === 1 ? handleNext() : handlePay())}
                                         >
                                             TIẾP THEO
                                         </div>
@@ -355,6 +432,15 @@ const SelectSeatPage = () => {
                     )}
                 </Container>
             </div>
+            <ModalQuestion
+                text={infoAge[standardAge.findIndex((age) => age === film?.age)]}
+                accept="Đồng ý"
+                header="Thông tin vé"
+                cancel="Huỷ"
+                show={showQuestion}
+                handleAction={handleNextOk}
+                handleClose={handleCloseQuestion}
+            />
         </div>
     );
 };
