@@ -9,7 +9,7 @@ const CheckoutPage = () => {
     const params = new URLSearchParams(location.search);
     const orderId = params.get('orderId');
     
-    window.history.replaceState(null, '', '/');
+    // window.history.replaceState(null, '', '/');
     // const [timeOut, setTimeout] = useState(lo)
     return (
         <Container>

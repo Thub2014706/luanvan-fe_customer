@@ -70,6 +70,7 @@ const SelectSeat = ({ selectSeat, setSelectSeat, selled, seats }) => {
     return (
         <div>
             <Container className="py-5">
+
                 <h2 className="text-white font-title text-center mb-5">CHỌN GHẾ</h2>
                 <div style={{ position: 'relative' }}>
                     <img className="d-block mx-auto" src={img1} alt="" />
