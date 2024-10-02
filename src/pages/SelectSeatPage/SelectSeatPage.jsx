@@ -11,7 +11,7 @@ import { cartTicketValue } from '~/features/cart/cartSlice';
 import { detailFilmBySchedule } from '~/services/FilmService';
 import { allOrderTicketSelled } from '~/services/OrderTicketService';
 import { detailPriceByUser } from '~/services/PriceService';
-import { cancelHold, holdSeat } from '~/services/RedisService';
+import { allHold, cancelHold, holdSeat } from '~/services/RedisService';
 import { detailRoom } from '~/services/RoomService';
 import { allSeatRoom } from '~/services/SeatService';
 import { detailShowTimeById } from '~/services/ShowTimeService';
@@ -35,18 +35,17 @@ const SelectSeatPage = () => {
     const [selectCombo, setSelectCombo] = useState([]);
     const dispatch = useDispatch();
     const [showQuestion, setShowQuestion] = useState(false);
+    const [hold, setHold] = useState([]);
 
-    // useEffect(() => {
-    //     const handleNavigation = async () => {
-    //         if (user?.data.id) {
-    //             if (location.pathname !== '/payment') {
-    //                 await cancelAllHold(user?.data.id);
-    //             }
-    //         }
-    //     };
+    useEffect(() => {
+        const handleNavigation = async () => {
+            const data = await allHold(id);
+            setHold(Object.keys(data));
+        };
 
-    //     handleNavigation();
-    // }, [location, user]);
+        handleNavigation();
+    }, [id]);
+
     useEffect(() => {
         const fetch = async () => {
             if (user !== null && id) {
@@ -69,7 +68,12 @@ const SelectSeatPage = () => {
         switch (step) {
             case 1:
                 return (
-                    <SelectSeat selectSeat={selectSeat} setSelectSeat={setSelectSeat} selled={selled} seats={seats} />
+                    <SelectSeat
+                        selectSeat={selectSeat}
+                        setSelectSeat={setSelectSeat}
+                        selled={selled}
+                        seats={seats}
+                    />
                 );
             case 2:
                 return <SelectCombo setSelect={setSelectCombo} />;
@@ -77,37 +81,6 @@ const SelectSeatPage = () => {
                 return null;
         }
     };
-
-    // useEffect(() => {
-    //     const fetch = async () => {
-    //         if (step === 1) {
-    //             await cancelAllHold(user?.data.id);
-    //         }
-    //     };
-    //     fetch()
-    // const handleBeforeUnload = () => {
-    //     if (user?.data.id) {
-    //         cancelAllHold(user?.data.id);
-    //     }
-    // };
-
-    // window.addEventListener('beforeunload', handleBeforeUnload);
-
-    // return () => {
-    //     handleBeforeUnload();
-    //     window.removeEventListener('beforeunload', handleBeforeUnload);
-    // };
-    // }, [user, step]);
-
-    // const handleBeforeUnload = async (event) => {
-    //     await fetch();
-    // };
-
-    // window.addEventListener('beforeunload', handleBeforeUnload);
-
-    // return () => {
-    //     window.removeEventListener('beforeunload', handleBeforeUnload);
-    // };
 
     useEffect(() => {
         const fetch = async () => {
@@ -228,10 +201,12 @@ const SelectSeatPage = () => {
                     arrayRow[seatIndex - 1] &&
                     arrayRow[seatIndex - 1].isDelete === false &&
                     (selled.includes(arrayRow[seatIndex - 2]._id) ||
+                        hold.includes(arrayRow[seatIndex - 2]._id) ||
                         selectSeat.includes(arrayRow[seatIndex - 2]) ||
                         arrayRow[seatIndex - 2].status === false) &&
                     !selectSeat.includes(arrayRow[seatIndex - 1]) &&
                     !selled.includes(arrayRow[seatIndex - 1]._id) &&
+                    !hold.includes(arrayRow[seatIndex - 1]._id) &&
                     arrayRow[seatIndex - 1].status === true
                 ) {
                     hasGap = true;
@@ -244,10 +219,12 @@ const SelectSeatPage = () => {
                     arrayRow[seatIndex + 1] &&
                     arrayRow[seatIndex + 1].isDelete === false &&
                     (selled.includes(arrayRow[seatIndex + 2]._id) ||
+                        hold.includes(arrayRow[seatIndex + 2]._id) ||
                         selectSeat.includes(arrayRow[seatIndex + 2]) ||
                         arrayRow[seatIndex + 2].status === false) &&
                     !selectSeat.includes(arrayRow[seatIndex + 1]) &&
                     !selled.includes(arrayRow[seatIndex + 1]._id) &&
+                    !hold.includes(arrayRow[seatIndex + 1]._id) &&
                     arrayRow[seatIndex + 1].status === true
                 ) {
                     hasGap = true;
@@ -261,6 +238,7 @@ const SelectSeatPage = () => {
                     arrayRow[seatIndex - 1].isDelete === false &&
                     !selectSeat.includes(arrayRow[seatIndex - 1]) &&
                     !selled.includes(arrayRow[seatIndex - 1]._id) &&
+                    !hold.includes(arrayRow[seatIndex - 1]._id) &&
                     arrayRow[seatIndex - 1].status === true
                 ) {
                     hasGap = true;
@@ -275,6 +253,7 @@ const SelectSeatPage = () => {
                     arrayRow[seatIndex + 1].isDelete === false &&
                     !selectSeat.includes(arrayRow[seatIndex + 1]) &&
                     !selled.includes(arrayRow[seatIndex + 1]._id) &&
+                    !hold.includes(arrayRow[seatIndex + 1]._id) &&
                     arrayRow[seatIndex + 1].status === true
                 ) {
                     hasGap = true;
@@ -288,7 +267,8 @@ const SelectSeatPage = () => {
                     arrayRow[seatIndex - 2].isDelete === false &&
                     arrayRow[seatIndex - 1].isDelete === false &&
                     !selectSeat.includes(arrayRow[seatIndex - 1]) &&
-                    !selled.includes(arrayRow[seatIndex - 1]._id)
+                    !selled.includes(arrayRow[seatIndex - 1]._id) &&
+                    !hold.includes(arrayRow[seatIndex - 1]._id)
                 ) {
                     hasGap = true;
                 }
@@ -301,7 +281,8 @@ const SelectSeatPage = () => {
                     arrayRow[seatIndex + 1] &&
                     arrayRow[seatIndex + 1].isDelete === false &&
                     !selectSeat.includes(arrayRow[seatIndex + 1]) &&
-                    !selled.includes(arrayRow[seatIndex + 1]._id)
+                    !selled.includes(arrayRow[seatIndex + 1]._id) &&
+                    !hold.includes(arrayRow[seatIndex + 1]._id)
                 ) {
                     hasGap = true;
                 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Table } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { showToast, typeSeatEnum } from '~/constants';
 import { allHold, cancelAllHold } from '~/services/RedisService';
 import img1 from '~/assets/images/img-screen.png';
@@ -70,7 +70,6 @@ const SelectSeat = ({ selectSeat, setSelectSeat, selled, seats }) => {
     return (
         <div>
             <Container className="py-5">
-
                 <h2 className="text-white font-title text-center mb-5">CHỌN GHẾ</h2>
                 <div style={{ position: 'relative' }}>
                     <img className="d-block mx-auto" src={img1} alt="" />
