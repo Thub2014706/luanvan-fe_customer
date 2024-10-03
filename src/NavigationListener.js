@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { cancelAllHold } from './services/RedisService';
+import { clearAll } from './features/cart/cartSlice';
 
-const NavigationGuard = () => {
+const NavigationGuard = ({showTime}) => {
     const location = useLocation();
+    const { id } = location.state || {};
+    showTime(id)
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const [prevPath, setPrevPath] = useState(null);
     const cartTicket = useSelector((state) => state.cart.cartTicket);
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -26,12 +30,13 @@ const NavigationGuard = () => {
             if (user?.data.id) {
                 if (location.pathname !== '/payment') {
                     await cancelAllHold(user?.data.id);
+                    dispatch(clearAll())
                 }
             }
         };
 
         handleNavigation();
-    }, [location, user]);
+    }, [location, user, dispatch]);
 
     return null;
 };

@@ -14,7 +14,7 @@ const SelectSeat = ({ selectSeat, setSelectSeat, selled, seats }) => {
     const { id } = location.state || {};
     const [hold, setHold] = useState([]);
     // console.log(cartTicket);
-    
+
     useEffect(() => {
         const handleNavigation = async () => {
             await cancelAllHold(user?.data.id);
@@ -121,6 +121,23 @@ const SelectSeat = ({ selectSeat, setSelectSeat, selled, seats }) => {
                         </tr>
                     </Table>
                 ))}
+                <div
+                    className="d-flex mt-5 mb-4 justify-content-center text-white"
+                    style={{ display: 'inline-block', position: 'relative' }}
+                >
+                    <div className="standard seat"></div>
+                    <p className="my-auto ms-2">Ghế thường</p>
+                    <div className="vip seat ms-4"></div>
+                    <p className="my-auto ms-2">Ghế VIP</p>
+                    <div className="couple seat ms-4"></div>
+                    <p className="my-auto ms-2">Ghế Couple</p>
+                    <div className="inaction seat ms-4"></div>
+                    <p className="my-auto ms-2">Ghế đang bảo trì</p>
+                    <div className="selled seat ms-4"></div>
+                    <p className="my-auto ms-2">Ghế đã mua</p>
+                    <div className="select seat ms-4"></div>
+                    <p className="my-auto ms-2">Ghế chọn</p>
+                </div>
             </Container>
         </div>
     );

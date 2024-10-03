@@ -59,7 +59,7 @@ export const logout = async (dispatch, token) => {
                 headers: { authorization: `Bearer ${token}` },
             },
         );
-        dispatch(clearAll())
+        dispatch(clearAll());
         dispatch(logoutSuccess());
     } catch (error) {
         dispatch(logoutFailed());
@@ -69,6 +69,15 @@ export const logout = async (dispatch, token) => {
 export const detailUserById = async (id) => {
     try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/user/detail-by-id/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};
+
+export const updateAvatar = async (formData, id) => {
+    try {
+        const response = await axios.patch(`${process.env.REACT_APP_API_URL}/api/user/avatar/${id}`, formData);
         return response.data;
     } catch (error) {
         console.log('loi', error);

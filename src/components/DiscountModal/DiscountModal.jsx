@@ -17,13 +17,24 @@ const DiscountModal = ({ show, handleClose, selectDis, setSelectDis }) => {
         fetch();
     }, []);
 
+    useEffect(() => {
+        const fetch = async () => {
+            if (selectDis) {
+                setSelect(selectDis);
+            } else {
+                setSelect();
+            }
+        };
+        fetch();
+    }, [selectDis, show]);
+
     const handleSelect = (id) => {
         select !== id ? setSelect(id) : setSelect();
     };
 
     const handleSubmit = () => {
         setSelectDis(select);
-        handleClose()
+        handleClose();
     };
 
     return (
@@ -34,35 +45,42 @@ const DiscountModal = ({ show, handleClose, selectDis, setSelectDis }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body style={{ maxHeight: '80vh', overflowY: 'auto' }}>
-                {listDis.map((item) => (
-                    <Row
-                        className="card-dis d-flex align-items-center mb-3"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleSelect(item._id)}
-                    >
-                        <Col xs={3} className="card-name-dis">
-                            <h5 className="font-title text-center">{item.name}</h5>
-                        </Col>
-                        <Col xs={8}>
-                            <p className="my-auto">
-                                Mã: <span className="fw-bold">{item.code}</span> <br />
-                                Chiết khấu: <span className="fw-bold">{item.percent}%</span> <br />
-                                HSD: <span className="fw-bold">{moment(item.endDate).format('DD/MM/YYYY')}</span>
-                            </p>
-                        </Col>
-                        <Col xs="auto">
-                            {select === item._id && <FontAwesomeIcon icon={faCheck} color="green" size="lg" />}
-                        </Col>
-                    </Row>
-                ))}
+                {listDis.length > 0 ? (
+                    listDis.map((item) => (
+                        <Row
+                            className="card-dis d-flex align-items-center mb-3"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleSelect(item._id)}
+                        >
+                            <Col xs={3} className="card-name-dis">
+                                <h5 className="font-title text-center">{item.name}</h5>
+                            </Col>
+                            <Col xs={8}>
+                                <p className="my-auto">
+                                    Mã: <span className="fw-bold">{item.code}</span> <br />
+                                    Chiết khấu: <span className="fw-bold">{item.percent}%</span> <br />
+                                    HSD: <span className="fw-bold">{moment(item.endDate).format('DD/MM/YYYY')}</span> <br />
+                                    Số lượng: <span className="fw-bold">{item.quantity - item.used}</span>
+                                </p>
+                            </Col>
+                            <Col xs="auto">
+                                {select === item._id && <FontAwesomeIcon icon={faCheck} color="green" size="lg" />}
+                            </Col>
+                        </Row>
+                    ))
+                ) : (
+                    <h5 className="text-center">Không có mã khuyến mãi nào.</h5>
+                )}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Đóng
                 </Button>
-                <Button variant="primary" onClick={handleSubmit}>
-                    Chọn
-                </Button>
+                {listDis.length > 0 && (
+                    <Button variant="primary" onClick={handleSubmit}>
+                        Chọn
+                    </Button>
+                )}
             </Modal.Footer>
         </Modal>
     );

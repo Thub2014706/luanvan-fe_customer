@@ -22,12 +22,12 @@ const SelectSeatPage = () => {
     const navigate = useNavigate();
     const [step, setStep] = useState(1);
     const location = useLocation();
+    const { id } = location.state || {};
     const [showTime, setShowTime] = useState();
     const [room, setRoom] = useState();
     const [selled, setSelled] = useState([]);
     const [film, setFilm] = useState();
     const [seats, setSeats] = useState([]);
-    const { id } = location.state || {};
     const [time, setTime] = useState(180);
     const [priceSeat, setPriceSeat] = useState(0);
     const [priceCombo, setPriceCombo] = useState(0);

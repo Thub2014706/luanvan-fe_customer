@@ -92,15 +92,21 @@ const Header = () => {
                                                     }}
                                                     className="p-3 mt-2 shadow"
                                                 >
-                                                    <li>
-                                                        <FontAwesomeIcon icon={faArrowRightFromBracket} color="black" />
-                                                        <a
-                                                            href="#"
-                                                            onClick={handleLogout}
-                                                            className="ms-1 text-black text-decoration-none"
+                                                    <li style={{ cursor: 'pointer' }}>
+                                                        <Link
+                                                            to={`/account`}
+                                                            className="text-black text-decoration-none"
                                                         >
-                                                            Đăng xuất
-                                                        </a>
+                                                            Tài khoản
+                                                        </Link>
+                                                    </li>
+                                                    <li
+                                                        className="mt-2"
+                                                        style={{ cursor: 'pointer' }}
+                                                        onClick={handleLogout}
+                                                    >
+                                                        <FontAwesomeIcon icon={faArrowRightFromBracket} color="black" />
+                                                        <span className="ms-1 text-black">Đăng xuất</span>
                                                     </li>
                                                 </ul>
                                             </div>

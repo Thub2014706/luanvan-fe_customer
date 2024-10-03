@@ -1,8 +1,11 @@
+import { layer } from "@fortawesome/fontawesome-svg-core"
+import AccountPage from "~/pages/AccountPage/AccountPage"
 import BookNowPage from "~/pages/BookNowPage/BookNowPage"
 import CheckoutPage from "~/pages/CheckoutPage/CheckoutPage"
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
+import NotFoundPage from "~/pages/NotFoundPage/NotFoundPage"
 import PayPage from "~/pages/PayPage/PayPage"
 import SchedulePage from "~/pages/SchedulePage/SchedulePage"
 import SelectSeatPage from "~/pages/SelectSeatPage/SelectSeatPage"
@@ -34,6 +37,11 @@ const publicRoutes = [
         path: '/film',
         component: BookNowPage,
     },
+    {
+        path: '/*',
+        component: NotFoundPage,
+        layout: null
+    },
 ]
 
 const privateRoutes = [
@@ -48,6 +56,10 @@ const privateRoutes = [
     {
         path: '/checkout',
         component: CheckoutPage,
+    },
+    {
+        path: '/account',
+        component: AccountPage,
     },
 ]
 

@@ -26,7 +26,7 @@ const PayPage = () => {
     const navigate = useNavigate();
     const [price, setPrice] = useState(cartTicket.price);
     const dispath = useDispatch();
-    // console.log(cartTicket);
+    // console.log('e',cartTicket);
     // window.history.replaceState(null, '', '/');
 
     useEffect(() => {
@@ -131,13 +131,18 @@ const PayPage = () => {
         const data = await momoPaymentTicket({
             amount: price,
         });
-        
+        let discount
+        if (selectDis) {
+            discount = { id: selectDis, useDiscount: (cartTicket.price - usePoint) * (detailDis.percent / 100) }
+        }
+
         await addOrderTicket(
             {
                 idOrder: data.orderId,
                 showTime: cartTicket.showTime,
                 seat: cartTicket.seats,
                 price,
+                discount,
                 paymentMethod: 'momo',
                 member: user?.data.id,
                 combo: cartTicket.combos,
@@ -146,8 +151,8 @@ const PayPage = () => {
             user?.accessToken,
         );
         window.location.href = data.payUrl;
-        // console.log(data);
     };
+    // console.log(selectDis);
 
     return (
         <div>

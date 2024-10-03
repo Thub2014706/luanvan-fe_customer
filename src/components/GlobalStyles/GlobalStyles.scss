@@ -132,6 +132,14 @@ body {
         color: black;
         padding: 7px 15px;
     }
+    
+    &.avatar-up {
+        justify-content: center;
+        background-color: #f3ea28;
+        padding: 5px;
+        color: black;
+        width: 100px;
+    }
 
     &.b2 {
         background-color: #663399;
@@ -509,7 +517,7 @@ body {
     }
 
     &.inaction {
-        color: #663399;
+        color: rgb(167, 167, 167);
         background-color: #0f1b07;
     }
 
@@ -519,8 +527,8 @@ body {
     }
 
     &.selled {
-        color: #663399;
-        background-color: #a4a4a4;
+        color: rgb(167, 167, 167);
+        background-color: #48566a;
     }
 }
 
@@ -557,4 +565,9 @@ body {
 
 .card-name-dis {
     border-right: 1px solid #96b7f8;
+}
+
+.bg-info-user {
+    background: linear-gradient(to bottom right, #564372, #37589a);
+    padding: 30px;
 }

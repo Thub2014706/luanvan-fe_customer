@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ScheduleMini from '../ScheduleMini/ScheduleMini';
 import moment from 'moment';
+import momentTimezone from 'moment-timezone';
 import { nameDay, statusShowTime } from '~/constants';
 import { filmByTheater, soldOutSeat } from '~/services/ShowTimeService';
 import { Link, useParams } from 'react-router-dom';
@@ -41,14 +42,23 @@ const SelectSchedule = () => {
                 data.map(async (item) => {
                     const newShowTimes = await Promise.all(
                         item.showTimes.map(async (mini) => {
+                            const now = Date.now();
+                            const currentDate = new Date(now);
+                            const minutes = currentDate.getMinutes();
+                            const hours = currentDate.getHours();
+                            const initialTime = momentTimezone.tz(mini.timeStart, 'HH:mm', 'Asia/Ho_Chi_Minh');
+                            const newTime = initialTime.subtract(20, 'minutes');
+                            const late =
+                                (hours === newTime.hours() && minutes < newTime.minutes()) || hours < newTime.hours()
+                                    ? 1
+                                    : 0;
                             const test = await soldOutSeat(mini._id, mini.room);
-                            return { ...mini, test };
+                            return { ...mini, test, late };
                         }),
                     );
                     return { film: item.film, showTimes: newShowTimes };
                 }),
             );
-            // console.log(newData);
             setShowTimes(newData);
         };
         fetch();
@@ -129,15 +139,19 @@ const SelectSchedule = () => {
                                                             to={
                                                                 min.status === statusShowTime[2] &&
                                                                 min.test === 1 &&
+                                                                min.late === 1 &&
                                                                 '/book-seat'
                                                             }
                                                             state={
                                                                 min.status === statusShowTime[2] &&
-                                                                min.test === 1 && { id: min._id }
+                                                                min.test === 1 &&
+                                                                min.late === 1 && { id: min._id }
                                                             }
                                                             style={{ display: 'inline-block' }}
                                                             className={`time-mini me-3 mb-3 text-decoration-none ${
-                                                                min.status === statusShowTime[2] && min.test === 1
+                                                                min.status === statusShowTime[2] &&
+                                                                min.test === 1 &&
+                                                                min.late === 1
                                                                     ? 'yes'
                                                                     : 'no'
                                                             }`}
