@@ -77,9 +77,14 @@ export const detailUserById = async (id) => {
 
 export const updateAvatar = async (formData, id) => {
     try {
-        const response = await axios.patch(`${process.env.REACT_APP_API_URL}/api/user/avatar/${id}`, formData);
+        const response = await axios.patch(`${process.env.REACT_APP_API_URL}/api/user/avatar/${id}`, formData, {
+            headers: {
+                'content-type': 'multipart/form-data',
+            },
+        });
         return response.data;
     } catch (error) {
         console.log('loi', error);
     }
 };
+

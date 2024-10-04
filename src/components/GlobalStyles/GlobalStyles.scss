@@ -132,7 +132,7 @@ body {
         color: black;
         padding: 7px 15px;
     }
-    
+
     &.avatar-up {
         justify-content: center;
         background-color: #f3ea28;
@@ -570,4 +570,13 @@ body {
 .bg-info-user {
     background: linear-gradient(to bottom right, #564372, #37589a);
     padding: 30px;
+}
+
+.menu-user {
+    background: linear-gradient(to right, rgba(79, 52, 142, 0.2), rgba(22, 82, 202, 0.2));
+    cursor: pointer;
+
+    &.line {
+        border-bottom: 5px solid #f3ea28;
+    }
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import logo from '~/assets/images/CINETHU.png';
 import Search from '../Search/Search';
@@ -6,16 +6,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faCalendarDays, faLocationDot, faUserLarge } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '~/services/UserService';
+import { detailUserById, logout } from '~/services/UserService';
 import img1 from '~/assets/images/ic-ticket.svg';
 import img2 from '~/assets/images/ic-cor.svg';
 import AllTheater from '~/components/AllTheater/AllTheater';
 import { cancelAllHold } from '~/services/RedisService';
+import ImageBase from '~/components/ImageBase/ImageBase';
 
 const Header = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const [showTheatre, setShowTheater] = useState(false);
     const timeoutRef = useRef(null);
+    const [userInfo, setUserInfo] = useState();
+
+    useEffect(() => {
+        const fetch = async () => {
+            const data = await detailUserById(user.data.id);
+            setUserInfo(data);
+        };
+        fetch();
+    }, [user]);
 
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
@@ -69,10 +79,26 @@ const Header = () => {
                         <span className="d-flex float-end">
                             <Search />
                             <div className="text-white d-flex my-auto ms-5 text-decoration-none">
-                                {user !== null ? (
+                                {user !== null && userInfo ? (
                                     <div>
                                         <span className="d-flex" onMouseEnter={handleShow} onMouseLeave={handleHide}>
-                                            <FontAwesomeIcon icon={faUserLarge} size="lg" style={{ color: 'white' }} />
+                                            {userInfo.avatar ? (
+                                                <ImageBase
+                                                    pathImg={userInfo.avatar}
+                                                    style={{
+                                                        height: '30px',
+                                                        width: '30px',
+                                                        borderRadius: '50%',
+                                                        objectFit: 'cover',
+                                                    }}
+                                                />
+                                            ) : (
+                                                <FontAwesomeIcon
+                                                    icon={faUserLarge}
+                                                    size="lg"
+                                                    style={{ color: 'white' }}
+                                                />
+                                            )}
                                             <p className="ms-2 my-auto">{user.data.username}</p>
                                         </span>
                                         {show && (
