@@ -9,6 +9,10 @@ export const cartTicketSlice = createSlice({
             seats: [],
             combos: [],
         },
+        cartCombo: {
+            combos: [],
+            price: 0
+        }
     },
     reducers: {
         cartTicketValue: (state, action) => {
@@ -23,9 +27,13 @@ export const cartTicketSlice = createSlice({
             state.cartTicket.seats = [];
             state.cartTicket.combos = [];
         },
+        cartComboValue: (state, action) => {
+            state.cartCombo.combos = action.payload.combos;
+            state.cartCombo.price = action.payload.price;
+        }
     },
 });
 
-export const { cartTicketValue, clearAll } = cartTicketSlice.actions;
+export const { cartTicketValue, clearAll, cartComboValue } = cartTicketSlice.actions;
 
 export default cartTicketSlice.reducer;

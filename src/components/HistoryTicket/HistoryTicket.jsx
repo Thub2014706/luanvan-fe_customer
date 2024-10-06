@@ -6,12 +6,14 @@ import { allOrderByUser } from '~/services/OrderTicketService';
 import { signAge, standardAge } from '~/constants';
 import moment from 'moment';
 import ModalDetailTicket from '../ModalDetailTicket/ModalDetailTicket';
+import ModalTicketRefund from '../ModalTicketRefund/ModalTicketRefund';
 
 const HistoryTicket = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const [orders, setOrders] = useState([]);
     const [showDetail, setShowDetail] = useState(false);
     const [detail, setSetail] = useState();
+    const [showRefund, setShowRefund] = useState(false);
 
     useEffect(() => {
         const fetch = async () => {
@@ -31,6 +33,16 @@ const HistoryTicket = () => {
         setShowDetail(false);
         setSetail();
     };
+
+    const handleShowRefund = () => {
+        setShowRefund(true);
+        handleCloseDetail();
+    };
+
+    const handleCloseRefund = () => {
+        setShowRefund(false);
+    };
+
     return (
         <div>
             {orders.map((item) => (
@@ -86,7 +98,15 @@ const HistoryTicket = () => {
                     <hr />
                 </div>
             ))}
-            {detail && <ModalDetailTicket show={showDetail} handleClose={handleCloseDetail} item={detail} />}
+            {detail && (
+                <ModalDetailTicket
+                    show={showDetail}
+                    handleClose={handleCloseDetail}
+                    item={detail}
+                    handleShowRefund={handleShowRefund}
+                />
+            )}
+            <ModalTicketRefund show={showRefund} handleClose={handleCloseRefund} />
         </div>
     );
 };

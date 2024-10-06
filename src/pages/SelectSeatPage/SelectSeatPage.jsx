@@ -132,20 +132,6 @@ const SelectSeatPage = () => {
         fetch();
     }, [selectCombo]);
 
-    // useEffect(() => {
-    //     const handleBeforeUnload = async () => {
-    //         await cancelHold({ seatId: selectSeat.map((item) => item._id), showTime: id });
-    //     };
-
-    //     window.addEventListener('beforeunload', handleBeforeUnload);
-
-    //     return () => {
-    //         window.removeEventListener('beforeunload', handleBeforeUnload);
-    //     };
-    // }, [selectSeat, id]);
-
-    // console.log(selectSeat);
-
     useEffect(() => {
         let interval;
         let startTime;

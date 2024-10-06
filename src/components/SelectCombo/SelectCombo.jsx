@@ -4,10 +4,10 @@ import { listCombo } from '~/services/ComboService';
 import { listFood } from '~/services/FoodService';
 import ComboItem from '../ComboItem/ComboItem';
 
-const SelectCombo = ({setSelect}) => {
+const SelectCombo = ({ setSelect }) => {
     const [combo, setCombo] = useState([]);
-    const [food, setFood] = useState([]);
     const [selectCombo, setSelectCombo] = useState([]);
+    const [food, setFood] = useState([]);
     const [selectFood, setSelectFood] = useState([]);
 
     useEffect(() => {
@@ -84,18 +84,11 @@ const SelectCombo = ({setSelect}) => {
         check === 'combo' ? setSelectCombo(copy) : setSelectFood(copy);
     };
 
-    // const handleSubmit = () => {
-    //     if (select.length > 0) {
-    //         dispatch(stepNext(2));
-    //     } else {
-    //         setWar('Hãy chọn combo, bắp nước.');
-    //     }
-    // };
-
     return (
         <div>
             <Container className="py-5">
                 <h2 className="text-white font-title text-center mb-5">CHỌN BẮP NƯỚC</h2>
+                <h3 className="text-white font-title mb-5">COMBO</h3>
                 <Row>
                     {combo.map((item, index) => (
                         <Col key={item._id} className="mb-5" sm={4}>
@@ -108,6 +101,9 @@ const SelectCombo = ({setSelect}) => {
                             />
                         </Col>
                     ))}
+                </Row>
+                <h3 className="text-white font-title my-5">THỨC ĂN LẺ</h3>
+                <Row>
                     {food.map((item, index) => (
                         <Col className="mb-5" sm={4}>
                             <ComboItem

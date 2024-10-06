@@ -21,7 +21,7 @@ const Header = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            const data = await detailUserById(user.data.id);
+            const data = await detailUserById(user?.data.id);
             setUserInfo(data);
         };
         fetch();
@@ -69,10 +69,10 @@ const Header = () => {
                                 <img src={img1} alt="" />
                                 <span className="ms-2">ĐẶT VÉ NGAY</span>
                             </Link>
-                            <div className="button b2 ms-3">
+                            <Link to={'/book-combo'} className="button b2 ms-3 text-decoration-none">
                                 <img src={img2} alt="" />
                                 <span className="ms-2">ĐẶT BẮP NƯỚC</span>
-                            </div>
+                            </Link>
                         </div>
                     </Col>
                     <Col xs={5} className="my-auto">
