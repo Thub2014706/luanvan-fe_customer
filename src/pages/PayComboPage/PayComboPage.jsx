@@ -3,7 +3,10 @@ import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import DiscountModal from '~/components/DiscountModal/DiscountModal';
 import { showToast } from '~/constants';
+import { momoPaymentCombo } from '~/services/MomoService';
 import { detailUserById } from '~/services/UserService';
+import { addOrderCombo } from '../../services/OrderComboService';
+import { detailDiscount } from '~/services/DiscountService';
 
 const PayComboPage = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -12,8 +15,9 @@ const PayComboPage = () => {
     const [selectDis, setSelectDis] = useState();
     const [detailDis, setDetailDis] = useState();
     const [point, setPoint] = useState(0);
-    const [usePoint, setUsePoint] = useState(0);
     const timeoutRef = useRef(null);
+
+    const [usePoint, setUsePoint] = useState(0);
     const cartCombo = useSelector((state) => state.cart.cartCombo);
     const [price, setPrice] = useState(cartCombo.price);
 
@@ -27,14 +31,24 @@ const PayComboPage = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            setPrice(
-                cartCombo.price -
-                    usePoint -
-                    (detailDis ? (cartCombo.price - usePoint) * (detailDis.percent / 100) : 0),
-            );
+            setPrice(cartCombo.price - usePoint - (detailDis ? cartCombo.price * (detailDis.percent / 100) : 0));
         };
         fetch();
     }, [cartCombo.price, detailDis, usePoint]);
+
+    useEffect(() => {
+        const fetch = async () => {
+            if (selectDis) {
+                setUsePoint(0);
+                setPoint(0);
+                const data = await detailDiscount(selectDis);
+                setDetailDis(data);
+            } else {
+                setDetailDis();
+            }
+        };
+        fetch();
+    }, [selectDis]);
 
     const handleShowDiscount = () => {
         setShowDis(true);
@@ -56,10 +70,48 @@ const PayComboPage = () => {
                 showToast('Điểm thanh toán phải tối thiểu 20.000đ', 'warning');
             } else if (value > detailUser.point) {
                 showToast('Điểm thanh toán đã vượt quá số điểm của bạn', 'warning');
-            } else if (value > cartCombo.price) {
-                showToast('Điểm thanh toán đã vượt quá số tiền thanh toán', 'warning');
+            } else if (value > cartCombo.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9) {
+                showToast('Điểm thanh toán đã vượt quá 90% số tiền thanh toán', 'warning');
             } else setUsePoint(value);
         }, 700);
+    };
+
+    const handleMax = () => {
+        setPoint((cartCombo.price - (detailDis ? cartCombo.price * (detailDis.percent / 100) : 0)) * 0.9);
+        setUsePoint((cartCombo.price - (detailDis ? cartCombo.price * (detailDis.percent / 100) : 0)) * 0.9);
+    };
+
+    const handlePay = async () => {
+        if (point < 20000 && point > 0) {
+            showToast('Điểm thanh toán phải tối thiểu 20.000đ', 'warning');
+        } else if (point > detailUser.point) {
+            showToast('Điểm thanh toán đã vượt quá số điểm của bạn', 'warning');
+        } else if (point > cartCombo.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9) {
+            showToast('Điểm thanh toán đã vượt quá 90% số tiền thanh toán', 'warning');
+        } else {
+            const data = await momoPaymentCombo({
+                amount: price,
+            });
+            let discount;
+            if (selectDis) {
+                discount = { id: selectDis, useDiscount: (cartCombo.price - usePoint) * (detailDis.percent / 100) };
+            }
+
+            await addOrderCombo(
+                {
+                    idOrder: data.orderId,
+                    price,
+                    theater: cartCombo.theater,
+                    discount,
+                    paymentMethod: 'momo',
+                    member: user?.data.id,
+                    combo: cartCombo.combos,
+                    usePoint,
+                },
+                user?.accessToken,
+            );
+            window.location.href = data.payUrl;
+        }
     };
 
     return (
@@ -79,10 +131,21 @@ const PayComboPage = () => {
                             <div className="mt-4">
                                 <h5 className="font-title">ĐIỂM THANH TOÁN</h5>
                                 {detailUser !== null && <p>Bạn có {detailUser.point} điểm tích lũy</p>}
+                                {detailUser?.point >= 20000 &&
+                                    cartCombo.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9 >= 20000 && (
+                                        <div className="button b1 mb-4" onClick={handleMax}>
+                                            Sử dụng tối đa điểm
+                                        </div>
+                                    )}
                                 <Form.Control
                                     type="number"
                                     value={point > 0 ? point : ''}
-                                    disabled={detailUser?.point < 20000 || cartCombo.price < 20000 ? true : false}
+                                    disabled={
+                                        detailUser?.point < 20000 ||
+                                        cartCombo.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9 < 20000
+                                            ? true
+                                            : false
+                                    }
                                     onChange={handlePoint}
                                     placeholder="Sử dụng điểm thanh toán (tối thiểu 20.000đ)"
                                 />
@@ -99,10 +162,7 @@ const PayComboPage = () => {
                                 <span>Mã khuyến mãi</span>
                                 <span>
                                     {detailDis
-                                        ? `- ${(
-                                              (cartCombo.price - usePoint) *
-                                              (detailDis.percent / 100)
-                                          ).toLocaleString('it-IT')}`
+                                        ? `- ${(cartCombo.price * (detailDis.percent / 100)).toLocaleString('it-IT')}`
                                         : 0}{' '}
                                     VNĐ
                                 </span>
@@ -125,7 +185,7 @@ const PayComboPage = () => {
                                     color: '#663399',
                                     cursor: 'pointer',
                                 }}
-                                // onClick={handlePay}
+                                onClick={handlePay}
                             >
                                 Thanh toán với Momo
                             </div>

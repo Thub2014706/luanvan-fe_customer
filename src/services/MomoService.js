@@ -11,7 +11,7 @@ export const momoPaymentTicket = async (amount) => {
 
 export const momoPaymentCombo = async (amount) => {
     try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/momo/payment-combo`, amount);
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/momo/payment-combo-customer`, amount);
         return response.data;
     } catch (error) {
         console.log('loi', error);

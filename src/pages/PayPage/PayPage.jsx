@@ -54,11 +54,7 @@ const PayPage = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            setPrice(
-                cartTicket.price -
-                    usePoint -
-                    (detailDis ? (cartTicket.price - usePoint) * (detailDis.percent / 100) : 0),
-            );
+            setPrice(cartTicket.price - usePoint - (detailDis ? cartTicket.price * (detailDis.percent / 100) : 0));
         };
         fetch();
     }, [cartTicket.price, detailDis, usePoint]);
@@ -66,6 +62,8 @@ const PayPage = () => {
     useEffect(() => {
         const fetch = async () => {
             if (selectDis) {
+                setPoint(0);
+                setPoint(0);
                 const data = await detailDiscount(selectDis);
                 setDetailDis(data);
             } else {
@@ -95,8 +93,8 @@ const PayPage = () => {
                 showToast('Điểm thanh toán phải tối thiểu 20.000đ', 'warning');
             } else if (value > detailUser.point) {
                 showToast('Điểm thanh toán đã vượt quá số điểm của bạn', 'warning');
-            } else if (value > cartTicket.price) {
-                showToast('Điểm thanh toán đã vượt quá số tiền thanh toán', 'warning');
+            } else if (value > cartTicket.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9) {
+                showToast('Điểm thanh toán đã vượt quá 90% số tiền thanh toán', 'warning');
             } else setUsePoint(value);
         }, 700);
     };
@@ -127,30 +125,43 @@ const PayPage = () => {
         };
     }, [timePay, navigate, dispath]);
 
-    const handlePay = async () => {
-        const data = await momoPaymentTicket({
-            amount: price,
-        });
-        let discount
-        if (selectDis) {
-            discount = { id: selectDis, useDiscount: (cartTicket.price - usePoint) * (detailDis.percent / 100) }
-        }
+    const handleMax = () => {
+        setPoint((cartTicket.price - (detailDis ? cartTicket.price * (detailDis.percent / 100) : 0)) * 0.9);
+        setUsePoint((cartTicket.price - (detailDis ? cartTicket.price * (detailDis.percent / 100) : 0)) * 0.9);
+    };
 
-        await addOrderTicket(
-            {
-                idOrder: data.orderId,
-                showTime: cartTicket.showTime,
-                seat: cartTicket.seats,
-                price,
-                discount,
-                paymentMethod: 'momo',
-                member: user?.data.id,
-                combo: cartTicket.combos,
-                usePoint: point,
-            },
-            user?.accessToken,
-        );
-        window.location.href = data.payUrl;
+    const handlePay = async () => {
+        if (point < 20000 && point > 0) {
+            showToast('Điểm thanh toán phải tối thiểu 20.000đ', 'warning');
+        } else if (point > detailUser.point) {
+            showToast('Điểm thanh toán đã vượt quá số điểm của bạn', 'warning');
+        } else if (point > cartTicket.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9) {
+            showToast('Điểm thanh toán đã vượt quá 90% số tiền thanh toán', 'warning');
+        } else {
+            const data = await momoPaymentTicket({
+                amount: price,
+            });
+            let discount;
+            if (selectDis) {
+                discount = { id: selectDis, useDiscount: (cartTicket.price - usePoint) * (detailDis.percent / 100) };
+            }
+
+            await addOrderTicket(
+                {
+                    idOrder: data.orderId,
+                    showTime: cartTicket.showTime,
+                    seat: cartTicket.seats,
+                    price,
+                    discount,
+                    paymentMethod: 'momo',
+                    member: user?.data.id,
+                    combo: cartTicket.combos,
+                    usePoint: point,
+                },
+                user?.accessToken,
+            );
+            window.location.href = data.payUrl;
+        }
     };
     // console.log(selectDis);
 
@@ -171,10 +182,22 @@ const PayPage = () => {
                             <div className="mt-4">
                                 <h5 className="font-title">ĐIỂM THANH TOÁN</h5>
                                 {detailUser !== null && <p>Bạn có {detailUser.point} điểm tích lũy</p>}
+                                {detailUser?.point >= 20000 &&
+                                    cartTicket.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9 >=
+                                        20000 && (
+                                        <div className="button b1 mb-4" onClick={handleMax}>
+                                            Sử dụng tối đa điểm
+                                        </div>
+                                    )}
                                 <Form.Control
                                     type="number"
                                     value={point > 0 ? point : ''}
-                                    disabled={detailUser?.point < 20000 || cartTicket.price < 20000 ? true : false}
+                                    disabled={
+                                        detailUser?.point < 20000 ||
+                                        cartTicket.price * (detailDis ? 1 - detailDis?.percent / 100 : 1) * 0.9 < 20000
+                                            ? true
+                                            : false
+                                    }
                                     onChange={handlePoint}
                                     placeholder="Sử dụng điểm thanh toán (tối thiểu 20.000đ)"
                                 />
@@ -191,10 +214,7 @@ const PayPage = () => {
                                 <span>Mã khuyến mãi</span>
                                 <span>
                                     {detailDis
-                                        ? `- ${(
-                                              (cartTicket.price - usePoint) *
-                                              (detailDis.percent / 100)
-                                          ).toLocaleString('it-IT')}`
+                                        ? `- ${(cartTicket.price * (detailDis.percent / 100)).toLocaleString('it-IT')}`
                                         : 0}{' '}
                                     VNĐ
                                 </span>

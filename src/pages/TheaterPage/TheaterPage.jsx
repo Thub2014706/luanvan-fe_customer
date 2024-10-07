@@ -5,6 +5,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { detailTheater } from '~/services/TheaterService';
 import SelectSchedule from '~/components/SelectSchesule/SelectSchedule';
+import TablePrice from '~/components/TablePrice/TablePrice';
 
 const TheaterPage = () => {
     const [theater, setTheater] = useState(null);
@@ -27,8 +28,8 @@ const TheaterPage = () => {
                 return <SelectSchedule />;
             // case 2:
             //     return <SelectShowTime />;
-            // case 3:
-            //     return <SelectSeat />;
+            case 3:
+                return <TablePrice />;
             default:
                 return null;
         }

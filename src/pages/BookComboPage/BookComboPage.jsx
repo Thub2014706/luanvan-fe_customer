@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ComboItem from '~/components/ComboItem/ComboItem';
 import Name from '~/components/Name/Name';
-import { cartComboValue } from '~/features/cart/cartSlice';
+import { showToast } from '~/constants';
+import { cartComboValue, clearAllCombo } from '~/features/cart/cartSlice';
 import { listCombo } from '~/services/ComboService';
 import { listFood } from '~/services/FoodService';
 import { detailTheater, listTheater } from '~/services/TheaterService';
@@ -20,6 +21,13 @@ const BookComboPage = () => {
     const [price, setPrice] = useState(0);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetch = async () => {
+            dispatch(clearAllCombo());
+        };
+        fetch();
+    }, [dispatch]);
 
     useEffect(() => {
         const fetch = async () => {
@@ -110,9 +118,10 @@ const BookComboPage = () => {
     };
 
     const handleNext = () => {
-        console.log(price, select);
-        dispatch(cartComboValue({ price: price, combos: select }));
-        navigate('/payment-combo');
+        if (select.length > 0) {
+            dispatch(cartComboValue({ price, combos: select, theater }));
+            navigate('/payment-combo');
+        } else showToast('Vui lòng chọn bắp nước!', 'warning');
     };
 
     return (

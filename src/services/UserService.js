@@ -7,7 +7,7 @@ import {
     logoutStart,
     logoutSuccess,
 } from '~/features/auth/authSlice';
-import { clearAll } from '~/features/cart/cartSlice';
+import { clearAll, clearAllCombo } from '~/features/cart/cartSlice';
 
 axios.defaults.withCredentials = true;
 
@@ -60,6 +60,7 @@ export const logout = async (dispatch, token) => {
             },
         );
         dispatch(clearAll());
+        dispatch(clearAllCombo())
         dispatch(logoutSuccess());
     } catch (error) {
         dispatch(logoutFailed());
