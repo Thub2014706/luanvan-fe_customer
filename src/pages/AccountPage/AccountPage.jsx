@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import InfoAccount from '~/components/InfoAccount/InfoAccount';
 import Member from '~/components/Member/Member';
 import TransactionHistory from '~/components/TransactionHistory/TransactionHistory';
 
 const AccountPage = () => {
-    const user = useSelector((state) => state.auth.login.currentUser);
     const [step, setStep] = useState(1);
 
     const renderStep = (step) => {

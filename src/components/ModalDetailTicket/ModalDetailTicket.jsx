@@ -83,7 +83,7 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund }) => {
                     <div
                         className="text-danger text-decoration-underline"
                         style={{ cursor: 'pointer' }}
-                        onClick={handleShowRefund}
+                        onClick={() => handleShowRefund(item.item._id)}
                     >
                         YÊU CẦU HOÀN VÉ
                     </div>

@@ -62,6 +62,7 @@ const BookModal = ({ show, handleClose, id }) => {
                                 const initialTime = momentTimezone.tz(mini.timeStart, 'HH:mm', 'Asia/Ho_Chi_Minh');
                                 const newTime = initialTime.subtract(20, 'minutes');
                                 const late =
+                                    new Date(mini.date) > currentDate.setUTCHours(0, 0, 0, 0) ||
                                     (hours === newTime.hours() && minutes < newTime.minutes()) ||
                                     hours < newTime.hours()
                                         ? 1
