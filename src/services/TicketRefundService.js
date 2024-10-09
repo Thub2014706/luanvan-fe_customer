@@ -22,3 +22,12 @@ export const allTicketRefund = async (id) => {
         console.log('loi', error);
     }
 };
+
+export const ticketRefundByOrder = async (id) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/ticket-refund/refund-by-order/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};

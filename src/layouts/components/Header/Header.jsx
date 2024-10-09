@@ -21,8 +21,10 @@ const Header = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            const data = await detailUserById(user?.data.id);
-            setUserInfo(data);
+            if (user) {
+                const data = await detailUserById(user.data.id);
+                setUserInfo(data);
+            }
         };
         fetch();
     }, [user]);

@@ -30,7 +30,9 @@ const ModalTicketRefund = ({ show, handleClose, idRefund }) => {
                 </ul>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary">Đóng</Button>
+                <Button variant="secondary" onClick={handleClose}>
+                    Đóng
+                </Button>
                 <Button variant="danger" onClick={() => handleSubmit()}>
                     Gửi yêu cầu
                 </Button>

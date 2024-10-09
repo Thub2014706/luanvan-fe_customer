@@ -81,7 +81,7 @@ const BookModal = ({ show, handleClose, id }) => {
         fetch();
     }, [id, date, selectPro]);
 
-    console.log(theaters);
+    // console.log(theaters);
 
     // const handleShowTime = (id) => {
     //     if (id !== showTime) {

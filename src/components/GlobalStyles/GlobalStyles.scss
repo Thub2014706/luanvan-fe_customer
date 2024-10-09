@@ -187,6 +187,25 @@ body {
         justify-content: center;
         width: 100px;
     }
+
+    &.ticket {
+        background-color: #4290bddb;
+        padding: 7px 15px;
+        color: white;
+        // color: rgb(230, 215, 255);
+    }
+
+    &.up {
+        background: linear-gradient(to bottom right, #caa9ff, #82acff);
+        color: black;
+        // padding: 7px 15px;
+    }
+
+    // &.ticket-no {
+    //     border: 1px solid #4290bddb;
+    //     padding: 7px 15px;
+    //     color: #4290bddb;
+    // }
 }
 
 .card-film {
@@ -576,4 +595,13 @@ body {
     &.no {
         border-bottom: 1px solid white;
     }
+}
+
+.bg-ticket {
+    background-color: #6d598b;
+    padding: 10px;
+}
+
+.custom-input::placeholder {
+    color: white !important;
 }

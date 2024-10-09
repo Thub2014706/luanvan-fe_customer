@@ -55,9 +55,15 @@ const HistoryTicket = () => {
 
     return (
         <div>
-            <div className="d-flex">
-                <h5 onClick={() => setStep(1)}>Vé đã hoàn tất</h5>
-                <h5 className="ms-3" onClick={() => setStep(2)}>
+            <div className="d-flex bg-ticket mt-2">
+                <h5 onClick={() => setStep(1)} style={{ color: step === 1 ? '#f3ea28' : 'white', cursor: 'pointer' }}>
+                    Vé đã hoàn tất
+                </h5>
+                <h5
+                    className="ms-3"
+                    onClick={() => setStep(2)}
+                    style={{ color: step === 2 ? '#f3ea28' : 'white', cursor: 'pointer' }}
+                >
                     Vé đã hoàn
                 </h5>
             </div>
@@ -114,7 +120,12 @@ const HistoryTicket = () => {
                                 <div className="button b1" onClick={() => handleShowDetail(item)}>
                                     Chi tiết
                                 </div>
-                                <div className="button b2 ms-2">Vé</div>
+                                {/* {step === 1 && (
+                                    <div className="button ticket ms-2" onClick={() => handleShowDetail(item)}>
+                                        Đánh giá
+                                    </div>
+                                )} */}
+                                {step === 1 && <div className="button b2 ms-2">Vé</div>}
                             </Col>
                         </Row>
                         <hr />
@@ -129,6 +140,7 @@ const HistoryTicket = () => {
                     handleClose={handleCloseDetail}
                     item={detail}
                     handleShowRefund={handleShowRefund}
+                    status={step}
                 />
             )}
             <ModalTicketRefund show={showRefund} handleClose={handleCloseRefund} idRefund={idRefund} />

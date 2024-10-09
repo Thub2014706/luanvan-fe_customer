@@ -21,7 +21,7 @@ const TransactionHistory = () => {
         <div className="bg-info-user">
             <h1 className="font-title mb-5">LỊCH SỬ GIAO DỊCH</h1>
             {/* <div className='font-title'>VÉ PHIM</div> */}
-            <div className="mb-5">
+            <div className="mb-1">
                 <Row>
                     <Col
                         xs="auto"

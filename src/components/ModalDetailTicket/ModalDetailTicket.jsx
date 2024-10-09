@@ -1,13 +1,24 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Barcode from 'react-barcode';
 import { Modal, Table } from 'react-bootstrap';
+import { ticketRefundByOrder } from '~/services/TicketRefundService';
 
-const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund }) => {
+const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund, status }) => {
+    const [refund, setRefund] = useState();
 
+    useEffect(() => {
+        const fetch = async () => {
+            if (status === 2) {
+                const data = await ticketRefundByOrder(item.item._id);
+                setRefund(data);
+            }
+        };
+        fetch();
+    });
     return (
         <div>
-            <Modal size="lg" centered show={show} onHide={handleClose}>
+            <Modal style={{ zIndex: 1000000 }} size="lg" centered show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Mã vé: {item.item.idOrder}</Modal.Title>
                 </Modal.Header>
@@ -23,6 +34,16 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund }) => {
                     </div>
                     <p>Ngày đặt vé: {moment(item.item.createdAt).format('HH:mm DD/MM/YYYY')}</p>
                     <p>Hình thức đặt vé: {item.item.staff ? 'Đặt vé tại rạp' : 'Đặt vé online'}</p>
+                    <p>
+                        Trạng thái:{' '}
+                        {status === 1 ? (
+                            <span style={{ color: 'green' }}>Đã hoàn tất</span>
+                        ) : (
+                            <span style={{ color: 'red' }}>
+                                Đã hoàn vé ({refund && moment(refund.createdAt).format('HH:mm DD/MM/YYYY')})
+                            </span>
+                        )}
+                    </p>
                     <Table bordered className="text-center">
                         <thead>
                             <tr>
@@ -80,13 +101,15 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund }) => {
                             </tr>
                         </tbody>
                     </Table>
-                    <div
-                        className="text-danger text-decoration-underline"
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleShowRefund(item.item._id)}
-                    >
-                        YÊU CẦU HOÀN VÉ
-                    </div>
+                    {status === 1 && (
+                        <div
+                            className="text-danger text-decoration-underline"
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => handleShowRefund(item.item._id)}
+                        >
+                            YÊU CẦU HOÀN VÉ
+                        </div>
+                    )}
                 </Modal.Body>
             </Modal>
         </div>
