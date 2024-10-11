@@ -50,19 +50,19 @@ const DetailFilm = () => {
         film !== null && (
             <div>
                 <Row>
-                    <Col xs="auto">
+                    <Col xs={5}>
                         <ImageBase
                             pathImg={film.image}
                             style={{
-                                height: '700px',
-                                width: '490px',
+                                height: '690px',
+                                width: '480px',
                                 objectFit: 'cover',
                                 borderRadius: '5px',
                                 border: '1px solid gray',
                             }}
                         />
                     </Col>
-                    <Col xs="auto">
+                    <Col xs={7} className='mt-1'>
                         <p className="name-film font-title " style={{ fontSize: '3.5rem' }}>
                             {film.name}
                         </p>
