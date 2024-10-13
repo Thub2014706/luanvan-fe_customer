@@ -69,7 +69,7 @@ const ReviewFilm = () => {
             </p>
             {/* <div className="d-flex"> */}
             <span className="h4 ms-2" style={{ color: '#ffbc0b' }}>
-                {avg}/5
+                {avg ? avg : 0}/5
             </span>
             <br />
             <Rating initialValue={avg} allowFraction readonly size={28} /> {/* </div> */}

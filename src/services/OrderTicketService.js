@@ -37,7 +37,9 @@ export const allOrderTicketSelled = async (showTime) => {
 
 export const allOrderTicket = async (theater, number, show) => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/order-ticket?theater=${theater}&number=${number}&show=${show}`);
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/order-ticket?theater=${theater}&number=${number}&show=${show}`,
+        );
         return response.data;
     } catch (error) {
         showToast(error.response.data.message, 'error');
@@ -54,9 +56,11 @@ export const sumPayByUser = async (id) => {
     }
 };
 
-export const allOrderByUser = async (id) => {
+export const allOrderByUser = async (id, number) => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/order-ticket/order-by-user/${id}`);
+        const response = await axios.get(
+            `${process.env.REACT_APP_API_URL}/api/order-ticket/order-by-user/${id}?number=${number}`,
+        );
         return response.data;
     } catch (error) {
         console.log('loi', error);

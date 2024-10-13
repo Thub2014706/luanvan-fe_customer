@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { showToast } from '~/constants';
 import {
     loginFailed,
     loginStart,
@@ -22,7 +23,7 @@ export const refreshToken = async () => {
     }
 };
 
-export const login = async (user, toast, navigate, dispatch) => {
+export const login = async (user, navigate, dispatch) => {
     dispatch(loginStart());
     try {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/signin`, user);
@@ -31,17 +32,22 @@ export const login = async (user, toast, navigate, dispatch) => {
     } catch (error) {
         dispatch(loginFailed);
         if (error.response) {
-            toast(error.response.data.message, {
-                position: 'top-center',
-                autoClose: 2000,
-                type: 'error',
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: 'light',
-            });
+            showToast(error.response.data.message, 'error');
+        } else {
+            console.log(error);
+            alert('Lỗi mạng');
+        }
+    }
+};
+
+export const register = async (user, navigate) => {
+    try {
+        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/signup`, user);
+        navigate('/sign-in', { replace: true });
+        return response.data;
+    } catch (error) {
+        if (error.response) {
+            showToast(error.response.data.message, 'error');
         } else {
             console.log(error);
             alert('Lỗi mạng');
@@ -60,7 +66,7 @@ export const logout = async (dispatch, token) => {
             },
         );
         dispatch(clearAll());
-        dispatch(clearAllCombo())
+        dispatch(clearAllCombo());
         dispatch(logoutSuccess());
     } catch (error) {
         dispatch(logoutFailed());
@@ -88,4 +94,3 @@ export const updateAvatar = async (formData, id) => {
         console.log('loi', error);
     }
 };
-

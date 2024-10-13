@@ -605,3 +605,27 @@ body {
 .custom-input::placeholder {
     color: white !important;
 }
+.swal2-container{
+    z-index: 10000000000000000 !important;
+}
+
+.panigation {
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    margin: 0 2px;
+
+    &:hover {
+        background-color: #d2ddf6;
+        color: black;
+    }
+
+    &.select {
+        background-color: #f3ea28;
+        color: black;
+    }
+}

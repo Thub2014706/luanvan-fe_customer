@@ -24,6 +24,11 @@ const publicRoutes = [
         layout: null
     },
     {
+        path: '/sign-up',
+        component: LoginPage,
+        layout: null
+    },
+    {
         path: '/film/:id',
         component: DetailFilmPage,
     },

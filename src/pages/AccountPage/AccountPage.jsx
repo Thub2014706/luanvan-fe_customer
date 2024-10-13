@@ -32,7 +32,7 @@ const AccountPage = () => {
                                     index === step - 1 && 'line'
                                 }`}
                             >
-                                <h5 className="font-title">{item}</h5>
+                                <h5 className="font-title mb-0">{item}</h5>
                             </div>
                         ))}
                     </Col>

@@ -14,9 +14,9 @@ export const addTicketRefund = async (data) => {
     }
 };
 
-export const allTicketRefund = async (id) => {
+export const allTicketRefund = async (id, number) => {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/ticket-refund/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/ticket-refund/${id}?number=${number}`);
         return response.data;
     } catch (error) {
         console.log('loi', error);
