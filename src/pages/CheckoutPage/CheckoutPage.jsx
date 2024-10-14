@@ -21,7 +21,10 @@ const CheckoutPage = () => {
                 </p>
             ) : orderId ? (
                 resultCode === '0' ? (
-                    <p>success</p>
+                    <p className="text-white mt-5">
+                        Thanh toán thành công. Hãy kiểm tra lại giao dịch trong tài khoản của bạn và vé phim trong email của
+                        bạn.
+                    </p>
                 ) : (
                     <p className="text-white mt-5">Thanh toán không thành công. Xin vui lòng đặt lại.</p>
                 )

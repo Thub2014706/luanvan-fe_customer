@@ -83,7 +83,12 @@ const Header = () => {
                             <div className="text-white d-flex my-auto ms-5 text-decoration-none">
                                 {user !== null && userInfo ? (
                                     <div>
-                                        <span className="d-flex" onMouseEnter={handleShow} onMouseLeave={handleHide}>
+                                        <span
+                                            style={{ cursor: 'pointer' }}
+                                            className="d-flex"
+                                            onMouseEnter={handleShow}
+                                            onMouseLeave={handleHide}
+                                        >
                                             {userInfo.avatar ? (
                                                 <ImageBase
                                                     pathImg={userInfo.avatar}
@@ -174,10 +179,18 @@ const Header = () => {
                     </Col>
                     <Col>
                         <div className="float-end d-flex gap-5">
-                            <span>Sự kiện</span>
-                            <span>Khuyến mãi</span>
-                            <span>Tin tức</span>
-                            <span>Giới thiệu</span>
+                            <Link to={'/event'} style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                                Sự kiện
+                            </Link>
+                            <span style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                                Khuyến mãi
+                            </span>
+                            <Link to={'/news'} style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                                Tin tức
+                            </Link>
+                            <span style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                                Giới thiệu
+                            </span>
                         </div>
                     </Col>
                 </Row>

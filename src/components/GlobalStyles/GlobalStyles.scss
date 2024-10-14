@@ -584,7 +584,7 @@ body {
 .line-button {
     padding: 10px;
     cursor: pointer;
-    
+
     &.yes {
         border-radius: 5px 5px 0 0;
         border: 1px solid white;
@@ -605,7 +605,7 @@ body {
 .custom-input::placeholder {
     color: white !important;
 }
-.swal2-container{
+.swal2-container {
     z-index: 10000000000000000 !important;
 }
 
@@ -628,4 +628,21 @@ body {
         background-color: #f3ea28;
         color: black;
     }
+}
+
+.event-hover {
+    transition: transform 0.5s;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+}
+
+.line-clamp-5 {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
 }

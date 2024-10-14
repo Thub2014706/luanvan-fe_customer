@@ -3,9 +3,13 @@ import AccountPage from "~/pages/AccountPage/AccountPage"
 import BookComboPage from "~/pages/BookComboPage/BookComboPage"
 import BookNowPage from "~/pages/BookNowPage/BookNowPage"
 import CheckoutPage from "~/pages/CheckoutPage/CheckoutPage"
+import DetailEventPage from "~/pages/DetailEventPage/DetailEventPage"
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
+import DetailNews from "~/pages/DetailNews/DetailNews"
+import EventPage from "~/pages/EventPage/EventPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
+import NewsPage from "~/pages/NewsPage/NewsPage"
 import NotFoundPage from "~/pages/NotFoundPage/NotFoundPage"
 import PayComboPage from "~/pages/PayComboPage/PayComboPage"
 import PayPage from "~/pages/PayPage/PayPage"
@@ -47,6 +51,22 @@ const publicRoutes = [
     {
         path: '/book-combo',
         component: BookComboPage,
+    },
+    {
+        path: '/event',
+        component: EventPage,
+    },
+    {
+        path: '/event/:id',
+        component: DetailEventPage,
+    },
+    {
+        path: '/news',
+        component: NewsPage,
+    },
+    {
+        path: '/news/:id',
+        component: DetailNews,
     },
     {
         path: '/*',
