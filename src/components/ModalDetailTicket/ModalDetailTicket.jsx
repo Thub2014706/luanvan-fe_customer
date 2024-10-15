@@ -16,6 +16,7 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund, status }
         };
         fetch();
     });
+    
     return (
         <div>
             <Modal style={{ zIndex: 1000000 }} size="lg" centered show={show} onHide={handleClose}>
@@ -49,6 +50,7 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund, status }
                             <tr>
                                 <th>PHIM</th>
                                 <th>SUẤT CHIẾU</th>
+                                {item.item.combo.length > 0 && <th>COMBO BẮP NƯỚC</th>}
                                 <th>TỔNG THANH TOÁN</th>
                             </tr>
                         </thead>
@@ -69,11 +71,21 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund, status }
                                             </span>
                                         ))}
                                         <br />
-                                        {moment(item.showTime.data).format('DD/MM/YYYY')}
+                                        {moment(item.showTime.date).format('DD/MM/YYYY')}
                                         <br />
                                         {item.showTime.timeStart} - {item.showTime.timeEnd}
                                     </p>
                                 </td>
+                                {item.item.combo.length > 0 && (
+                                    <td className="align-middle">
+                                        {item.item.combo.map((mini) => (
+                                            <span>
+                                                {mini.quantity} {mini.name.toUpperCase()}
+                                                <br />
+                                            </span>
+                                        ))}
+                                    </td>
+                                )}
                                 <td className="align-middle">
                                     {(item.item.usePoint > 0 || item.item.discount) && (
                                         <p>
