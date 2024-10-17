@@ -10,12 +10,15 @@ import UpcomingFilm from '~/components/UpcomingFilm/UpcomingFilm';
 import { listAdvertisement } from '~/services/AdvertisementService';
 import ImageBase from '~/components/ImageBase/ImageBase';
 import { Link } from 'react-router-dom';
+import ChatBot from '~/components/ChatBot/ChatBot';
+import chat from '~/assets/images/chat.png';
 
 const HomePage = () => {
     const [showVideo, setShowVideo] = useState(false);
     const [itemShow, setItemShow] = useState(null);
     const [images, setImages] = useState([]);
     const [index, setIndex] = useState(0);
+    const [showChat, setShowChat] = useState(false)
 
     const handleShowVideo = (item) => {
         setItemShow(item);
@@ -47,7 +50,7 @@ const HomePage = () => {
                         {images.map((item) => (
                             <Carousel.Item>
                                 <Link to={item.link}>
-                                    <ImageBase pathImg={item.image} style={{width: '100%'}} />
+                                    <ImageBase pathImg={item.image} style={{ width: '100%' }} />
                                 </Link>
                             </Carousel.Item>
                         ))}
@@ -62,6 +65,10 @@ const HomePage = () => {
                 {itemShow !== null && (
                     <VideoModal show={showVideo} handleClose={handleCloseVideo} trailer={itemShow.trailer} />
                 )}
+                <div style={{ position: 'fixed', left: 'auto', right: '30px', bottom: '30px', cursor: 'pointer' }}>
+                    <img src={chat} height={50} alt="" onClick={() => setShowChat(!showChat)} />
+                </div>
+                {showChat && <ChatBot />}
             </Container>
         </div>
     );

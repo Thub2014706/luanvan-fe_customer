@@ -1,4 +1,5 @@
 import { layer } from "@fortawesome/fontawesome-svg-core"
+import ChatBot from "~/components/ChatBot/ChatBot"
 import AccountPage from "~/pages/AccountPage/AccountPage"
 import BookComboPage from "~/pages/BookComboPage/BookComboPage"
 import BookNowPage from "~/pages/BookNowPage/BookNowPage"
@@ -67,6 +68,10 @@ const publicRoutes = [
     {
         path: '/news/:id',
         component: DetailNews,
+    },
+    {
+        path: '/chat',
+        component: ChatBot,
     },
     {
         path: '/*',

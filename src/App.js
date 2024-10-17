@@ -10,7 +10,7 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 function App() {
     const user = useSelector((state) => state.auth.login.currentUser);
     const [id, setId] = useState();
-
+    
     return (
         <Router>
             <NavigationListener showTime={(value) => setId(value)} />
