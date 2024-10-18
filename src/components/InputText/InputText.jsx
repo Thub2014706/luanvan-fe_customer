@@ -10,7 +10,7 @@ const InputText = ({ addMessage }) => {
         setMessage('');
     };
     return (
-        <div className="inputtext_container">
+        <div className="inputtext_container me-2">
             <textarea
                 name="message"
                 id="message"
@@ -20,7 +20,7 @@ const InputText = ({ addMessage }) => {
                 value={message}
             ></textarea>
             <div onClick={sendMessage}>
-                <FontAwesomeIcon icon={faPaperPlane} />
+                <FontAwesomeIcon icon={faPaperPlane} size="lg" style={{ cursor: 'pointer' }} color="#021b4e" />
             </div>
         </div>
     );

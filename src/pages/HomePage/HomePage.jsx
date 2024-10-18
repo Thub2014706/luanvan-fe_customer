@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Carousel, Container, Row } from 'react-bootstrap';
-import FilmTitle from '~/components/FilmTitle/FilmTitle';
-import { responsive, statusShowTime } from '~/constants';
-import { listFilmBySchedule } from '~/services/FilmService';
 import 'react-multi-carousel/lib/styles.css';
 import VideoModal from '~/components/VideoModal/VideoModal';
 import FilmShowing from '~/components/FilmShowing/FilmShowing';
 import UpcomingFilm from '~/components/UpcomingFilm/UpcomingFilm';
 import { listAdvertisement } from '~/services/AdvertisementService';
 import ImageBase from '~/components/ImageBase/ImageBase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ChatBot from '~/components/ChatBot/ChatBot';
 import chat from '~/assets/images/chat.png';
+import { useSelector } from 'react-redux';
 
 const HomePage = () => {
+    const user = useSelector((state) => state.auth.login.currentUser);
     const [showVideo, setShowVideo] = useState(false);
     const [itemShow, setItemShow] = useState(null);
     const [images, setImages] = useState([]);
     const [index, setIndex] = useState(0);
-    const [showChat, setShowChat] = useState(false)
+    const [showChat, setShowChat] = useState(false);
+    const navigate = useNavigate()
 
     const handleShowVideo = (item) => {
         setItemShow(item);
@@ -41,6 +41,15 @@ const HomePage = () => {
     const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex);
     };
+
+    const handleChat = () => {
+        if (user) {
+            setShowChat(!showChat)
+        } else {
+            setShowChat(false)
+            navigate('/sign-in')
+        }
+    }
 
     return (
         <div>
@@ -66,9 +75,9 @@ const HomePage = () => {
                     <VideoModal show={showVideo} handleClose={handleCloseVideo} trailer={itemShow.trailer} />
                 )}
                 <div style={{ position: 'fixed', left: 'auto', right: '30px', bottom: '30px', cursor: 'pointer' }}>
-                    <img src={chat} height={50} alt="" onClick={() => setShowChat(!showChat)} />
+                    <img src={chat} height={50} alt="" onClick={handleChat} />
                 </div>
-                {showChat && <ChatBot />}
+                {showChat && <ChatBot handleClose={() => setShowChat(false)} />}
             </Container>
         </div>
     );

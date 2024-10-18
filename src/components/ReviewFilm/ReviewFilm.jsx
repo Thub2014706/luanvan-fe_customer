@@ -93,7 +93,7 @@ const ReviewFilm = () => {
                         onChange={(e) => setText(e.target.value)}
                         className="custom-input"
                         placeholder="Viết đánh giá."
-                        style={{ backgroundColor: 'transparent', color: 'white' }}
+                        style={{ backgroundColor: 'transparent', color: 'white', resize: 'none' }}
                     />
                     <div
                         className="align-items-center justify-content-center d-flex button up"
