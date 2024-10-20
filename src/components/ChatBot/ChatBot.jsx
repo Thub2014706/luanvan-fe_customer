@@ -12,7 +12,7 @@ const ChatBot = ({ handleClose }) => {
     const [chats, setChats] = useState([]);
 
     useEffect(() => {
-        if (user) {
+        if (user && socket) {
             socket.emit('join', user.data.id);
 
             socket.on('chat', (listChat) => {
@@ -26,12 +26,13 @@ const ChatBot = ({ handleClose }) => {
             return () => {
                 socket.off('chat');
                 socket.off('message');
+                socket.emit('leave', user.data.id);
             };
         } else {
             setChats([]);
             handleClose();
         }
-    }, []);
+    }, [user, handleClose]);
 
     const addMessage = (chat) => {
         if (chat && chat !== '') {

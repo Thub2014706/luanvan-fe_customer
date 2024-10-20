@@ -54,7 +54,7 @@ const DetailNews = () => {
                             </p>
                         </div>
                         <div className="d-flex align-items-center">
-                            <p className="mb-0">{moment(news.createdAt).format('DD/MM/YYYY HH:ss')}</p>
+                            <p className="mb-0">{moment(news.createdAt).format('DD/MM/YYYY HH:mm')}</p>
                         </div>
                     </div>
                     <div className="mt-5">

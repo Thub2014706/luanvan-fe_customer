@@ -1,6 +1,5 @@
 import moment from 'moment';
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef} from 'react';
 
 const ChatList = ({ chats, user }) => {
     // const user = useSelector((state) => state.auth.login.currentUser);
@@ -27,7 +26,7 @@ const ChatList = ({ chats, user }) => {
                                     <>
                                         <br />
                                         <span className="text-end mb-0 text-secondary" style={{ fontSize: '12px' }}>
-                                            {moment(item.createdAt).format('HH:ss')}
+                                            {moment(item.createdAt).format('HH:mm')}
                                         </span>
                                     </>
                                 )}
@@ -46,7 +45,7 @@ const ChatList = ({ chats, user }) => {
                                     <>
                                         <br />
                                         <span className="text-end mb-0 text-secondary" style={{ fontSize: '11px' }}>
-                                            {moment(item.createdAt).format('HH:ss')}
+                                            {moment(item.createdAt).format('HH:mm')}
                                         </span>
                                     </>
                                 )}
