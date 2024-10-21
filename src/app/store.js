@@ -1,6 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import authReducer from '~/features/auth/authSlice';
 import cartReducer from '~/features/cart/cartSlice';
+import socketReducer from '~/features/socket/socketSlide';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -8,12 +9,13 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    whitelist: ['auth', 'cart'],
+    whitelist: ['auth', 'cart', 'socket'],
 };
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    socket: socketReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

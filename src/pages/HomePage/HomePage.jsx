@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Badge, Carousel, Container, Row } from 'react-bootstrap';
 import 'react-multi-carousel/lib/styles.css';
 import VideoModal from '~/components/VideoModal/VideoModal';
@@ -9,8 +9,9 @@ import ImageBase from '~/components/ImageBase/ImageBase';
 import { Link, useNavigate } from 'react-router-dom';
 import ChatBot from '~/components/ChatBot/ChatBot';
 import chat from '~/assets/images/chat.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
+import { setSocketConnect } from '~/features/socket/socketSlide';
 
 const HomePage = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -20,30 +21,37 @@ const HomePage = () => {
     const [index, setIndex] = useState(0);
     const [showChat, setShowChat] = useState(false);
     const navigate = useNavigate();
-    const socket = io(process.env.REACT_APP_API_URL);
     const [number, setNumber] = useState(0);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        if (socket && user) {
-            socket.emit('number', user.data.id);
-        }
-
-        socket.on('number', (num) => {
+        const socket = io(process.env.REACT_APP_API_URL, {
+            query: { userId: user.data.id },
+        });
+        
+        dispatch(setSocketConnect(socket));
+        socket.emit('number', user.data.id);
+        socket.on('numberFirst', (num) => {
             setNumber(num);
         });
 
-        // socket.on('message', (msg) => {
-        //     if (!msg.seen && !msg.senderType) {
-        //         setNumber((prevCount) => prevCount + 1);
-        //     }
-        // });
+        socket.on('removeNumber', (num) => {
+            setNumber(num);
+        });
+
+        socket.on('addNumber', (num) => {
+            console.log('tesst1');
+            setNumber(num);
+        });
 
         return () => {
-            socket.off('number');
-            // socket.off('message');
+            socket.off('numberFirst');
+            socket.off('removeNumber');
+            socket.off('addNumber');
+            socket.disconnect();
         };
-    }, [user, socket]);
-    console.log(number);
+    }, [user, dispatch]);
+    console.log('numbe ', number);
 
     const handleShowVideo = (item) => {
         setItemShow(item);
@@ -100,8 +108,8 @@ const HomePage = () => {
                     <VideoModal show={showVideo} handleClose={handleCloseVideo} trailer={itemShow.trailer} />
                 )}
                 <div style={{ position: 'fixed', left: 'auto', right: '30px', bottom: '30px', cursor: 'pointer' }}>
-                    <img style={{position: 'relative'}} src={chat} height={50} alt="" onClick={handleChat} />
-                    <Badge style={{top: 0, position: 'absolute', transform: 'translate(-50%, 0%)'}} pill bg="danger">
+                    <img style={{ position: 'relative' }} src={chat} height={50} alt="" onClick={handleChat} />
+                    <Badge style={{ top: 0, position: 'absolute', transform: 'translate(-50%, 0%)' }} pill bg="danger">
                         {number}
                     </Badge>
                 </div>

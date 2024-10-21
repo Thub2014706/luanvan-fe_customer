@@ -4,12 +4,13 @@ import socketIOClient, { io } from 'socket.io-client';
 import ChatList from '../ChatList/ChatList';
 import InputText from '../InputText/InputText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMugSaucer, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const ChatBot = ({ handleClose }) => {
     const user = useSelector((state) => state.auth.login.currentUser);
-    const socket = io(process.env.REACT_APP_API_URL);
     const [chats, setChats] = useState([]);
+    // const socket = io(process.env.REACT_APP_API_URL);
+    const socket = useSelector((state) => state.socket.socketConnect);
 
     useEffect(() => {
         if (user && socket) {
@@ -20,6 +21,8 @@ const ChatBot = ({ handleClose }) => {
             });
 
             socket.on('message', (msg) => {
+                console.log(msg);
+                
                 setChats((pre) => [...pre, msg]);
             });
 
@@ -32,7 +35,7 @@ const ChatBot = ({ handleClose }) => {
             setChats([]);
             handleClose();
         }
-    }, [user, handleClose]);
+    }, [user, handleClose, socket]);
 
     const addMessage = (chat) => {
         if (chat && chat !== '') {
