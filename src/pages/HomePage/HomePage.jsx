@@ -28,7 +28,7 @@ const HomePage = () => {
         const socket = io(process.env.REACT_APP_API_URL, {
             query: { userId: user.data.id },
         });
-        
+
         dispatch(setSocketConnect(socket));
         socket.emit('number', user.data.id);
         socket.on('numberFirst', (num) => {
@@ -109,9 +109,15 @@ const HomePage = () => {
                 )}
                 <div style={{ position: 'fixed', left: 'auto', right: '30px', bottom: '30px', cursor: 'pointer' }}>
                     <img style={{ position: 'relative' }} src={chat} height={50} alt="" onClick={handleChat} />
-                    <Badge style={{ top: 0, position: 'absolute', transform: 'translate(-50%, 0%)' }} pill bg="danger">
-                        {number}
-                    </Badge>
+                    {number > 0 && (
+                        <Badge
+                            style={{ top: 0, position: 'absolute', transform: 'translate(-50%, 0%)' }}
+                            pill
+                            bg="danger"
+                        >
+                            {number}
+                        </Badge>
+                    )}
                 </div>
                 {showChat && (
                     <ChatBot
