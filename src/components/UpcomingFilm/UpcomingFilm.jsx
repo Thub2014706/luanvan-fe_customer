@@ -4,9 +4,12 @@ import Carousel from 'react-multi-carousel';
 import { responsive, statusShowTime } from '~/constants';
 import { listFilmBySchedule } from '~/services/FilmService';
 import FilmTitle from '../FilmTitle/FilmTitle';
+import BookModal from '../BookModal/BookModal';
 
 const UpcomingFilm = ({handleShowVideo}) => {
     const [film, setFilm] = useState([]);
+    const [showBook, setShowBook] = useState(false);
+    const [id, setId] = useState(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -15,6 +18,16 @@ const UpcomingFilm = ({handleShowVideo}) => {
         };
         fetch();
     }, []);
+
+    const handleShowBook = (id) => {
+        setId(id);
+        setShowBook(true);
+    };
+
+    const handleCloseBook = () => {
+        setId(null);
+        setShowBook(false);
+    };
 
     return (
         <Row>
@@ -30,11 +43,12 @@ const UpcomingFilm = ({handleShowVideo}) => {
             >
                 {film.map((item, index) => (
                     <div className="slider" key={index}>
-                        <FilmTitle film={item} handleShowVideo={handleShowVideo} />
+                        <FilmTitle film={item} handleShowVideo={handleShowVideo} handleBook={() => handleShowBook(item._id)} />
                     </div>
                 ))}
             </Carousel>
             <div className="button look h5 mt-5">TÌM HIỂU THÊM</div>
+            {id !== null && <BookModal show={showBook} handleClose={handleCloseBook} id={id} />}
         </Row>
     );
 };

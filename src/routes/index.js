@@ -15,6 +15,7 @@ import NotFoundPage from "~/pages/NotFoundPage/NotFoundPage"
 import PayComboPage from "~/pages/PayComboPage/PayComboPage"
 import PayPage from "~/pages/PayPage/PayPage"
 import SchedulePage from "~/pages/SchedulePage/SchedulePage"
+import SearchPage from "~/pages/SearchPage/SearchPage"
 import SelectSeatPage from "~/pages/SelectSeatPage/SelectSeatPage"
 import TheaterPage from "~/pages/TheaterPage/TheaterPage"
 
@@ -72,6 +73,10 @@ const publicRoutes = [
     {
         path: '/chat',
         component: ChatBot,
+    },
+    {
+        path: '/search',
+        component: SearchPage,
     },
     {
         path: '/*',

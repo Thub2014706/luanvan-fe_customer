@@ -46,3 +46,12 @@ export const listFilmByTheater = async (theater) => {
         console.log('loi', error);
     }
 };
+
+export const searchFilm = async (search) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/film/search?search=${search}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};

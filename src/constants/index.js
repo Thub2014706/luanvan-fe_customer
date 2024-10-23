@@ -6,10 +6,10 @@ export const standardAge = [
     'T13 - Cấm người dưới 13 tuổi',
     'T16 - Cấm người dưới 16 tuổi',
     'T18 - Cấm người dưới 18 tuổi',
-    'C - Phim không được phép phổ biến',
+    // 'C - Phim không được phép phổ biến',
 ];
 
-export const signAge = ['P', 'K', 'T13', 'T16', 'T18', 'C'];
+export const signAge = ['P', 'K', 'T13', 'T16', 'T18'];
 
 export const infoAge = [
     'Phim dành cho mọi độ tuổi. CineThu không được phép phục vụ khách hàng dưới 13 tuổi cho các suất chiếu kết thúc sau 22:00 và 16 tuổi cho các suất chiếu kết thúc sau 23:00, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao và Du Lịch. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
@@ -17,7 +17,7 @@ export const infoAge = [
     'Tôi xác nhận mua vé cho người xem từ đủ 13 tuổi trở lên và đồng ý cung cấp giấy tờ tùy thân để xác thực độ tuổi người xem, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao và Du Lịch, CineThu không được phép phục vụ khách hàng dưới 16 tuổi cho các suất chiếu kết thúc sau 23:00. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
     'Tôi xác nhận mua vé cho người xem từ đủ 16 tuổi trở lên và đồng ý cung cấp giấy tờ tùy thân để xác thực độ tuổi người xem, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao Và Du Lịch. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
     'Tôi xác nhận mua vé cho người xem từ đủ 18 tuổi trở lên và đồng ý cung cấp giấy tờ tùy thân để xác thực độ tuổi người xem, hãy tham khảo quy định của Bộ Văn Hóa, Thể Thao Và Du Lịch. CineThu sẽ không hoàn tiền nếu người xem không đáp ứng đủ điều kiện.',
-    'C - Phim không được phép phổ biến',
+    // 'C - Phim không được phép phổ biến',
 ];
 
 export const typeRoom = [

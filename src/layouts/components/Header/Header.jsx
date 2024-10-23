@@ -62,7 +62,7 @@ const Header = () => {
                 <Row className="pb-1 pt-3">
                     <Col xs={2}>
                         <Link to={'/'}>
-                            <img src={logo} style={{ height: '50px', width: 'auto' }} alt="" />
+                            <img src={logo} style={{ height: '50px', width: 'auto', cursor: 'pointer' }} alt="" />
                         </Link>
                     </Col>
                     <Col xs={5} className="my-auto ps-5">

@@ -7,6 +7,8 @@ import { momoPaymentCombo } from '~/services/MomoService';
 import { detailUserById } from '~/services/UserService';
 import { addOrderCombo } from '../../services/OrderComboService';
 import { detailDiscount } from '~/services/DiscountService';
+import Name from '~/components/Name/Name';
+import { detailTheater } from '~/services/TheaterService';
 
 const PayComboPage = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -121,6 +123,18 @@ const PayComboPage = () => {
                 <Row>
                     <Col xs={8}>
                         <div className="p-5 card-info-pay">
+                            <div>
+                                <h5 className="font-title">
+                                    <Name id={cartCombo.theater} detail={detailTheater} />
+                                </h5>
+                                {cartCombo.combos.map((item, index) => (
+                                    <span>
+                                        {item.quantity} {item.name}
+                                        {index < cartCombo.combos.length - 1 && ', '}
+                                    </span>
+                                ))}
+                            </div>
+                            <hr />
                             <div>
                                 <h5 className="font-title">MÃ KHUYẾN MÃI</h5>
                                 {detailDis && <p>Mã code: {detailDis.code}</p>}

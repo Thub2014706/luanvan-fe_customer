@@ -1,14 +1,20 @@
+import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DiscountModal from '~/components/DiscountModal/DiscountModal';
-import { showToast } from '~/constants';
+import { showToast, signAge, standardAge } from '~/constants';
 import { clearAll } from '~/features/cart/cartSlice';
 import { detailDiscount } from '~/services/DiscountService';
+import { detailFilmBySchedule } from '~/services/FilmService';
 import { momoPaymentTicket } from '~/services/MomoService';
 import { addOrderTicket } from '~/services/OrderTicketService';
 import { holdPay } from '~/services/RedisService';
+import { detailRoom } from '~/services/RoomService';
+import { detailSeat } from '~/services/SeatService';
+import { detailShowTimeById } from '~/services/ShowTimeService';
+import { detailTheater } from '~/services/TheaterService';
 import { detailUserById } from '~/services/UserService';
 
 const PayPage = () => {
@@ -26,8 +32,33 @@ const PayPage = () => {
     const navigate = useNavigate();
     const [price, setPrice] = useState(cartTicket.price);
     const dispath = useDispatch();
+    const [detail, setDetail] = useState();
+    const [seats, setSeats] = useState();
     // console.log('e',cartTicket);
     // window.history.replaceState(null, '', '/');
+
+    useEffect(() => {
+        const fetch = async () => {
+            if (cartTicket.showTime !== null) {
+                const showTime = await detailShowTimeById(cartTicket.showTime);
+                console.log(showTime);
+
+                const film = await detailFilmBySchedule(showTime.schedule);
+                const theater = await detailTheater(showTime.theater);
+                const room = await detailRoom(showTime.room);
+                setDetail({ showTime, film, theater, room });
+                setSeats(
+                    await Promise.all(
+                        cartTicket.seats.map(async (item) => {
+                            const seat = await detailSeat(item);
+                            return seat;
+                        }),
+                    ),
+                );
+            }
+        };
+        fetch();
+    }, [cartTicket]);
 
     useEffect(() => {
         const fetch = async () => {
@@ -36,7 +67,7 @@ const PayPage = () => {
                 seatId: cartTicket.seats,
                 userId: user?.data.id,
             });
-            console.log(data);
+            // console.log(data);
             setTimePay(data);
         };
         fetch();
@@ -172,6 +203,38 @@ const PayPage = () => {
                 <Row>
                     <Col xs={8}>
                         <div className="p-5 card-info-pay">
+                            {detail && seats && (
+                                <div>
+                                    <h5 className="font-title">
+                                        {detail.film.name} [
+                                        {
+                                            signAge[
+                                                Object.values(standardAge).findIndex((age) => age === detail.film.age)
+                                            ]
+                                        }
+                                        ]
+                                    </h5>
+                                    <p>Rạp: {detail.theater.name}</p>
+                                    <p>
+                                        Phòng: {detail.room.name} ({detail.room.type})
+                                    </p>
+                                    <p>
+                                        Ghế:{' '}
+                                        {seats.map((item, index) => (
+                                            <span key={index} className="text-white">
+                                                {String.fromCharCode(64 + item.row)}
+                                                {item.col}
+                                                {index < seats.length - 1 && ', '}
+                                            </span>
+                                        ))}
+                                    </p>
+                                    <p>
+                                        Suất chiếu: {detail.showTime.timeStart} - {detail.showTime.timeEnd}{' '}
+                                        {moment(detail.showTime.date).format('DD/MM/YYYY')}
+                                    </p>
+                                </div>
+                            )}
+                            <hr />
                             <div>
                                 <h5 className="font-title">MÃ KHUYẾN MÃI</h5>
                                 {detailDis && <p>Mã code: {detailDis.code}</p>}

@@ -47,13 +47,6 @@ const FilmTitle = ({ film, handleShowVideo, handleBook }) => {
                             />
                             <span className="ms-3">{film.nation}</span>
                         </p>
-                        <p>
-                            <FontAwesomeIcon
-                                icon={faCommentDots}
-                                style={{ color: 'rgb(237, 225, 45)', fontSize: '1.24rem' }}
-                            />
-                            {/* <span className="ms-3">{film.}</span> */}
-                        </p>
                     </div>
                     <ImageBase
                         pathImg={film.image}
