@@ -50,7 +50,7 @@ const FilmShowing = ({ handleShowVideo }) => {
                     </div>
                 ))}
             </Carousel>
-            <div className="button look h5 mt-5">XEM THÊM</div>
+            {/* <div className="button look h5 mt-5">XEM THÊM</div> */}
             {id !== null && <BookModal show={showBook} handleClose={handleCloseBook} id={id} />}
         </Row>
     );

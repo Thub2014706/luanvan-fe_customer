@@ -349,7 +349,7 @@ body {
 
 .theater-title1 {
     background: linear-gradient(to bottom right, #4e337a, #264c9a);
-    padding: 30px;
+    // padding: 30px;
 }
 
 .theater-title2 {
@@ -653,13 +653,44 @@ body {
     bottom: 90px;
     width: 350px;
     height: 470px;
-    // padding: 0;
     border-radius: 10px;
     background-color: white;
     z-index: 10000;
-    // display: flex;
-    // justify-content: space-between;
-    // margin-bottom: 10px;
+    transform-origin: bottom right;
+}
+
+.chat-container.first {
+    display: none;
+}
+
+.chat-container.show {
+    animation: slide-in 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+}
+
+.chat-container.hidden {
+    animation: slide-out 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) forwards;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
 }
 
 .inputtext_container {
@@ -719,8 +750,7 @@ body {
     background-color: #d8c3f5;
     border-radius: 8px;
     max-width: 60%;
-    box-shadow:  1px 1px 3px rgb(181, 181, 181);
-
+    box-shadow: 1px 1px 3px rgb(181, 181, 181);
 }
 
 .chat_receiver {
@@ -734,8 +764,7 @@ body {
     background-color: rgb(219, 219, 219);
     border-radius: 8px;
     max-width: 60%;
-    box-shadow:  1px 1px 3px rgb(181, 181, 181);
-
+    box-shadow: 1px 1px 3px rgb(181, 181, 181);
 }
 
 .header-chat {
@@ -743,4 +772,13 @@ body {
     color: white;
     padding: 15px;
     border-radius: 10px 10px 0 0;
+}
+
+.info-title-theater {
+    position: absolute;
+    color: white;
+    background-color: #121e6a9f;
+    width: 400px;
+    padding: 20px;
+    bottom: 0;
 }

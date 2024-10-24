@@ -47,7 +47,7 @@ const UpcomingFilm = ({handleShowVideo}) => {
                     </div>
                 ))}
             </Carousel>
-            <div className="button look h5 mt-5">TÌM HIỂU THÊM</div>
+            {/* <div className="button look h5 mt-5">TÌM HIỂU THÊM</div> */}
             {id !== null && <BookModal show={showBook} handleClose={handleCloseBook} id={id} />}
         </Row>
     );

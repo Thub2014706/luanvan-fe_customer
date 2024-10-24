@@ -4,7 +4,7 @@ import { signAge, standardAge } from '~/constants';
 import Name from '../Name/Name';
 import { detailGenre } from '~/services/GenreService';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCommentDots, faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
+import { faEarthAmericas } from '@fortawesome/free-solid-svg-icons';
 import img1 from '~/assets/images/icon-tag.svg';
 import img2 from '~/assets/images/icon-clock.svg';
 import img3 from '~/assets/images/icon-play-vid.svg';

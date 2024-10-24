@@ -37,3 +37,21 @@ export const listTheaterByProvince = async (province) => {
         console.log('loi', error);
     }
 };
+
+export const lengthRoomByTheater = async (id) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/theater/length-room/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};
+
+export const lengthSeatByTheater = async (id) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/theater/length-seat/${id}`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const CheckoutPage = () => {
     const location = useLocation();
@@ -10,9 +10,14 @@ const CheckoutPage = () => {
     const params = new URLSearchParams(location.search);
     const orderId = params.get('orderId');
     const resultCode = params.get('resultCode');
+    // const navigate = useNavigate();
 
-    // window.history.replaceState(null, '', '/');
-    // const [timeOut, setTimeout] = useState(lo)
+    // useEffect(() => {
+    //     if (location.pathname !== '/checkout') {
+    //         navigate('/', { replace: true });
+    //     }
+    // }, [location, navigate]);
+
     return (
         <Container>
             {timeOut ? (

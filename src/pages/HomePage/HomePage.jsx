@@ -119,14 +119,15 @@ const HomePage = () => {
                         </Badge>
                     )}
                 </div>
-                {showChat && (
-                    <ChatBot
-                        handleClose={() => {
-                            setShowChat(false);
-                            // socket.emit('leave', user.data.id);
-                        }}
-                    />
-                )}
+                {/* {showChat && ( */}
+                <ChatBot
+                    handleClose={() => {
+                        setShowChat(false);
+                        // socket.emit('leave', user.data.id);
+                    }}
+                    show={showChat}
+                />
+                {/* )} */}
             </Container>
         </div>
     );

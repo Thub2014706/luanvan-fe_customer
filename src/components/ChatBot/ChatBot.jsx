@@ -1,15 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import socketIOClient, { io } from 'socket.io-client';
 import ChatList from '../ChatList/ChatList';
 import InputText from '../InputText/InputText';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMugSaucer, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-const ChatBot = ({ handleClose }) => {
+const ChatBot = ({ handleClose, show }) => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const [chats, setChats] = useState([]);
-    // const socket = io(process.env.REACT_APP_API_URL);
+    const [start, setStart] = useState(false);
+
+    useEffect(() => {
+        if (show) {
+            setStart(true);
+        }
+    }, [show]);
+
     const socket = useSelector((state) => state.socket.socketConnect);
 
     useEffect(() => {
@@ -22,7 +28,7 @@ const ChatBot = ({ handleClose }) => {
 
             socket.on('message', (msg) => {
                 console.log(msg);
-                
+
                 setChats((pre) => [...pre, msg]);
             });
 
@@ -46,7 +52,7 @@ const ChatBot = ({ handleClose }) => {
 
     return (
         user && (
-            <div className="chat-container">
+            <div className={`chat-container ${start ? (show ? 'show' : 'hidden') : 'first'}`}>
                 <div className="header-chat d-flex justify-content-between">
                     <h5 className="mb-0">CineThu</h5>
                     <div>
