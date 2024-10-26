@@ -17,7 +17,7 @@ const ChatList = ({ chats, user }) => {
 
     return (
         <div className="chats_list">
-            {chats.length > 0 ? (
+            {user &&chats.length > 0 ? (
                 chats.map(
                     (item, index) =>
                         item.user === user.data.id &&

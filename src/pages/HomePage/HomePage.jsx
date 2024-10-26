@@ -25,31 +25,33 @@ const HomePage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const socket = io(process.env.REACT_APP_API_URL, {
-            query: { userId: user.data.id },
-        });
+        if (user) {
+            const socket = io(process.env.REACT_APP_API_URL, {
+                query: { userId: user.data.id },
+            });
 
-        dispatch(setSocketConnect(socket));
-        socket.emit('number', user.data.id);
-        socket.on('numberFirst', (num) => {
-            setNumber(num);
-        });
+            dispatch(setSocketConnect(socket));
+            socket.emit('number', user.data.id);
+            socket.on('numberFirst', (num) => {
+                setNumber(num);
+            });
 
-        socket.on('removeNumber', (num) => {
-            setNumber(num);
-        });
+            socket.on('removeNumber', (num) => {
+                setNumber(num);
+            });
 
-        socket.on('addNumber', (num) => {
-            console.log('tesst1');
-            setNumber(num);
-        });
+            socket.on('addNumber', (num) => {
+                console.log('tesst1');
+                setNumber(num);
+            });
 
-        return () => {
-            socket.off('numberFirst');
-            socket.off('removeNumber');
-            socket.off('addNumber');
-            socket.disconnect();
-        };
+            return () => {
+                socket.off('numberFirst');
+                socket.off('removeNumber');
+                socket.off('addNumber');
+                socket.disconnect();
+            };
+        }
     }, [user, dispatch]);
     console.log('numbe ', number);
 

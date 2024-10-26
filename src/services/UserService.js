@@ -43,6 +43,7 @@ export const login = async (user, navigate, dispatch) => {
 export const register = async (user, navigate) => {
     try {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/signup`, user);
+        showToast('Đăng ký thành công', 'error');
         navigate('/sign-in', { replace: true });
         return response.data;
     } catch (error) {

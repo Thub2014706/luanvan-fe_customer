@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Barcode from 'react-barcode';
 import { Modal, Table } from 'react-bootstrap';
 import { ticketRefundByOrder } from '~/services/TicketRefundService';
+import Name from '../Name/Name';
+import { detailStaff } from '~/services/StaffService';
 
 const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund, status }) => {
     const [refund, setRefund] = useState();
@@ -16,7 +18,7 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund, status }
         };
         fetch();
     });
-    
+
     return (
         <div>
             <Modal style={{ zIndex: 1000000 }} size="lg" centered show={show} onHide={handleClose}>
@@ -33,8 +35,13 @@ const ModalDetailTicket = ({ show, handleClose, item, handleShowRefund, status }
                             fontOptions="Courier New, monospace"
                         />
                     </div>
-                    <p>Ngày đặt vé: {moment(item.item.createdAt).format('HH:mm DD/MM/YYYY')}</p>
+                    <p>Thời gian đặt vé: {moment(item.item.createdAt).format('HH:mm DD/MM/YYYY')}</p>
                     <p>Hình thức đặt vé: {item.item.staff ? 'Đặt vé tại rạp' : 'Đặt vé online'}</p>
+                    {item.item.staff && (
+                        <p>
+                            Nhân viên đặt vé: <Name id={item.item.staff} detail={detailStaff} />
+                        </p>
+                    )}
                     <p>
                         Trạng thái:{' '}
                         {status === 1 ? (
