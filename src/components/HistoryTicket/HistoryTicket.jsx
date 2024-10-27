@@ -9,6 +9,7 @@ import ModalDetailTicket from '../ModalDetailTicket/ModalDetailTicket';
 import ModalTicketRefund from '../ModalTicketRefund/ModalTicketRefund';
 import { allTicketRefund } from '~/services/TicketRefundService';
 import Pagination from '../Pagination/Pagination';
+import TicketModal from '../TicketModal/TicketModal';
 
 const HistoryTicket = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -20,16 +21,18 @@ const HistoryTicket = () => {
     const [step, setStep] = useState(1);
     const [number, setNumber] = useState(1);
     const [length, setLength] = useState();
+    const [showTicket, setShowTicket] = useState(false);
+    const [order, setOrder] = useState(null);
 
     useEffect(() => {
         const fetch = async () => {
             if (step === 1) {
-                setNumber(1)
+                setNumber(1);
                 const data = await allOrderByUser(user?.data.id, 1);
                 setOrders(data.data);
                 setLength(data.length);
             } else {
-                setNumber(1)
+                setNumber(1);
                 const data = await allTicketRefund(user?.data.id, 1);
                 setOrders(data.data);
                 setLength(data.length);
@@ -64,11 +67,21 @@ const HistoryTicket = () => {
         setNumber(num);
         window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: 'smooth',
         });
         const data = step === 1 ? await allOrderByUser(user?.data.id, num) : await allTicketRefund(user?.data.id, num);
         setOrders(data.data);
         setLength(data.length);
+    };
+
+    const handleShowTicket = (item) => {
+        setOrder(item);
+        setShowTicket(true);
+    };
+
+    const handleCloseTicket = () => {
+        setOrder(null);
+        setShowTicket(false);
     };
 
     return (
@@ -145,7 +158,11 @@ const HistoryTicket = () => {
                                             Đánh giá
                                         </div>
                                     )} */}
-                                    {step === 1 && <div className="button b2 ms-2">Vé</div>}
+                                    {step === 1 && (
+                                        <div className="button b2 ms-2" onClick={() => handleShowTicket(item)}>
+                                            Vé
+                                        </div>
+                                    )}
                                 </Col>
                             </Row>
                             <hr />
@@ -165,6 +182,8 @@ const HistoryTicket = () => {
                     status={step}
                 />
             )}
+            {order !== null && <TicketModal show={showTicket} handleClose={handleCloseTicket} order={order} />}
+
             <ModalTicketRefund show={showRefund} handleClose={handleCloseRefund} idRefund={idRefund} />
         </div>
     );

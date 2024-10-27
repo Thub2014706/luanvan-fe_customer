@@ -3,11 +3,22 @@ import { ProgressBar, Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { sumPayByUser } from '~/services/OrderTicketService';
 import { detailUserById } from '~/services/UserService';
-import img1 from '~/assets/images/user-vip.png'
+import img1 from '~/assets/images/user-vip.png';
+import DeatailLevel from '../DetailLevel/DetailLevel';
 
 const Member = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const [userInfo, setUserInfo] = useState();
+    const [showLevel, setShowLevel] = useState(false);
+
+    const handleShowLevel = () => {
+        setShowLevel(true);
+    };
+
+    const handleCloseLevel = () => {
+        setShowLevel(false);
+    };
+
     useEffect(() => {
         const fetch = async () => {
             const data = await detailUserById(user.data.id);
@@ -22,7 +33,7 @@ const Member = () => {
             <div className="bg-info-user">
                 <h1 className="font-title mb-4">CẤP ĐỘ THẺ</h1>
                 <div>
-                    <div className='justify-content-end d-flex'>
+                    <div className="justify-content-end d-flex">
                         <img src={img1} height={40} alt="" />
                     </div>
                     <ProgressBar className="mb-2" now={(userInfo.sum * 100) / 4000000} />
@@ -37,7 +48,11 @@ const Member = () => {
                                 </td>
                                 <td className="text-white" style={{ backgroundColor: 'rgba(255, 255, 255, 0)' }}>
                                     {userInfo.level !== 2 ? 'Member' : 'VIP'}{' '}
-                                    <span className="ms-3 text-decoration-underline text-info">
+                                    <span
+                                        className="ms-3 text-decoration-underline text-info"
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={handleShowLevel}
+                                    >
                                         Ưu đãi mỗi cấp
                                     </span>
                                 </td>
@@ -67,6 +82,7 @@ const Member = () => {
                         </tbody>
                     </Table>
                 </div>
+                {showLevel && <DeatailLevel show={showLevel} handleClose={handleCloseLevel} />}
             </div>
         )
     );

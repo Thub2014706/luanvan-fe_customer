@@ -5,6 +5,7 @@ import { allOrderByUser } from '~/services/OrderComboService';
 import ImageBase from '../ImageBase/ImageBase';
 import ModalDetailCombo from '../ModalDetailCombo/ModalDetailCombo';
 import Pagination from '../Pagination/Pagination';
+import TicketModal from '../TicketModal/TicketModal';
 
 const HistoryCombo = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -13,6 +14,8 @@ const HistoryCombo = () => {
     const [detail, setSetail] = useState();
     const [number, setNumber] = useState(1);
     const [length, setLength] = useState();
+    const [showTicket, setShowTicket] = useState(false);
+    const [order, setOrder] = useState(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -44,6 +47,16 @@ const HistoryCombo = () => {
         const data = await allOrderByUser(user?.data.id, num);
         setOrders(data.data);
         setLength(data.length);
+    };
+
+    const handleShowTicket = (item) => {
+        setOrder(item);
+        setShowTicket(true);
+    };
+
+    const handleCloseTicket = () => {
+        setOrder(null);
+        setShowTicket(false);
     };
 
     return (
@@ -94,7 +107,9 @@ const HistoryCombo = () => {
                             <div className="button b1" onClick={() => handleShowDetail(item)}>
                                 Chi tiết
                             </div>
-                            <div className="button b2 ms-2">Vé</div>
+                            <div className="button b2 ms-2" onClick={() => handleShowTicket(item)}>
+                                Vé
+                            </div>
                             <hr />
                         </div>
                     ))}
@@ -103,6 +118,7 @@ const HistoryCombo = () => {
             ) : (
                 <h5 className="mt-5">Không có vé nào.</h5>
             )}
+            {order !== null && <TicketModal show={showTicket} handleClose={handleCloseTicket} order={order} />}
             {detail && <ModalDetailCombo show={showDetail} handleClose={handleCloseDetail} item={detail} />}
         </div>
     );

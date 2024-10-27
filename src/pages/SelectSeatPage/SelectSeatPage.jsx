@@ -68,12 +68,7 @@ const SelectSeatPage = () => {
         switch (step) {
             case 1:
                 return (
-                    <SelectSeat
-                        selectSeat={selectSeat}
-                        setSelectSeat={setSelectSeat}
-                        selled={selled}
-                        seats={seats}
-                    />
+                    <SelectSeat selectSeat={selectSeat} setSelectSeat={setSelectSeat} selled={selled} seats={seats} />
                 );
             case 2:
                 return <SelectCombo setSelect={setSelectCombo} />;
@@ -310,7 +305,7 @@ const SelectSeatPage = () => {
             );
             // console.log(data);
 
-            navigate('/payment');
+            navigate('/payment', { replace: true });
         } catch (error) {
             console.log(error);
         }
