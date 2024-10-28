@@ -17,3 +17,12 @@ export const listDiscount = async () => {
         console.log('loi', error);
     }
 };
+
+export const listDiscountFuture = async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/discount/list-future`);
+        return response.data;
+    } catch (error) {
+        console.log('loi', error);
+    }
+};

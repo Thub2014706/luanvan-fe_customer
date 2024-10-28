@@ -9,11 +9,13 @@ import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import DetailNews from "~/pages/DetailNews/DetailNews"
 import EventPage from "~/pages/EventPage/EventPage"
 import HomePage from "~/pages/HomePage/HomePage"
+import IntroducePage from "~/pages/IntroducePage/IntroducePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
 import NewsPage from "~/pages/NewsPage/NewsPage"
 import NotFoundPage from "~/pages/NotFoundPage/NotFoundPage"
 import PayComboPage from "~/pages/PayComboPage/PayComboPage"
 import PayPage from "~/pages/PayPage/PayPage"
+import PromotionPage from "~/pages/PromotionPage/PromotionPage"
 import SchedulePage from "~/pages/SchedulePage/SchedulePage"
 import SearchPage from "~/pages/SearchPage/SearchPage"
 import SelectSeatPage from "~/pages/SelectSeatPage/SelectSeatPage"
@@ -77,6 +79,14 @@ const publicRoutes = [
     {
         path: '/search',
         component: SearchPage,
+    },
+    {
+        path: '/about-us',
+        component: IntroducePage,
+    },
+    {
+        path: '/promotion',
+        component: PromotionPage,
     },
     {
         path: '/*',

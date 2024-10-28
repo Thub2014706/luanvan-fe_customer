@@ -4,9 +4,9 @@ import Footer from '../components/Footer/Footer';
 
 const MainLayout = ({ children }) => {
     return (
-        <div className="min-vh-100">
+        <div className="d-flex flex-column min-vh-100">
             <Header />
-            <main>{children}</main>
+            <main style={{ flex: 1 }}>{children}</main>
             <Footer />
         </div>
     );

@@ -18,6 +18,9 @@ const Header = () => {
     const [showTheatre, setShowTheater] = useState(false);
     const timeoutRef = useRef(null);
     const [userInfo, setUserInfo] = useState();
+    const info = useSelector((state) => state.information.data);
+
+    console.log(info);
 
     useEffect(() => {
         const fetch = async () => {
@@ -62,7 +65,10 @@ const Header = () => {
                 <Row className="pb-1 pt-3">
                     <Col xs={2}>
                         <Link to={'/'}>
-                            <img src={logo} style={{ height: '50px', width: 'auto', cursor: 'pointer' }} alt="" />
+                            <ImageBase
+                                pathImg={info.image}
+                                style={{ height: '50px', width: 'auto', cursor: 'pointer' }}
+                            />
                         </Link>
                     </Col>
                     <Col xs={5} className="my-auto ps-5">
@@ -179,18 +185,18 @@ const Header = () => {
                     </Col>
                     <Col>
                         <div className="float-end d-flex gap-5">
-                            <Link to={'/event'} style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                            <Link to={'/event'} className="nav-item">
                                 Sự kiện
                             </Link>
-                            <span style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                            <Link to={'/promotion'} className="nav-item">
                                 Khuyến mãi
-                            </span>
-                            <Link to={'/news'} style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                            </Link>
+                            <Link to={'/news'} className="nav-item">
                                 Tin tức
                             </Link>
-                            <span style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}>
+                            <Link to={'/about-us'} className="nav-item">
                                 Giới thiệu
-                            </span>
+                            </Link>
                         </div>
                     </Col>
                 </Row>

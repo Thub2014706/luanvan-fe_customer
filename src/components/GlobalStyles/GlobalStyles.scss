@@ -295,6 +295,7 @@ body {
     position: absolute;
     top: 50%;
     left: 15%;
+    right: 10%;
     transform: translate(0%, -50%);
     // z-index: 1;
     transition: 0.3s ease-in-out;
@@ -781,4 +782,31 @@ body {
     width: 400px;
     padding: 20px;
     bottom: 0;
+}
+
+.footer {
+    background: linear-gradient(to bottom right, #a977fa, #719df4);
+}
+
+.intro {
+    background: linear-gradient(rgba(24, 4, 115, 0.441) 20%, #0f172a), url('../../assets/images/ht-qc-br.jpg');
+    background-size: cover;
+    height: 430px;
+}
+
+.nav-item {
+    // style={{ cursor: 'pointer', color: 'white', textDecoration: 'none' }}
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+
+    &.select {
+        color: #f3ea28;
+        border-bottom: 2px solid #f3ea28;
+    }
+}
+
+.nav-item:hover {
+    color: #f3ea28;
+    border-bottom: 2px solid #f3ea28;
 }
