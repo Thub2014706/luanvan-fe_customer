@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Badge, Carousel, Container, Row } from 'react-bootstrap';
+import { Badge, Carousel, Container, Form, Row } from 'react-bootstrap';
 import 'react-multi-carousel/lib/styles.css';
 import VideoModal from '~/components/VideoModal/VideoModal';
 import FilmShowing from '~/components/FilmShowing/FilmShowing';
@@ -12,6 +12,10 @@ import chat from '~/assets/images/chat.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { io } from 'socket.io-client';
 import { setSocketConnect } from '~/features/socket/socketSlide';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import WindowModal from '~/components/WindowModal/WindowModal';
+import { detailPopup } from '~/services/PopupService';
 
 const HomePage = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -23,6 +27,17 @@ const HomePage = () => {
     const navigate = useNavigate();
     const [number, setNumber] = useState(0);
     const dispatch = useDispatch();
+    const [img, setImg] = useState();
+
+    useEffect(() => {
+        const fetch = async () => {
+            const data = await detailPopup();
+            if (data) {
+                setImg(data.image);
+            }
+        };
+        fetch();
+    }, []);
 
     useEffect(() => {
         if (user) {
@@ -53,7 +68,7 @@ const HomePage = () => {
             };
         }
     }, [user, dispatch]);
-    console.log('numbe ', number);
+    // console.log('numbe ', number);
 
     const handleShowVideo = (item) => {
         setItemShow(item);
@@ -86,8 +101,11 @@ const HomePage = () => {
         }
     };
 
+    // console.log(localStorage.getItem('modal'));
+
     return (
         <div>
+            {img && <WindowModal img={img} />}
             <Container>
                 <Row>
                     <Carousel activeIndex={index} onSelect={handleSelect}>

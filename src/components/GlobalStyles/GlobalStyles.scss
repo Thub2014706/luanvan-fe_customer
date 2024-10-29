@@ -810,3 +810,18 @@ body {
     color: #f3ea28;
     border-bottom: 2px solid #f3ea28;
 }
+
+.backdrop {
+    z-index: 10000000;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    pointer-events: all;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
