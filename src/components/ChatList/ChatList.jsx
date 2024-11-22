@@ -17,7 +17,7 @@ const ChatList = ({ chats, user }) => {
 
     return (
         <div className="chats_list">
-            {user &&chats.length > 0 ? (
+            {user && chats.length > 0 ? (
                 chats.map(
                     (item, index) =>
                         item.user === user.data.id &&
@@ -49,7 +49,12 @@ const ChatList = ({ chats, user }) => {
                                                 momentTimezone
                                                     .tz(item.createdAt, 'Asia/Ho_Chi_Minh')
                                                     .add(30, 'minutes')
-                                                    .isBefore(momentTimezone.tz(chats[index + 1].createdAt, 'Asia/Ho_Chi_Minh')))) ||
+                                                    .isBefore(
+                                                        momentTimezone.tz(
+                                                            chats[index + 1].createdAt,
+                                                            'Asia/Ho_Chi_Minh',
+                                                        ),
+                                                    ))) ||
                                             !chats[index + 1]) && (
                                             <>
                                                 <br />
@@ -107,7 +112,10 @@ const ChatList = ({ chats, user }) => {
                                                     .tz(item.createdAt, 'Asia/Ho_Chi_Minh')
                                                     .add(30, 'minutes')
                                                     .isBefore(
-                                                        momentTimezone.tz(chats[index + 1].createdAt, 'Asia/Ho_Chi_Minh'),
+                                                        momentTimezone.tz(
+                                                            chats[index + 1].createdAt,
+                                                            'Asia/Ho_Chi_Minh',
+                                                        ),
                                                     ))) ||
                                             !chats[index + 1]) && (
                                             <>

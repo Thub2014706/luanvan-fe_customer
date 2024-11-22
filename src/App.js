@@ -23,39 +23,39 @@ function App() {
         fetch();
     }, [dispatch]);
 
-    axiosJWT.interceptors.request.use(
-        //trước khi gửi request nào đó thì interceptors sẽ check này trước khi gọi api nào đó
-        async (config) => {
-            let decodedToken = jwtDecode(user?.accessToken);
-            const currentTime = new Date().getTime() / 1000;
-            if (decodedToken.exp - currentTime < 3000) {
-                try {
-                    const newToken = await refreshToken();
-                    // console.log(newToken.accessToken)
-                    if (newToken) {
-                        const newData = user?.data;
+    // axiosJWT.interceptors.request.use(
+    //     //trước khi gửi request nào đó thì interceptors sẽ check này trước khi gọi api nào đó
+    //     async (config) => {
+    //         let decodedToken = jwtDecode(user?.accessToken);
+    //         const currentTime = new Date().getTime() / 1000;
+    //         if (decodedToken.exp - currentTime < 3000) {
+    //             try {
+    //                 const newToken = await refreshToken();
+    //                 // console.log(newToken.accessToken)
+    //                 if (newToken) {
+    //                     const newData = user?.data;
 
-                        const refreshUser = {
-                            data: newData,
-                            accessToken: newToken.accessToken,
-                        };
-                        // console.log("thu nghiem", refreshUser)
-                        dispatch(loginSuccess(refreshUser));
-                        config.headers.Authorization = 'Bearer ' + newToken.accessToken;
-                    }
-                    //  else {
-                    //     logout(dispatch, user?.accessToken);
-                    // }
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-            return config;
-        },
-        (err) => {
-            return Promise.reject(err);
-        },
-    );
+    //                     const refreshUser = {
+    //                         data: newData,
+    //                         accessToken: newToken.accessToken,
+    //                     };
+    //                     // console.log("thu nghiem", refreshUser)
+    //                     dispatch(loginSuccess(refreshUser));
+    //                     config.headers.Authorization = 'Bearer ' + newToken.accessToken;
+    //                 }
+    //                 //  else {
+    //                 //     logout(dispatch, user?.accessToken);
+    //                 // }
+    //             } catch (error) {
+    //                 console.log(error);
+    //             }
+    //         }
+    //         return config;
+    //     },
+    //     (err) => {
+    //         return Promise.reject(err);
+    //     },
+    // );
 
     return (
         <Router>

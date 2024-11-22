@@ -10,18 +10,18 @@ import {
 } from '~/features/auth/authSlice';
 import { clearAll, clearAllCombo } from '~/features/cart/cartSlice';
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
-export const axiosJWT = axios.create();
+// export const axiosJWT = axios.create();
 
-export const refreshToken = async () => {
-    try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/refresh-token`);
-        return response.data;
-    } catch (error) {
-        console.log('loi', error);
-    }
-};
+// export const refreshToken = async () => {
+//     try {
+//         const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/refresh-token`);
+//         return response.data;
+//     } catch (error) {
+//         console.log('loi', error);
+//     }
+// };
 
 export const login = async (user, navigate, dispatch) => {
     dispatch(loginStart());
@@ -56,7 +56,7 @@ export const register = async (user, navigate) => {
     }
 };
 
-export const logout = async (dispatch, token) => {
+export const logout = async (dispatch, token, axiosJWT) => {
     dispatch(logoutStart());
     try {
         await axiosJWT.post(

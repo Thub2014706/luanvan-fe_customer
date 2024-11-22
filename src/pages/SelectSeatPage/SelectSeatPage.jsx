@@ -50,7 +50,7 @@ const SelectSeatPage = () => {
         const fetch = async () => {
             if (user !== null && id) {
                 const showTime = await detailShowTimeById(id);
-                console.log('w', id);
+                // console.log('w', id);
 
                 const roomData = await detailRoom(showTime.room);
                 const filmData = await detailFilmBySchedule(showTime.schedule);
@@ -305,7 +305,9 @@ const SelectSeatPage = () => {
             );
             // console.log(data);
 
-            navigate('/payment', { replace: true });
+            // navigate('/payment', { replace: true });
+            navigate('/payment');
+
         } catch (error) {
             console.log(error);
         }

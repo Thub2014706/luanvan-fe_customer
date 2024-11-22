@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 
 const ModalQuestion = ({ text, header, accept, cancel, show, handleAction, handleClose }) => {
     return (
-        <Modal size="sm" centered show={show} onHide={handleClose}>
+        <Modal size="sm" centered show={show} onHide={handleClose} style={{zIndex: 10000000}}>
             <Modal.Body className="text-center">
                 <h5>{header}</h5>
                 <p style={{ textAlign: 'justify', textJustify: 'inter-word' }}>{text}</p>

@@ -3,7 +3,13 @@ import { Col, Container, Row } from 'react-bootstrap';
 import logo from '~/assets/images/CINETHU.png';
 import Search from '../Search/Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRightFromBracket, faCalendarDays, faLocationDot, faUserLarge } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowRightFromBracket,
+    faCalendarDays,
+    faFilm,
+    faLocationDot,
+    faUserLarge,
+} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { detailUserById, logout } from '~/services/UserService';
@@ -12,6 +18,8 @@ import img2 from '~/assets/images/ic-cor.svg';
 import AllTheater from '~/components/AllTheater/AllTheater';
 import { cancelAllHold } from '~/services/RedisService';
 import ImageBase from '~/components/ImageBase/ImageBase';
+import { createAxios } from '~/createInstance';
+import { logoutSuccess } from '~/features/auth/authSlice';
 
 const Header = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -19,6 +27,9 @@ const Header = () => {
     const timeoutRef = useRef(null);
     const [userInfo, setUserInfo] = useState();
     const info = useSelector((state) => state.information.data);
+    const dispatch = useDispatch();
+    const [show, setShow] = useState(false);
+    let axiosJWT = createAxios(user, dispatch, logoutSuccess);
 
     console.log(info);
 
@@ -32,9 +43,6 @@ const Header = () => {
         fetch();
     }, [user]);
 
-    const dispatch = useDispatch();
-    const [show, setShow] = useState(false);
-
     const handleShow = () => {
         setShow(true);
     };
@@ -45,7 +53,7 @@ const Header = () => {
 
     const handleLogout = async () => {
         await cancelAllHold(user?.data.id);
-        logout(dispatch, user?.accessToken);
+        await logout(dispatch, user?.accessToken, axiosJWT);
     };
 
     const handleShowTheater = () => {
@@ -73,7 +81,7 @@ const Header = () => {
                     </Col>
                     <Col xs={5} className="my-auto ps-5">
                         <div className="d-flex text-white">
-                            <Link to={'/film'} className="button b1 text-decoration-none">
+                            <Link to={'/book-now'} className="button b1 text-decoration-none">
                                 <img src={img1} alt="" />
                                 <span className="ms-2">ĐẶT VÉ NGAY</span>
                             </Link>
@@ -177,8 +185,8 @@ const Header = () => {
                             </span>
                         </div>
                         <div className="ms-5">
-                            <FontAwesomeIcon icon={faCalendarDays} />
-                            <Link to={'/schedule'} className="text-decoration-none text-white">
+                            <FontAwesomeIcon icon={faFilm} />
+                            <Link to={'/film'} className="text-decoration-none text-white">
                                 <span className="ms-2">Phim</span>
                             </Link>
                         </div>

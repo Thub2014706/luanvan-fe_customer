@@ -22,7 +22,7 @@ const ModalTicketRefund = ({ show, handleClose, idRefund }) => {
             <Modal.Body>
                 <h5>Điều kiện và điều khoản</h5>
                 <ul style={{ listStyleType: 'circle' }}>
-                    <li>Bạn chỉ có thể hoàn vé tối đa 2 lần/tháng nếu ở cấp độ Member hoặc 5 lần/tháng nếu ở cấp độ VIP. </li>
+                    <li>Bạn chỉ có thể hoàn vé tối đa 2 lần/tháng nếu ở cấp độ Member hoặc 5 lần/tháng nếu ở cấp độ VIP.</li>
                     <li>Bạn có thể yêu cầu hoàn vé trước 60 PHÚT suất chiếu diễn ra.</li>
                     <li>Giao dịch có sử dụng khuyến mãi sẽ không được hoàn vé.</li>
                     <li>Giao dịch có sử dụng điểm thưởng sẽ được hoàn lại tương ứng.</li>

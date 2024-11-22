@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import DiscountModal from '~/components/DiscountModal/DiscountModal';
 import { showToast, signAge, standardAge } from '~/constants';
+import { createAxios } from '~/createInstance';
+import { loginSuccess } from '~/features/auth/authSlice';
 import { clearAll } from '~/features/cart/cartSlice';
 import { detailDiscount } from '~/services/DiscountService';
 import { detailFilmBySchedule } from '~/services/FilmService';
@@ -31,9 +33,10 @@ const PayPage = () => {
     const [timePay, setTimePay] = useState(180);
     const navigate = useNavigate();
     const [price, setPrice] = useState(cartTicket.price);
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
     const [detail, setDetail] = useState();
     const [seats, setSeats] = useState();
+    let axiosJWT = createAxios(user, dispatch, loginSuccess);
     // console.log('e',cartTicket);
     // window.history.replaceState(null, '', '/');
 
@@ -94,7 +97,6 @@ const PayPage = () => {
         const fetch = async () => {
             if (selectDis) {
                 setPoint(0);
-                setPoint(0);
                 const data = await detailDiscount(selectDis);
                 setDetailDis(data);
             } else {
@@ -140,7 +142,7 @@ const PayPage = () => {
                 setTime((time) => {
                     if (time <= 0) {
                         clearInterval(interval);
-                        dispath(clearAll());
+                        dispatch(clearAll());
                         navigate('/checkout', { state: { timeOut: true }, replace: true });
                         return 0;
                     } else return timePay - timePassed;
@@ -154,7 +156,7 @@ const PayPage = () => {
                 clearInterval(interval);
             }
         };
-    }, [timePay, navigate, dispath]);
+    }, [timePay, navigate, dispatch]);
 
     const handleMax = () => {
         setPoint((cartTicket.price - (detailDis ? cartTicket.price * (detailDis.percent / 100) : 0)) * 0.9);
@@ -190,6 +192,7 @@ const PayPage = () => {
                     usePoint: point,
                 },
                 user?.accessToken,
+                axiosJWT,
             );
             window.location.href = data.payUrl;
         }
@@ -328,6 +331,7 @@ const PayPage = () => {
                 handleClose={handleCloseDiscount}
                 selectDis={selectDis}
                 setSelectDis={(value) => setSelectDis(value)}
+                price={cartTicket.price}
             />
         </div>
     );

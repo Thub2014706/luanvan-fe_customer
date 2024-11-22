@@ -36,6 +36,7 @@ body {
 
 .background {
     background: #141831;
+    // background: #989898;
     position: sticky;
     top: 0;
     z-index: 1000000;
@@ -197,6 +198,7 @@ body {
 
     &.up {
         background: linear-gradient(to bottom right, #caa9ff, #82acff);
+        // background: linear-gradient(to bottom right, #d5bcfc, #aec7fa);
         color: black;
         // padding: 7px 15px;
     }
@@ -381,6 +383,7 @@ body {
 
     &.yes {
         border-bottom: 2px solid #f3ea28;
+        // border-bottom: 2px solid #f3f3f3;
         // background: linear-gradient(to bottom right, #ff7600, #ffc007) !important;
         color: #f3ea28 !important;
     }
@@ -500,12 +503,14 @@ body {
 
     &.standard {
         color: #663399;
+        // color: #c7c7c7;
         background-color: #ffffff;
     }
 
     &.vip {
         color: #663399;
         background-color: #9fd539;
+        // background-color: #f8f8f8;
     }
 
     &.couple {
@@ -515,6 +520,7 @@ body {
 
     &.inaction {
         color: rgb(167, 167, 167);
+        // background-color: #b196f5;
         background-color: #0f1b07;
     }
 
@@ -572,6 +578,7 @@ body {
 .menu-user {
     background: linear-gradient(to right, rgba(79, 52, 142, 0.2), rgba(22, 82, 202, 0.2));
     cursor: pointer;
+    border-bottom: 5px solid transparent;
 
     &.line {
         border-bottom: 5px solid #f3ea28;
@@ -763,6 +770,7 @@ body {
 .chat_receiver p {
     padding: 5px 15px;
     background-color: rgb(219, 219, 219);
+    // background-color: rgb(214, 44, 44);
     border-radius: 8px;
     max-width: 60%;
     box-shadow: 1px 1px 3px rgb(181, 181, 181);

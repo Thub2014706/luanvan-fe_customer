@@ -8,6 +8,7 @@ import DetailEventPage from "~/pages/DetailEventPage/DetailEventPage"
 import DetailFilmPage from "~/pages/DetailFilmPage/DetailFilmPage"
 import DetailNews from "~/pages/DetailNews/DetailNews"
 import EventPage from "~/pages/EventPage/EventPage"
+import FilmPage from "~/pages/FilmPage/FilmPage"
 import HomePage from "~/pages/HomePage/HomePage"
 import IntroducePage from "~/pages/IntroducePage/IntroducePage"
 import LoginPage from "~/pages/LoginPage/LoginPage"
@@ -49,7 +50,7 @@ const publicRoutes = [
         component: SchedulePage,
     },
     {
-        path: '/film',
+        path: '/book-now',
         component: BookNowPage,
     },
     {
@@ -87,6 +88,10 @@ const publicRoutes = [
     {
         path: '/promotion',
         component: PromotionPage,
+    },
+    {
+        path: '/film',
+        component: FilmPage,
     },
     {
         path: '/*',

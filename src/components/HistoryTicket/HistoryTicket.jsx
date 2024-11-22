@@ -39,7 +39,7 @@ const HistoryTicket = () => {
             }
         };
         fetch();
-    }, [user, step]);
+    }, [user, step, showRefund]);
     console.log(orders);
 
     const handleShowDetail = (item) => {

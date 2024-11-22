@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DiscountModal from '~/components/DiscountModal/DiscountModal';
 import { showToast } from '~/constants';
 import { momoPaymentCombo } from '~/services/MomoService';
@@ -9,6 +9,8 @@ import { addOrderCombo } from '../../services/OrderComboService';
 import { detailDiscount } from '~/services/DiscountService';
 import Name from '~/components/Name/Name';
 import { detailTheater } from '~/services/TheaterService';
+import { createAxios } from '~/createInstance';
+import { loginSuccess } from '~/features/auth/authSlice';
 
 const PayComboPage = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -22,6 +24,8 @@ const PayComboPage = () => {
     const [usePoint, setUsePoint] = useState(0);
     const cartCombo = useSelector((state) => state.cart.cartCombo);
     const [price, setPrice] = useState(cartCombo.price);
+    const dispatch = useDispatch();
+    let axiosJWT = createAxios(user, dispatch, loginSuccess);
 
     useEffect(() => {
         const fetch = async () => {
@@ -111,6 +115,7 @@ const PayComboPage = () => {
                     usePoint,
                 },
                 user?.accessToken,
+                axiosJWT
             );
             window.location.href = data.payUrl;
         }

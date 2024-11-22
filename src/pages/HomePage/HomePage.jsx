@@ -44,10 +44,14 @@ const HomePage = () => {
             const socket = io(process.env.REACT_APP_API_URL, {
                 query: { userId: user.data.id },
             });
+            console.log(socket);
+            
 
             dispatch(setSocketConnect(socket));
             socket.emit('number', user.data.id);
             socket.on('numberFirst', (num) => {
+                console.log(num);
+
                 setNumber(num);
             });
 
@@ -139,15 +143,15 @@ const HomePage = () => {
                         </Badge>
                     )}
                 </div>
-                {/* {showChat && ( */}
-                <ChatBot
-                    handleClose={() => {
-                        setShowChat(false);
-                        // socket.emit('leave', user.data.id);
-                    }}
-                    show={showChat}
-                />
-                {/* )} */}
+                {showChat && (
+                    <ChatBot
+                        handleClose={() => {
+                            setShowChat(false);
+                            // socket.emit('leave', user.data.id);
+                        }}
+                        show={showChat}
+                    />
+                )}
             </Container>
         </div>
     );
