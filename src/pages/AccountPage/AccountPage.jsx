@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import InfoAccount from '~/components/InfoAccount/InfoAccount';
 import Member from '~/components/Member/Member';
+import PointHistory from '~/components/PointHistory/PointHistory';
 import TransactionHistory from '~/components/TransactionHistory/TransactionHistory';
 
 const AccountPage = () => {
@@ -15,6 +16,8 @@ const AccountPage = () => {
                 return <Member />;
             case 3:
                 return <TransactionHistory />;
+            // case 4:
+            //     return <PointHistory />;
             default:
                 return null;
         }

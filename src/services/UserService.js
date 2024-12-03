@@ -7,6 +7,7 @@ import {
     logoutFailed,
     logoutStart,
     logoutSuccess,
+    setAvatarSlice,
 } from '~/features/auth/authSlice';
 import { clearAll, clearAllCombo } from '~/features/cart/cartSlice';
 
@@ -69,6 +70,7 @@ export const logout = async (dispatch, token, axiosJWT) => {
         dispatch(clearAll());
         dispatch(clearAllCombo());
         dispatch(logoutSuccess());
+        dispatch(setAvatarSlice(null))
     } catch (error) {
         dispatch(logoutFailed());
     }

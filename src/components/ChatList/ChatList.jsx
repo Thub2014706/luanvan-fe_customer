@@ -2,6 +2,7 @@ import moment from 'moment';
 import React, { useEffect, useRef } from 'react';
 import momentTimezone from 'moment-timezone';
 import img1 from '~/assets/images/support.png';
+import img2 from '~/assets/images/admin.jpg';
 
 const ChatList = ({ chats, user }) => {
     // const user = useSelector((state) => state.auth.login.currentUser);
@@ -100,7 +101,7 @@ const ChatList = ({ chats, user }) => {
                                                 .add(30, 'minutes')
                                                 .isBefore(momentTimezone.tz(item.createdAt, 'Asia/Ho_Chi_Minh')))) ||
                                     !chats[index - 1] ? (
-                                        <img src={item.avatar} alt="" />
+                                        <img src={img2} alt="" />
                                     ) : (
                                         <div style={{ width: '30px' }}></div>
                                     )}

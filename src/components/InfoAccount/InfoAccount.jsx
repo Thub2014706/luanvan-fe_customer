@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import img1 from '~/assets/images/user.png';
 import ImageBase from '~/components/ImageBase/ImageBase';
+import { setAvatarSlice } from '~/features/auth/authSlice';
 import { detailUserById, updateAvatar } from '~/services/UserService';
 
 const InfoAccount = () => {
@@ -11,6 +12,7 @@ const InfoAccount = () => {
     const inputFile = useRef(null);
     const [avatar, setAvatar] = useState();
     const [avatarBase, setAvatarBase] = useState();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const fetch = async () => {
@@ -40,11 +42,14 @@ const InfoAccount = () => {
 
                 const formData = new FormData();
                 formData.append('avatar', avatar);
-                await updateAvatar(formData, user.data.id);
+                const data = await updateAvatar(formData, user.data.id);
+                console.log(data);
+                
+                dispatch(setAvatarSlice(data.avatar))
             }
         };
         fetch();
-    }, [avatar, user]);
+    }, [avatar, user, dispatch]);
 
     return (
         <div>

@@ -27,11 +27,12 @@ const Header = () => {
     const timeoutRef = useRef(null);
     const [userInfo, setUserInfo] = useState();
     const info = useSelector((state) => state.information.data);
+    const avatar = useSelector((state) => state.auth.avatar);
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     let axiosJWT = createAxios(user, dispatch, logoutSuccess);
 
-    console.log(info);
+    // console.log(info);
 
     useEffect(() => {
         const fetch = async () => {
@@ -66,6 +67,8 @@ const Header = () => {
             setShowTheater(false);
         }, 500);
     };
+
+    console.log(avatar);
 
     return (
         <div className="background">
@@ -105,7 +108,7 @@ const Header = () => {
                                         >
                                             {userInfo.avatar ? (
                                                 <ImageBase
-                                                    pathImg={userInfo.avatar}
+                                                    pathImg={avatar !== null ? avatar : userInfo.avatar}
                                                     style={{
                                                         height: '30px',
                                                         width: '30px',
