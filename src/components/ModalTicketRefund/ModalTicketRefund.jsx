@@ -3,11 +3,12 @@ import { Button, Modal } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { addTicketRefund } from '~/services/TicketRefundService';
 
-const ModalTicketRefund = ({ show, handleClose, idRefund }) => {
+const ModalTicketRefund = ({ show, handleClose, idRefund, success }) => {
     const user = useSelector((state) => state.auth.login.currentUser);
     const handleSubmit = async () => {
         if (window.confirm('Bạn có chắc muốn hoàn vé này?') === true) {
             if (await addTicketRefund({ order: idRefund, user: user?.data.id })) {
+                success(true)
                 handleClose();
             }
         }

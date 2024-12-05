@@ -39,7 +39,7 @@ const HistoryTicket = () => {
             }
         };
         fetch();
-    }, [user, step, showRefund]);
+    }, [user, step]);
     console.log(orders);
 
     const handleShowDetail = (item) => {
@@ -82,6 +82,16 @@ const HistoryTicket = () => {
     const handleCloseTicket = () => {
         setOrder(null);
         setShowTicket(false);
+    };
+
+    const handleRefundSuccess = async (value) => {
+        console.log(value);
+        
+        if (value) {
+            const data = await allOrderByUser(user?.data.id, number);
+            setOrders(data.data);
+            setLength(data.length);
+        }
     };
 
     return (
@@ -184,7 +194,12 @@ const HistoryTicket = () => {
             )}
             {order !== null && <TicketModal show={showTicket} handleClose={handleCloseTicket} order={order} />}
 
-            <ModalTicketRefund show={showRefund} handleClose={handleCloseRefund} idRefund={idRefund} />
+            <ModalTicketRefund
+                show={showRefund}
+                handleClose={handleCloseRefund}
+                idRefund={idRefund}
+                success={handleRefundSuccess}
+            />
         </div>
     );
 };

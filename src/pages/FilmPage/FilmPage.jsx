@@ -26,10 +26,27 @@ const FilmPage = () => {
                 age,
                 type === 1 ? statusShowTime[1] : statusShowTime[2],
             );
-            setFilms(data);
+            if (sort === 2) {
+                const dataSort = await Promise.all(
+                    data.map(async (item) => {
+                        const avg = await avgComment(item._id);
+                        return { ...item, avg: avg !== null ? avg : 0 };
+                    }),
+                );
+                setFilms(dataSort.sort((a, b) => b.avg - a.avg));
+            } else if (sort === 1) {
+                const dataSort = await Promise.all(
+                    data.map(async (item) => {
+                        const number = await numberTicketFilm(item._id);
+                        return { ...item, number };
+                    }),
+                );
+                setFilms(dataSort.sort((a, b) => b.number - a.number));
+            }
+            // setFilms(data);
         };
         fetch();
-    }, [genre, age, type]);
+    }, [genre, age, type, sort]);
     // console.log(age);
 
     useEffect(() => {
@@ -40,28 +57,28 @@ const FilmPage = () => {
         fetch();
     }, []);
 
-    useEffect(() => {
-        const fetch = async () => {
-            if (sort === 2) {
-                const data = await Promise.all(
-                    films.map(async (item) => {
-                        const avg = await avgComment(item._id);
-                        return { ...item, avg: avg !== null ? avg : 0 };
-                    }),
-                );
-                setFilms(data.sort((a, b) => b.avg - a.avg));
-            } else {
-                const data = await Promise.all(
-                    films.map(async (item) => {
-                        const number = await numberTicketFilm(item._id);
-                        return { ...item, number };
-                    }),
-                );
-                setFilms(data.sort((a, b) => b.number - a.number));
-            }
-        };
-        fetch();
-    }, [sort]);
+    // useEffect(() => {
+    //     const fetch = async () => {
+    //         if (sort === 2) {
+    //             const data = await Promise.all(
+    //                 films.map(async (item) => {
+    //                     const avg = await avgComment(item._id);
+    //                     return { ...item, avg: avg !== null ? avg : 0 };
+    //                 }),
+    //             );
+    //             setFilms(data.sort((a, b) => b.avg - a.avg));
+    //         } else if (sort === 1) {
+    //             const data = await Promise.all(
+    //                 films.map(async (item) => {
+    //                     const number = await numberTicketFilm(item._id);
+    //                     return { ...item, number };
+    //                 }),
+    //             );
+    //             setFilms(data.sort((a, b) => b.number - a.number));
+    //         }
+    //     };
+    //     fetch();
+    // }, [sort]);
 
     // const handleGenre = (id) => {
     //     if (!genre.includes(id)) {

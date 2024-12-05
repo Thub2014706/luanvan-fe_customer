@@ -194,7 +194,7 @@ const PayPage = () => {
                 user?.accessToken,
                 axiosJWT,
             );
-            window.location.href = data.payUrl;
+            window.location.replace(data.payUrl);
         }
     };
     // console.log(selectDis);
