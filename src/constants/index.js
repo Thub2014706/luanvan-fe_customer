@@ -116,3 +116,8 @@ export const responsive = {
         slidesToSlide: 1, // optional, default to 1.
     },
 };
+
+export const pointHis = {
+    0: 'Đã dùng điểm tích lũy để thanh toán',
+    1: 'Hoàn đểm tích lũy',
+}

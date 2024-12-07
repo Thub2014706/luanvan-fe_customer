@@ -54,7 +54,7 @@ const InfoAccount = () => {
     return (
         <div>
             {userInfo && (
-                <div className="bg-info-user">
+                <div>
                     <h1 className="font-title mb-5">THÔNG TIN CHUNG</h1>
                     <Row>
                         <Col>

@@ -30,7 +30,7 @@ const Member = () => {
 
     return (
         userInfo && (
-            <div className="bg-info-user">
+            <div>
                 <h1 className="font-title mb-4">CẤP ĐỘ THẺ</h1>
                 <div>
                     <div className="justify-content-end d-flex">

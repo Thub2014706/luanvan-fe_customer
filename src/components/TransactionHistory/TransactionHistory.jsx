@@ -18,7 +18,7 @@ const TransactionHistory = () => {
     };
 
     return (
-        <div className="bg-info-user">
+        <div>
             <h1 className="font-title mb-5">LỊCH SỬ GIAO DỊCH</h1>
             {/* <div className='font-title'>VÉ PHIM</div> */}
             <div className="mb-1">

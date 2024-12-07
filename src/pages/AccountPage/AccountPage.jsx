@@ -16,8 +16,8 @@ const AccountPage = () => {
                 return <Member />;
             case 3:
                 return <TransactionHistory />;
-            // case 4:
-            //     return <PointHistory />;
+            case 4:
+                return <PointHistory />;
             default:
                 return null;
         }
@@ -28,18 +28,22 @@ const AccountPage = () => {
             <Container className="py-5 text-white">
                 <Row>
                     <Col xs={3}>
-                        {['Thông tin chung', 'Thành viên', 'Lịch sử giao dịch'].map((item, index) => (
-                            <div
-                                onClick={() => setStep(index + 1)}
-                                className={`p-3 text-center menu-user ${index !== 0 && 'mt-3'} ${
-                                    index === step - 1 && 'line'
-                                }`}
-                            >
-                                <h5 className="font-title mb-0">{item}</h5>
-                            </div>
-                        ))}
+                        {['Thông tin chung', 'Thành viên', 'Lịch sử giao dịch', 'Lịch sử điểm tích lũy'].map(
+                            (item, index) => (
+                                <div
+                                    onClick={() => setStep(index + 1)}
+                                    className={`p-3 text-center menu-user ${index !== 0 && 'mt-3'} ${
+                                        index === step - 1 && 'line'
+                                    }`}
+                                >
+                                    <h5 className="font-title mb-0">{item}</h5>
+                                </div>
+                            ),
+                        )}
                     </Col>
-                    <Col xs={9}>{renderStep(step)}</Col>
+                    <Col xs={9}>
+                        <div className="bg-info-user">{renderStep(step)}</div>
+                    </Col>
                 </Row>
             </Container>
         </div>
