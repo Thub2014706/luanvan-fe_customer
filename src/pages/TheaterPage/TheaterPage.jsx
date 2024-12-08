@@ -30,7 +30,7 @@ const TheaterPage = () => {
                 return <SelectSchedule />;
             // case 2:
             //     return <SelectShowTime />;
-            case 3:
+            case 2:
                 return <TablePrice />;
             default:
                 return null;
@@ -66,7 +66,7 @@ const TheaterPage = () => {
                     </div>
                     <div className="theater-title2" style={{ position: 'sticky', top: '135px' }}>
                         <Row className="font-title">
-                            {['LỊCH CHIẾU PHIM', 'VỊ TRÍ CỦA RẠP', 'BẢNG GIÁ VÉ'].map((item, index) => (
+                            {['LỊCH CHIẾU PHIM', 'BẢNG GIÁ VÉ'].map((item, index) => (
                                 <Col onClick={() => setStep(index + 1)}>
                                     <div className={`theater-show ${step === index + 1 && 'select'}`}>
                                         <h5 className="text-center my-4">{item}</h5>

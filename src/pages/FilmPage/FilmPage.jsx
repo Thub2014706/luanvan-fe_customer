@@ -3,7 +3,9 @@ import { faArrowUpWideShort, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
+import BookModal from '~/components/BookModal/BookModal';
 import FilmTitle from '~/components/FilmTitle/FilmTitle';
+import VideoModal from '~/components/VideoModal/VideoModal';
 import { standardAge, statusShowTime } from '~/constants';
 import { avgComment } from '~/services/CommentService';
 import { filterFilm, numberTicketFilm } from '~/services/FilmService';
@@ -18,6 +20,8 @@ const FilmPage = () => {
     const [age, setAge] = useState('');
     const [sort, setSort] = useState(1);
     const [type, setType] = useState(1);
+    const [itemShow, setItemShow] = useState(null);
+    const [id, setId] = useState(null);
 
     useEffect(() => {
         const fetch = async () => {
@@ -56,6 +60,16 @@ const FilmPage = () => {
         };
         fetch();
     }, []);
+
+    const handleShowBook = (id) => {
+        setId(id);
+        setShowBook(true);
+    };
+
+    const handleCloseBook = () => {
+        setId(null);
+        setShowBook(false);
+    };
 
     // useEffect(() => {
     //     const fetch = async () => {
@@ -97,6 +111,16 @@ const FilmPage = () => {
             }),
         );
         setFilms(data.sort((a, b) => b.avg - a.avg));
+    };
+
+    const handleShowVideo = (item) => {
+        setItemShow(item);
+        setShowVideo(true);
+    };
+
+    const handleCloseVideo = () => {
+        setItemShow(null);
+        setShowVideo(false);
     };
 
     return (
@@ -170,12 +194,20 @@ const FilmPage = () => {
                     <Row className="mt-5">
                         {films.map((item) => (
                             <Col sx={12} sm={6} lg={4} className="mb-5">
-                                <FilmTitle film={item} />
+                                <FilmTitle
+                                    film={item}
+                                    handleShowVideo={handleShowVideo}
+                                    handleBook={() => handleShowBook(item._id)}
+                                />
                             </Col>
                         ))}
                     </Row>
                 </Col>
             </Row>
+            {id !== null && <BookModal show={showBook} handleClose={handleCloseBook} id={id} />}
+            {itemShow !== null && (
+                <VideoModal show={showVideo} handleClose={handleCloseVideo} trailer={itemShow.trailer} />
+            )}
         </Container>
         // </div>
     );

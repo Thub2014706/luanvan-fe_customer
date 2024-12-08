@@ -108,7 +108,7 @@ const DetailFilm = () => {
                                 </span>
                             ))}
                         </p>
-                        <p>
+                        {film.performer.length > 0 && <p>
                             Diễn viên:{' '}
                             {film.performer.map((item, index) => (
                                 <span>
@@ -116,7 +116,7 @@ const DetailFilm = () => {
                                     {index < film.performer.length - 1 && ', '}
                                 </span>
                             ))}
-                        </p>
+                        </p>}
                         <p>Khởi chiếu: {moment(film.releaseDate).format('DD/MM/YYYY')}</p>
                         <p className="name-film font-title  mt-5" style={{ fontSize: '2rem' }}>
                             NỘI DUNG PHIM
