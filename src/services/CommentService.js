@@ -8,7 +8,7 @@ export const addComment = async (data) => {
         return response.data;
     } catch (error) {
         showToast(error.response.data.message, 'error');
-        console.log('loi', error);
+        console.log('loi', error.response.data.message);
     }
 };
 
