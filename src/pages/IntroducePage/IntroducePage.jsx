@@ -1,10 +1,13 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import img1 from '~/assets/images/Tru_o_ng_Sa_1.png';
 
 const IntroducePage = () => {
     return (
         <div>
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <Container className="text-white">
                 <div className="intro" style={{ position: 'relative' }}>
                     {/* <img src={img1} height={430} alt="" /> */}

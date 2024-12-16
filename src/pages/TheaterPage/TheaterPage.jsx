@@ -8,6 +8,7 @@ import SelectSchedule from '~/components/SelectSchesule/SelectSchedule';
 import TablePrice from '~/components/TablePrice/TablePrice';
 import img1 from '~/assets/images/ic-branch-map.svg';
 import ImageBase from '~/components/ImageBase/ImageBase';
+import { ToastContainer } from 'react-toastify';
 
 const TheaterPage = () => {
     const [theater, setTheater] = useState(null);
@@ -39,6 +40,8 @@ const TheaterPage = () => {
 
     return (
         <div>
+            <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             {theater !== null && (
                 <Container className="text-white">
                     <div className="theater-title1 d-flex align-items-center">

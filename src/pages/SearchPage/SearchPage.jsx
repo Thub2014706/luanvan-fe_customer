@@ -9,6 +9,7 @@ import { searchFilm } from '~/services/FilmService';
 import img1 from '~/assets/images/ic-branch-map.svg';
 import img2 from '~/assets/images/ic-branch-room.svg';
 import { lengthRoomByTheater, lengthSeatByTheater } from '~/services/TheaterService';
+import { ToastContainer } from 'react-toastify';
 
 const SearchPage = () => {
     const location = useLocation();
@@ -35,6 +36,8 @@ const SearchPage = () => {
 
     return (
         <div>
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <Container className="pb-5">
                 {films.length === 0 && theaters.length === 0 && (
                     <p className="text-center text-white mt-5">Không có kết quả tìm kiếm!</p>

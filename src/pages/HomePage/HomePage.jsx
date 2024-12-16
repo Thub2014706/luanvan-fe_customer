@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import WindowModal from '~/components/WindowModal/WindowModal';
 import { detailPopup } from '~/services/PopupService';
+import { ToastContainer } from 'react-toastify';
 
 const HomePage = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -109,6 +110,8 @@ const HomePage = () => {
 
     return (
         <div>
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             {img && <WindowModal img={img} />}
             <Container>
                 <Row>

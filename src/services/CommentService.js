@@ -7,8 +7,11 @@ export const addComment = async (data) => {
         showToast('Thêm mới thành công', 'success');
         return response.data;
     } catch (error) {
-        showToast(error.response.data.message, 'error');
-        console.log('loi', error.response.data.message);
+        if (error.response && error.response.data && error.response.data.message) {
+            showToast(error.response.data.message, 'error');
+        } else {
+            showToast('Đã xảy ra lỗi khi thêm đánh giá', 'error');
+        }
     }
 };
 

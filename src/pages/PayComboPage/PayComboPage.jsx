@@ -11,6 +11,7 @@ import Name from '~/components/Name/Name';
 import { detailTheater } from '~/services/TheaterService';
 import { createAxios } from '~/createInstance';
 import { loginSuccess } from '~/features/auth/authSlice';
+import { ToastContainer } from 'react-toastify';
 
 const PayComboPage = () => {
     const user = useSelector((state) => state.auth.login.currentUser);
@@ -123,6 +124,8 @@ const PayComboPage = () => {
 
     return (
         <div>
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <Container className="py-5 text-white">
                 <h2 className="text-white font-title text-center mb-5">THANH TOÁN</h2>
                 <Row>
@@ -217,6 +220,7 @@ const PayComboPage = () => {
                 handleClose={handleCloseDiscount}
                 selectDis={selectDis}
                 setSelectDis={(value) => setSelectDis(value)}
+                price={cartCombo.price}
             />
         </div>
     );

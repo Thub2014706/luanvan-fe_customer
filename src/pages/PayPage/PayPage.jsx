@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import DiscountModal from '~/components/DiscountModal/DiscountModal';
 import { showToast, signAge, standardAge } from '~/constants';
 import { createAxios } from '~/createInstance';
@@ -201,6 +202,8 @@ const PayPage = () => {
 
     return (
         <div>
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <Container className="py-5 text-white">
                 <h2 className="text-white font-title text-center mb-5">THANH TOÁN</h2>
                 <Row>

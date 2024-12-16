@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 const CheckoutPage = () => {
     const location = useLocation();
@@ -20,6 +21,8 @@ const CheckoutPage = () => {
 
     return (
         <Container>
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             {timeOut ? (
                 <p className="text-white mt-5">
                     Bạn đã đạt giới hạn thời gian đặt vé cho phép. Xin vui lòng đặt vé lại.

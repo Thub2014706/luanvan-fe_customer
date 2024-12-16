@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import ModalQuestion from '~/components/ModalQuestion/ModalQuestion';
 import Name from '~/components/Name/Name';
 import SelectCombo from '~/components/SelectCombo/SelectCombo';
@@ -315,6 +316,8 @@ const SelectSeatPage = () => {
 
     return (
         <div>
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <div>{renderStep(step)}</div>
             <div className="sticky-bill">
                 <Container className="py-2 text-white">

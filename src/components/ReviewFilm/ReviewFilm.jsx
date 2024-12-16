@@ -46,11 +46,12 @@ const ReviewFilm = () => {
         if (!user) {
             navigate('/sign-in');
         } else {
-            if (text === '') {
+            if (text.trim() === '') {
                 showToast('Hãy viết đánh giá!', 'warning');
                 console.log('e', text);
             } else {
                 const newComment = await addComment({ star, text, user: user.data.id, film: id });
+                console.log('e', text);
 
                 if (newComment) {
                     const updatedComments = await listCommentByFilm(id);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import InfoAccount from '~/components/InfoAccount/InfoAccount';
 import Member from '~/components/Member/Member';
 import PointHistory from '~/components/PointHistory/PointHistory';
@@ -25,6 +26,8 @@ const AccountPage = () => {
 
     return (
         <div>
+            <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <Container className="py-5 text-white">
                 <Row>
                     <Col xs={3}>

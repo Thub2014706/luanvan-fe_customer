@@ -9,6 +9,7 @@ import img1 from '~/assets/images/icon-calendar-1.svg';
 import img2 from '~/assets/images/icon-movie-1.svg';
 import img3 from '~/assets/images/icon-maps-1.svg';
 import { listTheater } from '~/services/TheaterService';
+import { ToastContainer } from 'react-toastify';
 
 const SchedulePage = () => {
     const [selectDay, setSelectDay] = useState(0);
@@ -40,6 +41,8 @@ const SchedulePage = () => {
     // console.log(films);
     return (
         <div className="py-5">
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <Container>
                 <Row>
                     <Col>

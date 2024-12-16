@@ -3,6 +3,7 @@ import { faArrowUpWideShort, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import BookModal from '~/components/BookModal/BookModal';
 import FilmTitle from '~/components/FilmTitle/FilmTitle';
 import VideoModal from '~/components/VideoModal/VideoModal';
@@ -126,6 +127,8 @@ const FilmPage = () => {
     return (
         // <div>
         <Container className="text-white py-5">
+                <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <Row>
                 <Col sx={3} sm={3} lg={3}>
                     <div className="d-flex gap-2 align-items-center mb-2">

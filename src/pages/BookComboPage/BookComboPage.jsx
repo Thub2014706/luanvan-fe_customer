@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import ComboItem from '~/components/ComboItem/ComboItem';
 import Name from '~/components/Name/Name';
 import { showToast } from '~/constants';
@@ -126,6 +127,7 @@ const BookComboPage = () => {
 
     return (
         <div>
+            <ToastContainer style={{ zIndex: 1000000000000 }} />
             <div className="py-5">
                 <Container>
                     <Form.Select

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 import BookBar from '~/components/BookBar/BookBar';
 import FilmShowing from '~/components/FilmShowing/FilmShowing';
 import UpcomingFilm from '~/components/UpcomingFilm/UpcomingFilm';
@@ -21,6 +22,8 @@ const BookNowPage = () => {
 
     return (
         <Container>
+            <ToastContainer style={{ zIndex: 1000000000000 }} />
+
             <BookBar />
             <Row>
                 <FilmShowing handleShowVideo={handleShowVideo} />
